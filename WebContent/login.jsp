@@ -43,13 +43,13 @@ $(document).ready(function(){
    <div class="form-group">
       <label for="userID" class="col-sm-2 control-label">用户名</label>
       <div class="col-sm-5">
-         <input type="text" class="form-control" id="user-ID" maxlength = "128" placeholder="请输入注册邮箱">
+         <input type="text" class="form-control" id="user-ID" placeholder="请输入注册邮箱">
       </div>
    </div>
    <div class="form-group">
       <label for="passWord" class="col-sm-2 control-label">密码</label>
       <div class="col-sm-5">
-         <input type="text" class="form-control" id="password" maxlength = "24" value = "" placeholder="请输入密码">
+         <input type="text" class="form-control" id="password" placeholder="请输入密码">
       </div>
    </div>
    <div class="form-group">
