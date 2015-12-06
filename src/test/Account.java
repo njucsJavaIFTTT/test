@@ -1,11 +1,7 @@
 package test;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.activation.MailcapCommandMap;
 
 class ExpenceCanlendar {//一条消费记录
 	private Date date;//时间

@@ -1,11 +1,8 @@
 package domain;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.sun.corba.se.spi.orbutil.fsm.State;
 
 enum UserState{login,logout};//登入、登出
 
@@ -49,26 +46,16 @@ public class UserAccount {
 	private TaskQueue taskQueue;//任务队列类
 	private UserState state;//登录状态，包括登入、登出
 	
-	public UserAccount() {
-		balance = 1000;
-		expenceCanlendar = new HashSet<ExpenceCanlendar>();
-		level = 1;
-		credit = 0;
-		discount = 1;
-		taskQueue = null;
-		state = UserState.logout;
-	}
-	
 	public UserAccount(String user,String pw,String mail){
-		username = user;
-		password = pw;
-		mailAccount = mail;
+		username = new String(user);
+		password = new String(pw);
+		mailAccount = new String(mail);
 		balance = 1000;
 		level = 1;
 		expenceCanlendar = new HashSet<ExpenceCanlendar>();
 		credit = 0;
 		discount = 1;
-		taskQueue = null;
+		taskQueue = new TaskQueue(mailAccount);
 		state = UserState.logout;
 	}
 		
@@ -108,7 +95,7 @@ public class UserAccount {
 	}
 
 	public TaskQueue getTaskQueue() throws Exception{
-		TaskQueue temp = new TaskQueue();
+		TaskQueue temp = new TaskQueue(mailAccount);
 		temp = (TaskQueue)taskQueue.clone();
 		return temp;
 	}
@@ -120,7 +107,7 @@ public class UserAccount {
 	/* 修改昵称 */
 	public void SetUserName(String newName)
 	{
-		username = newName;
+		username = new String(newName);
 	}
 	
 	/* 修改密码，所改密码与原密码不相同 */
@@ -129,7 +116,7 @@ public class UserAccount {
 		if(pass.compareTo(password) == 0)
 			return false;
 		else
-			password = pass;
+			password = new String(pass);
 		return true;
 	}
 	
@@ -139,7 +126,7 @@ public class UserAccount {
 		if(mail.compareTo(mailAccount) == 0)
 			return false;
 		else
-			mailAccount = mail;
+			mailAccount = new String(mail);
 		return true;
 	}
 	
