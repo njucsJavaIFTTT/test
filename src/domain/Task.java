@@ -17,19 +17,19 @@ import javax.mail.Store;
 import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
 import org.eclipse.jdt.internal.compiler.flow.SwitchFlowContext;
 
-/* ÈÎÎñÊµÌåÀà */
+/* ä»»åŠ¡å®ä½“ç±» */
 public class Task implements Cloneable{
-	private String TaskName;//ÈÎÎñÃû£¬¶ÔÓÚÍ¬Ò»ÓÃ»§²»¿ÉÖØ¸´
-	private Request request;//thatÈÎÎñÖ¸Õë
-	private Goal goal;//thatÈÎÎñÖ¸Õë
-	private double expense;//·ÑÓÃ
+	private String TaskName;//ä»»åŠ¡åï¼Œå¯¹äºåŒä¸€ç”¨æˆ·ä¸å¯é‡å¤
+	private Request request;//thatä»»åŠ¡æŒ‡é’ˆ
+	private Goal goal;//thatä»»åŠ¡æŒ‡é’ˆ
+	private double expense;//è´¹ç”¨
 	
 	public Task(String name,Request r,Goal g) throws Exception
 	{
 		TaskName = new String(name);
 		request = (Request)r.clone();
 		goal = (Goal)g.clone();
-		/* ÊÕ·Ñ·½Ê½ */
+		/* æ”¶è´¹æ–¹å¼ */
 		expense = 0;
 		switch (request.thisType) {
 		case OrderTime:
@@ -72,23 +72,23 @@ public class Task implements Cloneable{
 		return temp;
 	}
 	
-	/* ĞÂ½¨ÈÎÎñ£º  ÓÃ»§´´½¨ºÃÖ®ºó£¬·µ»Ø¸Õ¸Õ´´½¨µÄÈÎÎñĞÅÏ¢¸øÓÃ»§¡£
-¸¶¿îÊÇ²ÉÓÃ¿Û³ı»áÔ±»á·ÑµÄ·½Ê½¡£ */
-	/* ²é¿´¡¢É¾³ı¡¢ĞŞ¸ÄÈÎÎñ£º ÈÎÎñ²é¿´¹¦ÄÜ¿ÉÒÔÏÔÊ¾ÓÃ»§ÒÑ¾­´´½¨µÄËùÓĞÈÎÎñ£¬ Ã¿ÌõÏÔ
-Ê¾ÄÚÈİ±ØĞë°üÀ¨ÈÎÎñµÄÍêÕûĞÅÏ¢ÃèÊö¡£ ÓÃ»§Ò²¿ÉÒÔÑ¡ÔñÉ¾³ıÒÑÓĞµÄÈÎÎñ¡£ Í¬Ê±£¬ÓÃ
-»§¿ÉÒÔĞŞ¸ÄÒÑÓĞµÄÈÎÎñ¡£ */
-	/* ¿ªÊ¼¡¢Í£Ö¹ÈÎÎñ£ºÓÃ»§¿ÉÒÔÊÖ¶¯¿ªÊ¼¡¢Í£Ö¹ÒÑÓĞµÄÈÎÎñ¡£ ÈÎÎñµÄÔËĞĞÊÕ·Ñ²ÉÓÃ¿Û³ı
-»áÔ±»á·ÑµÄ·½Ê½£¬Í¬Ê±¸ù¾İ»áÔ±µÄµÈ¼¶À´¸øÓèÒ»¶¨µÄÕÛ¿ÛºÍ»ı·Ö¡£ */
+	/* æ–°å»ºä»»åŠ¡ï¼š  ç”¨æˆ·åˆ›å»ºå¥½ä¹‹åï¼Œè¿”å›åˆšåˆšåˆ›å»ºçš„ä»»åŠ¡ä¿¡æ¯ç»™ç”¨æˆ·ã€‚
+ä»˜æ¬¾æ˜¯é‡‡ç”¨æ‰£é™¤ä¼šå‘˜ä¼šè´¹çš„æ–¹å¼ã€‚ */
+	/* æŸ¥çœ‹ã€åˆ é™¤ã€ä¿®æ”¹ä»»åŠ¡ï¼š ä»»åŠ¡æŸ¥çœ‹åŠŸèƒ½å¯ä»¥æ˜¾ç¤ºç”¨æˆ·å·²ç»åˆ›å»ºçš„æ‰€æœ‰ä»»åŠ¡ï¼Œ æ¯æ¡æ˜¾
+ç¤ºå†…å®¹å¿…é¡»åŒ…æ‹¬ä»»åŠ¡çš„å®Œæ•´ä¿¡æ¯æè¿°ã€‚ ç”¨æˆ·ä¹Ÿå¯ä»¥é€‰æ‹©åˆ é™¤å·²æœ‰çš„ä»»åŠ¡ã€‚ åŒæ—¶ï¼Œç”¨
+æˆ·å¯ä»¥ä¿®æ”¹å·²æœ‰çš„ä»»åŠ¡ã€‚ */
+	/* å¼€å§‹ã€åœæ­¢ä»»åŠ¡ï¼šç”¨æˆ·å¯ä»¥æ‰‹åŠ¨å¼€å§‹ã€åœæ­¢å·²æœ‰çš„ä»»åŠ¡ã€‚ ä»»åŠ¡çš„è¿è¡Œæ”¶è´¹é‡‡ç”¨æ‰£é™¤
+ä¼šå‘˜ä¼šè´¹çš„æ–¹å¼ï¼ŒåŒæ—¶æ ¹æ®ä¼šå‘˜çš„ç­‰çº§æ¥ç»™äºˆä¸€å®šçš„æŠ˜æ‰£å’Œç§¯åˆ†ã€‚ */
 }
 
-/* ÃæÏòÓÃ»§µÄÈÎÎñĞòÁĞÊµÌåÀà */
+/* é¢å‘ç”¨æˆ·çš„ä»»åŠ¡åºåˆ—å®ä½“ç±» */
 class TaskQueue implements Cloneable{
-	private String UserMailAccount;//ËùÊôÓÃ»§µÄÕËºÅÓÊÏä
-	private Task[] tasks;//ÈÎÎñÊı×éÖ¸Õë
+	private String UserMailAccount;//æ‰€å±ç”¨æˆ·çš„è´¦å·é‚®ç®±
+	private Task[] tasks;//ä»»åŠ¡æ•°ç»„æŒ‡é’ˆ
 	private int top;
-	private int maxLength;//µ±Ç°ĞòÁĞ×î´óÈİÁ¿
+	private int maxLength;//å½“å‰åºåˆ—æœ€å¤§å®¹é‡
 	
-	/* ´´½¨ÈÎÎñÊ±´«ÈëÈÎÎñËùÊôÓÃ»§µÄÓÊÏä */
+	/* åˆ›å»ºä»»åŠ¡æ—¶ä¼ å…¥ä»»åŠ¡æ‰€å±ç”¨æˆ·çš„é‚®ç®± */
 	public TaskQueue(String MailAccount) {
 		UserMailAccount = new String(MailAccount);
 		maxLength = 10;
@@ -96,7 +96,7 @@ class TaskQueue implements Cloneable{
 		top = 0;
 	}
 	
-	/* Ôö¼ÓÈÎÎñ£¬·µ»ØÖµ0-ÕıÈ·£¬1-ÈÎÎñÃûÖØ¸´£¬2-´íÎó */
+	/* å¢åŠ ä»»åŠ¡ï¼Œè¿”å›å€¼0-æ­£ç¡®ï¼Œ1-ä»»åŠ¡åé‡å¤ï¼Œ2-é”™è¯¯ */
 	public int addTask(Task t) throws Exception
 	{
 		boolean repetition = false;
@@ -132,7 +132,7 @@ class TaskQueue implements Cloneable{
 		return 1;
 	}
 	
-	/* É¾³ıÈÎÎñ£¬°´ÈÎÎñÃû£¨ÈÎÎñÃûÎ¨Ò»£©£¬·µ»ØÖµ0-ÕÒµ½£¬1-ÕÒ²»µ½ */
+	/* åˆ é™¤ä»»åŠ¡ï¼ŒæŒ‰ä»»åŠ¡åï¼ˆä»»åŠ¡åå”¯ä¸€ï¼‰ï¼Œè¿”å›å€¼0-æ‰¾åˆ°ï¼Œ1-æ‰¾ä¸åˆ° */
 	public int deleteTask(String name)
 	{
 		boolean find = false;
@@ -156,7 +156,7 @@ class TaskQueue implements Cloneable{
 			return 1;
 	}
 	
-	/* ĞŞ¸ÄÈÎÎñ£¬°´ÈÎÎñÃû£¬·µ»ØÖµ0-³É¹¦£¬1-Ãû×ÖÖØ¸´£¬2-Î´ÕÒµ½ */
+	/* ä¿®æ”¹ä»»åŠ¡ï¼ŒæŒ‰ä»»åŠ¡åï¼Œè¿”å›å€¼0-æˆåŠŸï¼Œ1-åå­—é‡å¤ï¼Œ2-æœªæ‰¾åˆ° */
 	public int setTask(String name,Task t) throws Exception
 	{
 		boolean find = false;
@@ -187,7 +187,7 @@ class TaskQueue implements Cloneable{
 			return 2;
 	}
 	
-	/* Éî¸´ÖÆ */
+	/* æ·±å¤åˆ¶ */
 	public Object clone()throws CloneNotSupportedException {
 		TaskQueue temp = (TaskQueue)super.clone();
 		temp.UserMailAccount = new String(this.UserMailAccount);
@@ -205,7 +205,7 @@ class TaskQueue implements Cloneable{
 enum ThisType {OrderTime,RecvMail,MonitorWeibo};
 enum ThatType {SendWeibo,SendMail};
 
-/* thisÈÎÎñ³éÏóÀà */
+/* thisä»»åŠ¡æŠ½è±¡ç±» */
 abstract class Request implements Cloneable{
 	ThisType thisType;
 	public abstract boolean ifThis() throws Exception;
@@ -215,7 +215,7 @@ abstract class Request implements Cloneable{
 	}
 }
 
-/* thatÈÎÎñ³éÏóÀà */
+/* thatä»»åŠ¡æŠ½è±¡ç±» */
 abstract class Goal implements Cloneable{
 	ThatType thatType;
 	public abstract boolean thenThat() throws Exception;
@@ -225,7 +225,7 @@ abstract class Goal implements Cloneable{
 	}
 }
 
-/* this-¶¨Ê±ÈÎÎñ */
+/* this-å®šæ—¶ä»»åŠ¡ */
 class OrderTime extends Request {
 	private MyDate date;
 	private MyTime time;
@@ -250,7 +250,7 @@ class OrderTime extends Request {
 	
 	public boolean ifThis() {
 		Timer timer = new Timer();
-		MyTimerTask myTT = new MyTimerTask(); //ÉèÖÃ¶¨Ê±Æ÷½øĞĞ¶¨Ê±
+		MyTimerTask myTT = new MyTimerTask(); //è®¾ç½®å®šæ—¶å™¨è¿›è¡Œå®šæ—¶
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date tmp = null;
 		try{
@@ -279,7 +279,7 @@ class OrderTime extends Request {
 	}
 }
 
-/* this-ÊÕµ½QQÓÊ¼şÈÎÎñ */
+/* this-æ”¶åˆ°QQé‚®ä»¶ä»»åŠ¡ */
 class RecvMail extends Request {
 	private String username;
 	private String password;
@@ -301,7 +301,7 @@ class RecvMail extends Request {
 		password = new String(pw);
 	}
 
-	/* ²é¿´qqÓÊÏäµÄÊÕ¼şÏäÓÊ¼şÊıÄ¿ */
+	/* æŸ¥çœ‹qqé‚®ç®±çš„æ”¶ä»¶ç®±é‚®ä»¶æ•°ç›® */
     public int recvMail() {
 		String protocol = "pop3";
 		boolean isSSL = true;
@@ -349,15 +349,15 @@ class RecvMail extends Request {
     
 	public boolean ifThis() {
 		try{
-			printRes("ÊÕÓÊ¼ş...");
+			printRes("æ”¶é‚®ä»¶...");
 			
 			int size = recvMail();
 			if(size == -1) {
-				printRes("ÊÕÓÊ¼şÊ§°Ü£¡");
+				printRes("æ”¶é‚®ä»¶å¤±è´¥ï¼");
 				return false;
 			}
 			
-			printRes("µÈ´ı...");
+			printRes("ç­‰å¾…...");
 			
 			class myTimerTask extends TimerTask{
 				boolean ready = false;
@@ -383,11 +383,11 @@ class RecvMail extends Request {
 						if(myTT.getReady() == true){
 							int newsize = recvMail();
 							if(newsize < 0) {
-								printRes("ÊÕÓÊ¼şÊ§°Ü£¡");
+								printRes("æ”¶é‚®ä»¶å¤±è´¥ï¼");
 								return false;
 							}
 							else if(newsize > size){
-								printRes("·¢ÏÖĞÂÓÊ¼ş...");
+								printRes("å‘ç°æ–°é‚®ä»¶...");
 								sig = false;
 								break;
 							}
@@ -409,7 +409,7 @@ class RecvMail extends Request {
 	}
 }
 
-/* this-¼àÌıÎ¢²©ÈÎÎñ */
+/* this-ç›‘å¬å¾®åšä»»åŠ¡ */
 class MonitorWeibo extends Request {
 	public boolean ifThis() {
 		return true;
@@ -421,7 +421,7 @@ class MonitorWeibo extends Request {
 	}
 }
 
-/* that-·¢ËÍÎ¢²©ÈÎÎñ */
+/* that-å‘é€å¾®åšä»»åŠ¡ */
 class SendWeibo extends Goal {
 	public boolean thenThat() {
 		return true;
@@ -433,7 +433,7 @@ class SendWeibo extends Goal {
 	}
 }
 
-/* that-·¢ËÍÓÊ¼şÈÎÎñ */
+/* that-å‘é€é‚®ä»¶ä»»åŠ¡ */
 class SendMail extends Goal {
 	public boolean thenThat() {
 		return true;

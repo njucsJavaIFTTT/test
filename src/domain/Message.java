@@ -2,8 +2,8 @@ package domain;
 
 import java.util.Date;
 
-/* 消息类 */
-public class Message{//一条消息
+/* 锟斤拷息锟斤拷 */
+public class Message{//一锟斤拷锟斤拷息
 	private String content;
 	private Date time;
 	
@@ -13,12 +13,21 @@ public class Message{//一条消息
 	}
 }
 
-/* 公告，即公共消息实体类 */
+/* 锟斤拷锟芥，锟斤拷锟斤拷锟斤拷锟斤拷息实锟斤拷锟斤拷 */
 class PublicMessage extends Message {
+
+	public PublicMessage(String c) {
+		super(c);
+		// TODO Auto-generated constructor stub
+	}
 	
 }
 
-/* 私信，即私人消息实体类 */
+/* 私锟脚ｏ拷锟斤拷私锟斤拷锟斤拷息实锟斤拷锟斤拷 */
 class PrivateMessage extends Message {
+	public PrivateMessage(String c) {
+		super(c);
+		// TODO Auto-generated constructor stub
+	}
 	
 }

@@ -4,17 +4,17 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-enum UserState{login,logout};//µÇÈë¡¢µÇ³ö
+enum UserState{login,logout};//ç™»å…¥ã€ç™»å‡º
 
-/* Ïû·Ñ¼ÇÂ¼Àà */
-class ExpenceCanlendar {
-	private Date date;//Ê±¼ä
-	private double amount;//½ğ¶î
-	private int thisnum;//thisÈÎÎñ±àºÅ
-	private int thatnum;//thatÈÎÎñ±àºÅ
-	private int num;//Ïû·Ñ¼ÇÂ¼±àºÅ
+/* æ¶ˆè´¹è®°å½•ç±» */
+class ExpenceCalendar {
+	private Date date;//æ—¶é—´
+	private double amount;//é‡‘é¢
+	private int thisnum;//thisä»»åŠ¡ç¼–å·
+	private int thatnum;//thatä»»åŠ¡ç¼–å·
+	private int num;//æ¶ˆè´¹è®°å½•ç¼–å·
 	
-	public ExpenceCanlendar(double cost,int thisn,int thatn,int n)
+	public ExpenceCalendar(double cost,int thisn,int thatn,int n)
 	{
 		date= new Date();
 		amount = cost;
@@ -23,28 +23,28 @@ class ExpenceCanlendar {
 		num = n;
 	}
 	
-	public ExpenceCanlendar getRecord()
+	public ExpenceCalendar getRecord()
 	{
 		return this;
 	}
 }
 
-/* ÓÃ»§ÕËºÅÊµÌåÀà */
-/* ÉĞÎ´ÊµÏÖÓÃ»§ÏûÏ¢²é¿´¡¢¹ÜÀí */
-/* ÓÃ»§¿ÉÒÔ²é¿´ÏµÍ³·¢²¼µÄ¹«¹²ÏûÏ¢ */
-/* ÓÃ»§¿ÉÒÔ²é¿´¡¢É¾³ıÏµÍ³·¢²¼µÄË½ÈËÏûÏ¢ */
-/* ÉĞÎ´¿¼ÂÇĞòÁĞ»¯ */
+/* ç”¨æˆ·è´¦å·å®ä½“ç±» */
+/* å°šæœªå®ç°ç”¨æˆ·æ¶ˆæ¯æŸ¥çœ‹ã€ç®¡ç† */
+/* ç”¨æˆ·å¯ä»¥æŸ¥çœ‹ç³»ç»Ÿå‘å¸ƒçš„å…¬å…±æ¶ˆæ¯ */
+/* ç”¨æˆ·å¯ä»¥æŸ¥çœ‹ã€åˆ é™¤ç³»ç»Ÿå‘å¸ƒçš„ç§äººæ¶ˆæ¯ */
+/* å°šæœªè€ƒè™‘åºåˆ—åŒ– */
 public class UserAccount {
-	private String username;//êÇ³Æ£¬²»Î¨Ò»
-	private String password;//ÃÜÂë
-	private String mailAccount;//ÓÊÏäÕËºÅ£¬Î¨Ò»
-	private double balance;//Óà¶î
+	private String username;//æ˜µç§°ï¼Œä¸å”¯ä¸€
+	private String password;//å¯†ç 
+	private String mailAccount;//é‚®ç®±è´¦å·ï¼Œå”¯ä¸€
+	private double balance;//ä½™é¢
 	private int level;
-	private Set<ExpenceCanlendar> expenceCanlendar;//Ïû·Ñ¼ÇÂ¼
-	private int credit;//»ı·Ö
-	private double discount;//ÕÛ¿Û
-	private TaskQueue taskQueue;//ÈÎÎñ¶ÓÁĞÀà
-	private UserState state;//µÇÂ¼×´Ì¬£¬°üÀ¨µÇÈë¡¢µÇ³ö
+	private Set<ExpenceCalendar> expenceCalendar;//æ¶ˆè´¹è®°å½•
+	private int credit;//ç§¯åˆ†
+	private double discount;//æŠ˜æ‰£
+	private TaskQueue taskQueue;//ä»»åŠ¡é˜Ÿåˆ—ç±»
+	private UserState state;//ç™»å½•çŠ¶æ€ï¼ŒåŒ…æ‹¬ç™»å…¥ã€ç™»å‡º
 	
 	public UserAccount(String user,String pw,String mail){
 		username = new String(user);
@@ -52,14 +52,14 @@ public class UserAccount {
 		mailAccount = new String(mail);
 		balance = 1000;
 		level = 1;
-		expenceCanlendar = new HashSet<ExpenceCanlendar>();
+		expenceCalendar = new HashSet<ExpenceCalendar>();
 		credit = 0;
 		discount = 1;
 		taskQueue = new TaskQueue(mailAccount);
 		state = UserState.logout;
 	}
 		
-	/* Getters£¬×¢Òâ»ñÈ¡Ïû·Ñ¼ÇÂ¼´«µİµÄ²»ÊÇÔ­Ö¸Õë£¬¼´²»¿ÉĞŞ¸ÄÏû·Ñ¼ÇÂ¼ */
+	/* Gettersï¼Œæ³¨æ„è·å–æ¶ˆè´¹è®°å½•ä¼ é€’çš„ä¸æ˜¯åŸæŒ‡é’ˆï¼Œå³ä¸å¯ä¿®æ”¹æ¶ˆè´¹è®°å½• */
 	public String getUsername() {
 		return username;
 	}
@@ -80,9 +80,9 @@ public class UserAccount {
 		return level;
 	}
 
-	public Set<ExpenceCanlendar> getExpenceCanlendar() {
-		Set<ExpenceCanlendar> records = new HashSet<ExpenceCanlendar>();
-		records.addAll(expenceCanlendar);
+	public Set<ExpenceCalendar> getExpenceCanlendar() {
+		Set<ExpenceCalendar> records = new HashSet<ExpenceCalendar>();
+		records.addAll(expenceCalendar);
 		return records;
 	}
 
@@ -104,13 +104,13 @@ public class UserAccount {
 		return state;
 	}
 	
-	/* ĞŞ¸ÄêÇ³Æ */
+	/* ä¿®æ”¹æ˜µç§° */
 	public void SetUserName(String newName)
 	{
 		username = new String(newName);
 	}
 	
-	/* ĞŞ¸ÄÃÜÂë£¬Ëù¸ÄÃÜÂëÓëÔ­ÃÜÂë²»ÏàÍ¬ */
+	/* ä¿®æ”¹å¯†ç ï¼Œæ‰€æ”¹å¯†ç ä¸åŸå¯†ç ä¸ç›¸åŒ */
 	public boolean setPassword(String pass)
 	{
 		if(pass.compareTo(password) == 0)
@@ -120,7 +120,7 @@ public class UserAccount {
 		return true;
 	}
 	
-	/* ĞŞ¸ÄÓÊÏäÕËºÅ£¬Ëù¸ÄÓÊÏäÓëÔ­ÓÊÏä²»Í¬£¬Ò»°ã²»¿Éµ÷ÓÃ */
+	/* ä¿®æ”¹é‚®ç®±è´¦å·ï¼Œæ‰€æ”¹é‚®ç®±ä¸åŸé‚®ç®±ä¸åŒï¼Œä¸€èˆ¬ä¸å¯è°ƒç”¨ */
 	public boolean setMailAccount(String mail)
 	{
 		if(mail.compareTo(mailAccount) == 0)
@@ -130,7 +130,7 @@ public class UserAccount {
 		return true;
 	}
 	
-	/* ÑİÊ¾ĞèÒª£¬ÓÃÓÚ¹ÜÀíÔ±Ç¿ÖÆĞŞ¸ÄµÈ¼¶£¬²¢ÏàÓ¦µØ¸Ä±ä»ı·ÖºÍÕÛ¿Û */
+	/* æ¼”ç¤ºéœ€è¦ï¼Œç”¨äºç®¡ç†å‘˜å¼ºåˆ¶ä¿®æ”¹ç­‰çº§ï¼Œå¹¶ç›¸åº”åœ°æ”¹å˜ç§¯åˆ†å’ŒæŠ˜æ‰£ */
 	public void setLevel(int l)
 	{
 		level = l;
@@ -154,26 +154,26 @@ public class UserAccount {
 		}
 	}
 
-	/* ¸Ä±äµÇÂ½×´Ì¬ */
+	/* æ”¹å˜ç™»é™†çŠ¶æ€ */
 	public void setState(UserState s)
 	{
 		state = s;
 	}
 	
-	/* ³äÖµ */
+	/* å……å€¼ */
 	public double recharge(double pay){
 		balance += pay;
 		return balance;
 	}
 	
-	/* Ïû·Ñ£¬²¢°´Ïû·Ñ¼ÇÂ¼¸Ä±ä»ı·Ö¡¢»áÔ±µÈ¼¶ºÍÕÛ¿Û */
+	/* æ¶ˆè´¹ï¼Œå¹¶æŒ‰æ¶ˆè´¹è®°å½•æ”¹å˜ç§¯åˆ†ã€ä¼šå‘˜ç­‰çº§å’ŒæŠ˜æ‰£ */
 	public boolean Expense(double amount,int thisn,int thatn)
 	{
 		if(balance < amount * discount)
 			return false;
 		balance -= amount * discount;
 		credit += amount;
-		expenceCanlendar.add(new ExpenceCanlendar(amount*discount, thisn, thatn, expenceCanlendar.size()));
+		expenceCalendar.add(new ExpenceCalendar(amount*discount, thisn, thatn, expenceCalendar.size()));
 		if(credit <= 1000)
 		{
 			level = 1;

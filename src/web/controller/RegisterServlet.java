@@ -10,7 +10,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.locale.converters.DateLocaleConverter;
 import domain.UserAccount;
-import exception.UserExistException;
+import exception.UserException;
 import service.IUserService;
 import service.impl.UserServiceImpl;
 import util.WebUtils;

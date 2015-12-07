@@ -49,7 +49,7 @@ public class DBHelper {// 用于打开或关闭数据库
 		 */
 	}
 
-	public void insertUser(UserAccount user) {
+	public void addUser(UserAccount user) {
 		// 执行sql语句
 		try {
 			sql = "INSERT INTO UserAccount VALUES(?,?)";
@@ -70,21 +70,56 @@ public class DBHelper {// 用于打开或关闭数据库
 		}
 	}
 
-	public String findUser(String uName) {
+	public String findUser(String uMailAccount) {
 		// 执行sql语句
+		String uPwd=null;
 		try {
-			sql = "select * from UserAccount where username='" + uName + "'";
+			sql = "select * from UserAccount where mail=\'" + uMailAccount + "\';";
 			// pst.setBoolean(2,user.getState());不好弄不是bool也不是int是enum,暂时不加进去
 			ret = pst.executeQuery();// 执行语句，得到结果集
-			String uPwd = ret.getString("pwd");
-			System.out.println("username:" + uName + "get pwd:" + uPwd);
+			if(!ret.wasNull()){//这句自己加的,防止找不到还硬读
+			uPwd = ret.getString("pwd");
+			String uName = ret.getString("username");
+
+			System.out.println("username:" + uName +"get pwd:" + uPwd+" mailAccount:"+uMailAccount);
+			System.out.println("Success do \'" + sql + "\'!(db-Users)");
+			return uPwd;
+			}
+			else
+				return null;//"CF"cant find 关键词,会在调用此方法的上一级方法中检验
+			//return new UserAccount(uName,uPwd,uMailAccount);//这边以后要用完全的复制
+		} catch (Exception e) {
+			System.out.print("Fail do \'" + sql + "\'!(db-Users)");
+			e.printStackTrace();
+		}
+		return null;//cant find 关键词,会在调用此方法的上一级方法中检验,这里也写是因为trycatch里的东西不被认可存在
+	}
+
+	public UserAccount findUser(String uMailAccount,String uPwd) {
+		// 执行sql语句
+		UserAccount user=null;
+		try {
+			sql = "select * from UserAccount where mail=\'" + uMailAccount + "\' and pwd=\'"+uPwd+"\';";
+			// pst.setBoolean(2,user.getState());不好弄不是bool也不是int是enum,暂时不加进去
+			ret = pst.executeQuery();// 执行语句，得到结果集
+			if(!ret.wasNull()){//这句自己加的,防止找不到还硬读
+			String uName = ret.getString("username");
+			user=new UserAccount(uName,uPwd,uMailAccount);
+
+			System.out.println("username:" + uName +"get pwd:" + uPwd+" mailAccount:"+uMailAccount);
 			System.out.println("Success do '" + sql + "'!(db-Users)");
+			return user;
+			}
+			else
+				return null;//"CF"cant find 关键词,会在调用此方法的上一级方法中检验
+			//return new UserAccount(uName,uPwd,uMailAccount);//这边以后要用完全的复制
 		} catch (Exception e) {
 			System.out.print("Fail do '" + sql + "'!(db-Users)");
 			e.printStackTrace();
 		}
+		return null;//cant find 关键词,会在调用此方法的上一级方法中检验,这里也写是因为trycatch里的东西不被认可存在
 	}
-
+	
 	public void close() {
 		try {
 			this.connect.close();
@@ -93,4 +128,5 @@ public class DBHelper {// 用于打开或关闭数据库
 			e.printStackTrace();
 		}
 	}
+
 }
