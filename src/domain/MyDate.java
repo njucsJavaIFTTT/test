@@ -2,10 +2,11 @@ package domain;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimerTask;
 
 /* 日期类   */
 public class MyDate implements Cloneable{
-	String year, month, day;
+	public String year, month, day;
 	
 	public MyDate(){
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -62,3 +63,15 @@ class MyTime implements Cloneable{
 		return newTime;
 	}
 }
+
+/* 定时器任务类 */
+class MyTimerTask extends TimerTask{
+	boolean ready = false;
+	public void run() {
+		ready = true;
+	}
+	public boolean getReady(){
+		return ready;
+	}	
+}
+

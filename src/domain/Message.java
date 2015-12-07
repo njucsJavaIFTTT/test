@@ -6,6 +6,7 @@ import java.util.Date;
 public class Message{//一条消息
 	private String content;
 	private Date time;
+	
 	public Message(String c){
 		content=new String(c);
 		time=new Date();

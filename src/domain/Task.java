@@ -1,5 +1,19 @@
 package domain;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Session;
+import javax.mail.Store;
+
 import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
 import org.eclipse.jdt.internal.compiler.flow.SwitchFlowContext;
 
@@ -195,14 +209,20 @@ enum ThatType {SendWeibo,SendMail};
 abstract class Request implements Cloneable{
 	ThisType thisType;
 	public abstract boolean ifThis() throws Exception;
-	public abstract Object clone() throws CloneNotSupportedException;
+	public Object clone() throws CloneNotSupportedException {
+		Request request = (Request)super.clone();
+		return request;
+	}
 }
 
 /* that任务抽象类 */
 abstract class Goal implements Cloneable{
 	ThatType thatType;
 	public abstract boolean thenThat() throws Exception;
-	public abstract Object clone() throws CloneNotSupportedException;
+	public Object clone() throws CloneNotSupportedException {
+		Goal goal = (Goal)super.clone();
+		return goal;
+	}
 }
 
 /* this-定时任务 */
@@ -221,27 +241,170 @@ class OrderTime extends Request {
 		time = new MyTime(t);
 		super.thisType = ThisType.OrderTime;
 	}
+
+	public void SetDateAndTime(MyDate d,MyTime t)throws Exception
+	{
+		d = (MyDate)this.date.clone();
+		t = (MyTime)this.time.clone();
+	}
 	
-	public 
 	public boolean ifThis() {
-		
+		Timer timer = new Timer();
+		MyTimerTask myTT = new MyTimerTask(); //设置定时器进行定时
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date tmp = null;
+		try{
+			tmp = df.parse(date.year+"-"+date.month+"-"+date.day+" "+time.hour+":"+time.minute+":"+time.second);
+			timer.schedule(myTT, tmp);
+		}
+		catch(ParseException e){}
+		try{
+			while(true){
+				Thread.sleep(1000);
+				if(myTT.getReady() == true)
+					break;
+			}
+		}
+		catch(Exception e){return false;}
 		return true;
 	}
 	
 	public Object clone() throws CloneNotSupportedException
 	{
-		return;
+		OrderTime orderTime = (OrderTime)super.clone();
+		orderTime.date = (MyDate)this.date.clone();
+		orderTime.time = (MyTime)this.time.clone();
+		orderTime.thisType = ThisType.OrderTime;
+		return orderTime;
 	}
 }
 
 /* this-收到QQ邮件任务 */
 class RecvMail extends Request {
-	public boolean ifThis() {
-		return true;
+	private String username;
+	private String password;
+	
+	public RecvMail() {
+		username = "";
+		password = "";
+		super.thisType = ThisType.RecvMail;
 	}
 	
-	public Object clone() throws CloneNotSupportedException
-	{
+	public RecvMail(String name, String pw) {
+		username = new String(name);
+		password = new String(pw);
+		super.thisType = ThisType.RecvMail;
+	}
+	
+	public void SetUserAndPw(String name,String pw) {
+		username = new String(name);
+		password = new String(pw);
+	}
+
+	/* 查看qq邮箱的收件箱邮件数目 */
+    public int recvMail() {
+		String protocol = "pop3";
+		boolean isSSL = true;
+		String host = "pop.qq.com";
+		int port = 995;
+		
+		Properties props = new Properties();
+		props.put("mail.pop3.ssl.enable", isSSL);
+		props.put("mail.pop3.host", host);
+		props.put("mail.pop3.port", port);
+		
+		Session session = Session.getDefaultInstance(props);
+		
+		Store store = null;
+		Folder folder = null;
+		int size = 0;
+		try {
+			store = session.getStore(protocol);
+			store.connect(username,password);
+			
+			folder = store.getFolder("INBOX");
+			folder.open(Folder.READ_ONLY);
+			
+			size = folder.getMessageCount();
+			Message message = folder.getMessage(size);
+		} catch (NoSuchProviderException e) {
+			e.printStackTrace();
+		} catch (MessagingException  e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(folder != null) {
+					folder.close(false);
+				}
+				if(store != null) {
+					store.close();
+				}
+			} catch(MessagingException e) {
+				e.printStackTrace();
+				return -1;
+			}
+		}
+		return size;
+	}
+    
+	public boolean ifThis() {
+		try{
+			printRes("收邮件...");
+			
+			int size = recvMail();
+			if(size == -1) {
+				printRes("收邮件失败！");
+				return false;
+			}
+			
+			printRes("等待...");
+			
+			class myTimerTask extends TimerTask{
+				boolean ready = false;
+				public void run() {
+					ready = true;
+				}
+				public boolean getReady(){
+					return ready;
+				}
+			}
+			
+			Timer timer = new Timer();
+			myTimerTask myTT = new myTimerTask();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date tmp = new Date();
+			boolean sig = true;
+			while(sig) {
+				timer.schedule(myTT, tmp);
+				
+				try{
+					while(true){
+						Thread.sleep(1000);
+						if(myTT.getReady() == true){
+							int newsize = recvMail();
+							if(newsize < 0) {
+								printRes("收邮件失败！");
+								return false;
+							}
+							else if(newsize > size){
+								printRes("发现新邮件...");
+								sig = false;
+								break;
+							}
+							else {
+								tmp = new Date();
+							}
+						}
+					}
+				}
+				catch(Exception e){return false;}
+			}
+		}
+		catch(Exception e){}		
+		return true;	
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
 		return;
 	}
 }
