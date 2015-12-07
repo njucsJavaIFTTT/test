@@ -15,11 +15,12 @@ public class UserServiceImpl implements IUserService{
 		uDao.add(user);
 	}
 	
-	public UserAccount loginUser(String uName,String uPwd){
-		if (uDao.find(uName,uPwd)=null) {
+	public UserAccount loginUser(String uName,String uPwd)throws UserException{
+		UserAccount user=uDao.find(uName,uPwd);
+		if (user==null) {
 			throw new UserException("MailAccount或pwd错误!");
 		}
-		
+		return user;
 	}
 	
 }

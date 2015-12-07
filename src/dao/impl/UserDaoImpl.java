@@ -6,9 +6,8 @@ import dao.IUserDao;
 import domain.UserAccount;
 import DB.DBHelper;
 //import util.XmlUtils;
-//IUserDao接口的实现类-关于用户的增查服务实现
+//IUserDao接口的实现类-关于用户的增查服务实现-连接数据库
 
-//这个地方不知道element要干嘛,其实应该可以改成直接连接数据库
 public class UserDaoImpl implements IUserDao{
 	
 	public UserAccount find(String uMailAccount,String uPwd){	

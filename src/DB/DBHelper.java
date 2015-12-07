@@ -4,18 +4,7 @@ import java.sql.*;
 import domain.UserAccount;
 
 public class DBHelper {// 用于打开或关闭数据库
-	/*
-	 * public static final String url = "jdbc:mysql://localhost:3306/Users";
-	 * public static final String name = "com.mysql.jdbc.Driver"; public static
-	 * final String user = "root"; public static final String password = "";
-	 * 
-	 * public Connection conn = null; public PreparedStatement pst = null;
-	 * 
-	 * public DBHelper(String sql) { try { Class.forName(name);//指定连接类型 conn =
-	 * DriverManager.getConnection(url, user, password);//获取连接 pst =
-	 * conn.prepareStatement(sql);//准备执行语句 } catch (Exception e) {
-	 * e.printStackTrace(); } }
-	 */
+
 	Connection connect = null;
 	static String sql = null;// sql是要执行的语句
 	public PreparedStatement pst = null;
@@ -40,13 +29,7 @@ public class DBHelper {// 用于打开或关闭数据库
 			System.out.print("connect Mysql server error!(db-Users)");
 			e.printStackTrace();
 		}
-		/*
-		 * //执行sql语句 try { pst = connect.prepareStatement(sql);//准备执行语句
-		 * 
-		 * System.out.println("Success do '"+sql+"'!(db-Users)"); } catch
-		 * (Exception e) { System.out.print("Fail do '"+sql+"'!(db-Users)");
-		 * e.printStackTrace(); }
-		 */
+
 	}
 
 	public void addUser(UserAccount user) {
