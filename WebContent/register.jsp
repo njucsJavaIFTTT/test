@@ -79,7 +79,7 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
 	$("#password-repeat").blur(function(){
-		alert($("#password-repeat").val() + "   " + $("#password").val());
+		
 		if($("#password-repeat").val() == "" || !($("#password-repeat").val()==$("#password").val())) {
 			$("#password-repeat").addClass("warn");
 			$("#password-repeat").removeClass("checked");
@@ -131,13 +131,13 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$("#send-verification-code").click(function(){
 		$.post(
-			"../src/servlet/controller/SendVerificationCode.java",
+				"SendVerificationCode",
 	    	{
 			verificationCode: <%=verificationCode%>,
 			userID: $("#user-ID").val()
 	       	},
 	        function(data,status){
-	          	alert("验证码已发送至邮箱，请查收");
+	          	alert(data);
 	        });
   	});
 });
@@ -149,7 +149,7 @@ $(document).ready(function(){
     	}
     	else {
     		$.post(
-    			"../src/servlet/controller/RegisterServlet.java",
+    			"/test/src/source/controller/RegisterServlet.java",
     	        {
     				userID: $("#user-ID").val(),
     				password: $("#password").val()
