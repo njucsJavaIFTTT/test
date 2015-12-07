@@ -45,6 +45,7 @@
       <div class="col-sm-offset-2 col-sm-10">
          <button type="submit" class="btn btn-default">发送验证码</button>
       </div>
+    
 <!--       TODO：增加发验证码到注册邮箱的text	 -->
    </div>
    <div class="form-group">
