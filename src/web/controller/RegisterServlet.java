@@ -15,13 +15,10 @@ import service.IUserService;
 import service.impl.UserServiceImpl;
 import util.WebUtils;
 //import web.formbean.RegisterFormBean;
-import web.formbean.RegisterFormBean;
 
 //处理用户注册的Servlet
 public class RegisterServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
-	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 将客户端提交的表单数据封装到RegisterFormBean对象中
 		RegisterFormBean formbean = WebUtils.request2Bean(request, RegisterFormBean.class);

@@ -9,5 +9,5 @@ public interface IUserService {
 	void registerUser(UserAccount user) throws UserException;
 
 	// 登录服务
-	UserAccount loginUser(String uName, String uPwd) throws UserException;
+	UserAccount loginUser(String uName, String uPwd);
 }
