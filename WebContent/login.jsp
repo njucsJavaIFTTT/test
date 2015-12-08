@@ -98,30 +98,56 @@ border: 1px solid green;
 }
 </style>
 
+<style>
+.center
+{
+margin:auto;
+width:70%;
+position: absolute;
+ top: 0; left: 0; bottom: 0; right: 0;
+background-color:#b0e0e6;
+}
+</style>
+
 </head>
 <body>
+<div class ="sp" style = "height:10%;"></div>
 
-<form id = "login" class="form-horizontal">
-   <div class="form-group">
-      <label for="userID" class="col-sm-2 control-label">用户名</label>
-      <div class="col-sm-5">
-         <input type="text" class="form-control" id="user-ID" placeholder="请输入注册邮箱">
-         <span class = "error empty-id"></span>
-      </div>
-   </div>
-   <div class="form-group">
-      <label for="passWord" class="col-sm-2 control-label">密码</label>
-      <div class="col-sm-5">
-         <input type="password" class="form-control" id="password" placeholder="请输入密码">
-         <span class = "error empty-password"></span>
-      </div>
-   </div>
-   <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-         <button id = "submit-button" type="button" class="btn btn-default">登录</button>
-      </div>
-   </div>
-</form>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<label class="col-md-12"></label>
+		</div>
+	</div>
+	<div class = "center">
+	<div class="row">
+		<div class="col-md-12">
+			<form id = "login" class="form-horizontal">
+				<div class="form-group">
+					<label for="userID" class="col-md-4 control-label">用户名</label>
+					<div class="col-md-4">
+						<input type="text" class="form-control" id="user-ID" placeholder="请输入注册邮箱"/>
+						<span class = "error empty-id"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="passWord" class="col-md-4 control-label">密码</label>
+					<div class="col-md-4">
+						<input type="password" class="form-control" id="password" placeholder="请输入密码"/>
+       		  			<span class = "error empty-password"></span>
+					</div> 
+				</div>
+				<div class="form-group">
+					<div class="col-md-offset-4 col-md-10">
+						<button id = "submit-button" type="button" class="btn btn-default">登录</button>
+					</div>
+				</div>
+			</form>
+			</div>
+	</div>
+	</div>
+</div>
+
 
 
 
