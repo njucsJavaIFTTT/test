@@ -30,6 +30,7 @@ public class RegisterServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 将客户端提交的表单数据封装到RegisterFormBean对象中
+		System.out.println("00000");
 		RegisterFormBean formbean = WebUtils.request2Bean(request, RegisterFormBean.class);
 		//前端已校验用户注册填写的表单数据
 		UserAccount user = new UserAccount();

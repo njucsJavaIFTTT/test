@@ -177,56 +177,58 @@ border: 1px solid green;
 }
 </style>
 
+
+
 </head>
+
 <body>
 
-<!-- TODO:
-		对submit的内容进行处理
- -->
- 
-<form class="form-horizontal" role="form">
-   <div class="form-group">
-      <label for="user-ID" class="col-sm-2 control-label">请输入注册邮箱</label>
-      <div class="col-sm-5">
-         <input type="text" class="form-control" id="user-ID">
-         <span class = "error empty-id"></span>
-      </div>
-   </div>
-   <div class="form-group">
-      <label for="password" class="col-sm-2 control-label">请输入密码</label>
-      <div class="col-sm-5">
-         <input type="password" class="form-control" id="password">
-         <span class = "error empty-password"></span>
-      </div>
-   </div>
-   <div class="form-group">
-      <label for="password-repeat" class="col-sm-2 control-label">请再次输入密码</label>
-      <div class="col-sm-5">
-         <input type="password" class="form-control" id="password-repeat">
-         <span class = "error wrong-repeat"></span>
-      </div>
-   </div>
-   <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-         <button type="button" class="btn btn-default" id = "send-verification-code">发送验证码</button>
-      </div>
-    
-<!--       TODO：增加发验证码到注册邮箱的text	 -->
-   </div>
-   <div class="form-group">
-      <label for="verification-code" class="col-sm-2 control-label">验证码</label>
-      <div class="col-sm-5">
-         <input type="text" class="form-control" id="verification-code">
-         <span class = "error empty-vCode"></span>
-      </div>
-   </div>
-   <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-         <button type="button" class="btn btn-default" id = "submit">完成注册</button>
-      </div>
-<!--       TODO：增加检查内容	 -->
-   </div>
-</form>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<form class="form-horizontal" id = "register" style = "padding-top: 10%;">
+				<div class="form-group">
+					<label for="user-ID" class="col-md-4 control-label">请输入注册邮箱</label>
+					<div class="col-md-4">
+						<input type="text" class="form-control" id="user-ID">
+						<span class = "error empty-id"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="password" class="col-md-4 control-label">请输入密码</label>
+					<div class="col-md-4">
+						<input type="password" class="form-control" id="password">
+						<span class = "error empty-password"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="password-repeat" class="col-md-4 control-label">请再次输入密码</label>
+					<div class="col-md-4">
+						<input type="password" class="form-control" id="password-repeat">
+						<span class = "error wrong-repeat"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-offset-4 col-md-8">
+						<button type="button" class="btn btn-default" id = "send-verification-code">发送验证码</button>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="verification-code" class="col-md-4 control-label">验证码</label>
+					<div class="col-md-4">
+						<input type="text" class="form-control" id="verification-code">
+						<span class = "error empty-vCode"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-offset-4 col-md-8">
+						<button type="button" class="btn btn-default" id = "submit">完成注册</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 
 
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->

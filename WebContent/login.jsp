@@ -97,14 +97,11 @@ border: 1px solid red;
 border: 1px solid green;
 }
 </style>
-<style>
-.center
+
+<style type="text/css">
+form
 {
-margin:auto;
-width:70%;
-position: absolute;
- top: 0; left: 0; bottom: 0; right: 0;
-background-color:#b0e0e6;
+padding-top: 10%
 }
 </style>
 
@@ -114,12 +111,6 @@ background-color:#b0e0e6;
 <div class ="sp" style = "height:10%;"></div>
 
 <div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<label class="col-md-12"></label>
-		</div>
-	</div>
-	<div class = "center">
 	<div class="row">
 		<div class="col-md-12">
 			<form id = "login" class="form-horizontal">
@@ -138,13 +129,12 @@ background-color:#b0e0e6;
 					</div> 
 				</div>
 				<div class="form-group">
-					<div class="col-md-offset-4 col-md-10">
+					<div class="col-md-offset-4 col-md-8">
 						<button id = "submit-button" type="button" class="btn btn-default">登录</button>
 					</div>
 				</div>
 			</form>
-			</div>
-	</div>
+		</div>
 	</div>
 </div>
 
