@@ -98,22 +98,18 @@ border: 1px solid green;
 }
 </style>
 
-<style type="text/css">
-form
-{
-padding-top: 10%
-}
-</style>
+
 
 </head>
 <body>
 
-<div class ="sp" style = "height:10%;"></div>
-
+<div class="form-group" style= "padding-top: 1%;background-color: #87CEFA;" >
+		<strong class="col-md-offset-1 col-sm-offset-1" style = "font-size:120%;color:#FFFFFF">IFTTT</strong>
+</div>
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<form id = "login" class="form-horizontal">
+			<form id = "login" class="form-horizontal" style= "padding-top: 10%;">
 				<div class="form-group">
 					<label for="userID" class="col-md-4 control-label">用户名</label>
 					<div class="col-md-4">

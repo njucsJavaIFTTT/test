@@ -182,7 +182,11 @@ border: 1px solid green;
 </head>
 
 <body>
-
+<div class="form-group" style= "padding-top: 1%;background-color: #87CEFA;" >
+		<strong class="col-md-offset-1 col-sm-offset-1" style = "font-size:120%;color:#FFFFFF">IFTTT</strong>
+		<a class="btn btn-link col-md-offset-8 col-sm-offset-8" type="button" style = "color:#FFFFFF"></a>
+		<a class="btn btn-link" type="button" style = "color:#FFFFFF"></a>
+	</div>
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">

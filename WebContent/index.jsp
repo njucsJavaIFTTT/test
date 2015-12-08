@@ -18,22 +18,25 @@
 
 </head>
 
+<!-- <body style= "background-image: url(/test/img/3648835_195102009273_2.gif);background-repeat: no-repeat;background-position: bottom;background-size: cover;"> -->
 <body>
-
-<form class="form-horizontal" role="form">
+<form class="form-horizontal">
+	<div class="form-group" style= "padding-top: 1%;background-color: #87CEFA;" >
+		<strong class="col-md-offset-1 col-sm-offset-1" style = "font-size:120%;color:#FFFFFF">IFTTT</strong>
+		<a href="/test/login.jsp" class="btn btn-link col-md-offset-8 col-sm-offset-8" type="button" style = "color:#FFFFFF">登录</a>
+		<a href="/test/register.jsp" class="btn btn-link" type="button" style = "color:#FFFFFF">注册</a>
+	</div>
 	<div class="form-group">
-		<a href="/test/login.jsp" class="btn btn-link col-sm-offset-10" type="button">登录</a>
-		<a href="/test/register.jsp" class="btn btn-link" type="button">注册</a>
-	</div>	
-	
-	<div class="form-group">
-		<h3 class="text-center">
-			<strong>欢迎来到IFTTT系统^-^</strong><br /> 此处可以有简单的介绍介绍介绍……<br />
+		<h3 class="text-center"style= "padding-top: 10%;">
+			<strong style = "font-size:200%;">欢迎来到IFTTT系统^-^</strong>
 		</h3>
-		</div>
+	</div>
+	<div class="form-group">
+		<h4 class="text-center"style= "color:#696969">
+			---团队成员：蔡子珺、于佳婕、刘思岑---
+		</h4>
+	</div>
 </form>
-
-
 
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
 <script src="https://code.jquery.com/jquery.js"></script>

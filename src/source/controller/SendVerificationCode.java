@@ -47,6 +47,7 @@ public class SendVerificationCode extends HttpServlet {
 		{
 			String message = "验证成功 ";
 			request.setAttribute("message",message);
+			
 			request.getRequestDispatcher("/register.jsp").forward(request,response);
 		}
 		else{
