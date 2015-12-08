@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="E:/3.1/Java/FinalLab/需要的jar/commons-beanutils-1.8.0.jar"/>
-	<classpathentry kind="lib" path="E:/3.1/Java/FinalLab/需要的jar/commons-logging.jar"/>
-	<classpathentry kind="lib" path="E:/3.1/Java/FinalLab/需要的jar/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="E:/3.1/Java/FinalLab/需要的jar/javax.mail.jar"/>
-	<classpathentry kind="lib" path="E:/3.1/Java/FinalLab/需要的jar/jaxen-1.1-beta-6.jar"/>
-	<classpathentry kind="lib" path="E:/3.1/Java/FinalLab/需要的jar/jstl.jar"/>
-	<classpathentry kind="lib" path="E:/3.1/Java/FinalLab/需要的jar/mysql-connector-java-5.0.4-bin.jar"/>
-	<classpathentry kind="lib" path="E:/3.1/Java/FinalLab/需要的jar/standard.jar"/>
+	<classpathentry kind="lib" path="E:/【JAVA程序设计】/课件/commons-beanutils-1.8.0源码+jar包/commons-beanutils-1.8.0源码+jar包/commons-beanutils-1.8.0.jar"/>
+	<classpathentry kind="lib" path="E:/【JAVA程序设计】/课件/commons-logging.jar"/>
+	<classpathentry kind="lib" path="E:/【JAVA程序设计】/课件/dom4j-1.6.1/dom4j-1.6.1/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="E:/【JAVA程序设计】/课件/javax.mail-1.5.4.jar" sourcepath="E:/【JAVA程序设计】/课件/javax.mail-1.5.4.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/E:/【JAVA程序设计】/课件/javax.mail-1.5.4.jar!/"/>
+			<attribute name="annotationpath" value="E:/【JAVA程序设计】/课件/javax.mail-1.5.4.jar"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="E:/【JAVA程序设计】/课件/jaxen-1.1-beta-6.jar"/>
+	<classpathentry kind="lib" path="E:/【JAVA程序设计】/课件/jstl.jar"/>
+	<classpathentry kind="lib" path="E:/【JAVA程序设计】/课件/mysql-connector-java-5.0.4-bin.jar"/>
+	<classpathentry kind="lib" path="E:/【JAVA程序设计】/课件/JSTL的jar包(jakarta-taglibs-standard-1.1.2)/jakarta-taglibs-standard-1.1.2/lib/standard.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

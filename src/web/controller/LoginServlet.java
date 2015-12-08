@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import domain.UserAccount;
+import exception.UserException;
 import service.IUserService;
 import service.impl.UserServiceImpl;
 
@@ -13,6 +14,8 @@ import service.impl.UserServiceImpl;
 
 public class LoginServlet extends HttpServlet {
 
+	private static final long serialVersionUID = 1L;
+	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// 获取用户填写的登录用户名
@@ -21,9 +24,15 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 
 		IUserService service = new UserServiceImpl();
+		
 		// 用户登录
-		UserAccount user = service.loginUser(username, password);
-		if (user == null) {
+		UserAccount user = null;
+		try {
+		user = service.loginUser(username, password);
+		}
+		catch(UserException u)
+		{
+			// 登录失败
 			String message = String.format("用户名或密码有误.请重新登录.2秒后为您自动跳到登录页面.<meta http-equiv='refresh' content='2;url=%s'",
 					request.getContextPath() + "/servlet/LoginUIServlet");
 			request.setAttribute("message", message);

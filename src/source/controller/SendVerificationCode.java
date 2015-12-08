@@ -30,7 +30,7 @@ public class SendVerificationCode extends HttpServlet {
 		//将客户端提交的表单数据封装到VerificationFormBean对象中
 		System.out.println("hahaha");
        	String smtp = "smtp.qq.com";
-		String from = "[IFTTT]客服";
+		String from = "809336646@qq.com";
 		String to = request.getParameter("userID");
 		String copyto = "";
 		String subject = "VerificationMail";
