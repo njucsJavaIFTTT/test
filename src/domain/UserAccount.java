@@ -52,7 +52,7 @@ public class UserAccount {
 		expenceCalendar = new HashSet<ExpenceCalendar>();
 		credit = 0;
 		discount = 1;
-		taskQueue = new TaskQueue(mailAccount);
+		//taskQueue = new TaskQueue(mailAccount);
 		state = UserState.logout;
 	}
 	
