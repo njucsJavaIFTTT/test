@@ -97,7 +97,6 @@ border: 1px solid red;
 border: 1px solid green;
 }
 </style>
-
 <style>
 .center
 {
@@ -111,6 +110,7 @@ background-color:#b0e0e6;
 
 </head>
 <body>
+
 <div class ="sp" style = "height:10%;"></div>
 
 <div class="container">
@@ -147,7 +147,6 @@ background-color:#b0e0e6;
 	</div>
 	</div>
 </div>
-
 
 
 
