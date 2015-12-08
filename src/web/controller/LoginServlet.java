@@ -30,19 +30,15 @@ public class LoginServlet extends HttpServlet {
 
 		IUserService service = new UserServiceImpl();
 		// 用户登录
-		UserAccount user = null;
-		try{
-		user = service.loginUser(username, password);
-		}
-		catch(UserException u)
-		{
-			if (user == null) {
-				String message = String.format("用户名或密码有误.请重新登录.2秒后为您自动跳到登录页面.<meta http-equiv='refresh' content='2;url=%s'",
+		UserAccount user;
+		try {
+			user = service.loginUser(username, password);
+		} catch (UserException e) {
+			String message = String.format("用户名或密码有误.请重新登录.2秒后为您自动跳到登录页面.<meta http-equiv='refresh' content='2;url=%s'",
 					request.getContextPath() + "/servlet/LoginUIServlet");
-				request.setAttribute("message", message);
-				request.getRequestDispatcher("/message.jsp").forward(request, response);
-				return;
-			}
+			request.setAttribute("message", message);
+			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			return;
 		}
 		// 登录成功后，就将用户存储到session中
 		request.getSession().setAttribute("user", user);

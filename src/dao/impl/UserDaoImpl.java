@@ -1,7 +1,4 @@
 package dao.impl;
-import java.text.SimpleDateFormat;
-import org.dom4j.Document;
-import org.dom4j.Element;
 import dao.IUserDao;
 import domain.UserAccount;
 import DB.DBHelper;

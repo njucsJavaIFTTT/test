@@ -12,7 +12,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-/* 发送邮件实体类 */
+/* 发送QQ邮件实体类 */
 public class Mail {
     private MimeMessage mimeMsg;
     private Session session;
@@ -26,14 +26,7 @@ public class Mail {
     public Mail(String smtp) {
         setSmtpHost(smtp);
         createMimeMessage();
-    } 
-
-    /* 设置账号、密码 */
-    public void setNamePass(String name, String pass) {
-        username = name;
-        password = pass;
     }
-    
     public void setSmtpHost(String hostName) {
         System.out.println("设置系统属性：mail.smtp.host=" + hostName);
         if (props == null) {
@@ -41,7 +34,6 @@ public class Mail {
         }
         props.put("mail.smtp.host", hostName);
     }
-    
     public boolean createMimeMessage() {
         try {
             System.out.println("准备获取邮件会话对象！");
@@ -70,6 +62,11 @@ public class Mail {
             props.put("mail.smtp.auth", "true");
         else
             props.put("mail.smtp.auth", "false");
+    }
+
+    public void setNamePass(String name, String pass) {
+        username = name;
+        password = pass;
     }
 
     /*定义邮件主题*/
