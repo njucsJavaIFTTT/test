@@ -15,6 +15,7 @@ import service.IUserService;
 import service.impl.UserServiceImpl;
 import util.WebUtils;
 //import web.formbean.RegisterFormBean;
+import web.formbean.RegisterFormBean;
 
 //处理用户注册的Servlet
 public class RegisterServlet extends HttpServlet {

@@ -46,6 +46,16 @@ public class UserAccount {
 	private TaskQueue taskQueue;//任务队列类
 	private UserState state;//登录状态，包括登入、登出
 	
+	public UserAccount() {
+		balance = 1000;
+		level = 1;
+		expenceCalendar = new HashSet<ExpenceCalendar>();
+		credit = 0;
+		discount = 1;
+		taskQueue = new TaskQueue(mailAccount);
+		state = UserState.logout;
+	}
+	
 	public UserAccount(String user,String pw,String mail){
 		username = new String(user);
 		password = new String(pw);
