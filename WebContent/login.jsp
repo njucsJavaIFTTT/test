@@ -20,21 +20,83 @@
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 
 <script type="text/javascript">
+var userIDChecked = false, passwordChecked = false;
+
+$(document).ready(function(){
+	$("#user-ID").blur(function(){
+		if( $("#user-ID").val()=="") {
+			$("#user-ID").addClass("warn");
+			$("#user-ID").removeClass("checked");
+			$(".empty-id").html("请输入注册邮箱");
+			$(".empty-id").css({
+				"display":"inline",
+				"color":"red"        	   
+			});
+			userIDChecked = false;
+		}
+		else {
+			$("#user-ID").addClass("checked");
+			$("#user-ID").removeClass("warn");
+			$(".empty-id").css("display","none");
+			userIDChecked = true;
+		}
+	});
+});
+$(document).ready(function(){
+	$("#password").blur(function(){
+		if( $("#password").val()=="") {
+			$("#password").addClass("warn");
+			$("#password").removeClass("checked");
+			$(".empty-password").html("请输入密码");
+			$(".empty-password").css({
+				"display":"inline",
+				"color":"red"        	   
+			});
+			passwordChecked = false;
+		}
+		else {
+			$("#password").addClass("checked");
+			$("#password").removeClass("warn");
+			$(".empty-password").css("display","none");
+			passwordChecked = true;
+		}
+	});
+});
+
 $(document).ready(function(){
   $("#submit-button").click(function(){
 	//alert("heihei");
-	$.post("login_action.jsp",
-	{
-		userID:$("#user-ID").val(),
-		passWord:$("#password").val()
-	},
-	/*TODO: 对登录信息进行处理*/
-	function(data,status){
-		alert("Data: " + data + "Status: " + status);
-	});
+	if (userIDChecked == false || passwordChecked == false) {
+    	alert("填写信息有误");
+    }
+	else {
+		$.post(
+    			"LoginServlet",
+    	        {
+    				username: $("#user-ID").val(),
+    				password: $("#password").val()
+    	       	},
+    	       	function(data,status){
+    	          	//登录成功or失败
+    	        });
+	}
   });
 });
 </script>
+
+<style type="text/css">
+.warn
+{
+border: 1px solid red;
+}
+</style>
+
+<style type="text/css">
+.checked
+{
+border: 1px solid green;
+}
+</style>
 
 </head>
 <body>
@@ -44,12 +106,14 @@ $(document).ready(function(){
       <label for="userID" class="col-sm-2 control-label">用户名</label>
       <div class="col-sm-5">
          <input type="text" class="form-control" id="user-ID" placeholder="请输入注册邮箱">
+         <span class = "error empty-id"></span>
       </div>
    </div>
    <div class="form-group">
       <label for="passWord" class="col-sm-2 control-label">密码</label>
       <div class="col-sm-5">
-         <input type="text" class="form-control" id="password" placeholder="请输入密码">
+         <input type="password" class="form-control" id="password" placeholder="请输入密码">
+         <span class = "error empty-password"></span>
       </div>
    </div>
    <div class="form-group">
