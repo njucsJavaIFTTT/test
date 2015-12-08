@@ -131,7 +131,7 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$("#send-verification-code").click(function(){
 		$.post(
-				"SendVerificationCode",
+			"SendVerificationCode",
 	    	{
 			verificationCode: <%=verificationCode%>,
 			userID: $("#user-ID").val()
@@ -149,28 +149,13 @@ $(document).ready(function(){
     	}
     	else {
     		$.post(
-    			"/test/src/source/controller/RegisterServlet.java",
+    			"RegisterServlet",
     	        {
-    				/*
-    				因为RegisterServlet的表单数据是用封装好的方法着复制的
-    				所以这边应该要变量名和表单RegisterFormBean中一样
-    				(表单中的变量名要和UserAccount中的一样
-    						因为这两个也是靠封装好的函数复制的
-    						不过这部分都是我写的所以我改了)
-    				我不敢改你的,先写在注释里面,你看一下
-    				userID: $("#user-ID").val(),
+    				mailAccount: $("#user-ID").val(),
     				password: $("#password").val()
-    				你这部分写的上面两行应该是要改成我下面写的这样..?
-    				mailAccount: $("#user-ID").val(),
-    				password: $("#password").val(),
-    				//verificationCode:$("#verificationCode").val()
-    				*/
-    				mailAccount: $("#user-ID").val(),
-    				password: $("#password").val(),
-    				verificationCode:$("#verificationCode").val()
     	       	},
     	       	function(data,status){
-    	          	//alert("验证码已发送至邮箱，请查收");
+    	          	//注册成功or失败
     	        });
     	}
   	});
