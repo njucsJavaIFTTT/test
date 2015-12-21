@@ -85,14 +85,15 @@ public class DBHelper {// 用于打开或关闭数据库
 		try {
 			sql = "select * from UserAccount where mail=\'" + uMailAccount + "\' and pwd=\'"+uPwd+"\';";
 			// pst.setBoolean(2,user.getState());不好弄不是bool也不是int是enum,暂时不加进去
+			pst = connect.prepareStatement(sql);
 			ret = pst.executeQuery();// 执行语句，得到结果集
-			if(!ret.wasNull()){//这句自己加的,防止找不到还硬读
-			String uName = ret.getString("username");
-			user=new UserAccount(uName,uPwd,uMailAccount);
+			if(ret.next()){//这句自己加的,防止找不到还硬读
+				String uName = ret.getString("username");
+				user=new UserAccount(uName,uPwd,uMailAccount);
 
-			System.out.println("username:" + uName +"get pwd:" + uPwd+" mailAccount:"+uMailAccount);
-			System.out.println("Success do '" + sql + "'!(db-Users)");
-			return user;
+				System.out.println("username:" + uName +" get pwd:" + uPwd+" mailAccount:"+uMailAccount);
+				System.out.println("Success do '" + sql + "'!(db-Users)");
+				return user;
 			}
 			else
 				return null;//"CF"cant find 关键词,会在调用此方法的上一级方法中检验

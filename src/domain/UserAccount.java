@@ -57,7 +57,7 @@ public class UserAccount {
 	}
 	
 	public UserAccount(String user,String pw,String mail){
-		username = new String(user);
+		//username = new String(user);
 		password = new String(pw);
 		mailAccount = new String(mail);
 		balance = 1000;
