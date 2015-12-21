@@ -320,13 +320,13 @@ class RecvMail extends Request {
 		int size = 0;
 		try {
 			store = session.getStore(protocol);
-			store.connect(username,password);
+			store.connect(host,username,password);
 			
 			folder = store.getFolder("INBOX");
 			folder.open(Folder.READ_ONLY);
 			
 			size = folder.getMessageCount();
-			Message message = folder.getMessage(size);
+			//Message message = folder.getMessage(size);
 		} catch (NoSuchProviderException e) {
 			e.printStackTrace();
 		} catch (MessagingException  e) {
@@ -349,15 +349,15 @@ class RecvMail extends Request {
     
 	public boolean ifThis() {
 		try{
-			printRes("收邮件...");
+			System.out.println("收邮件...");
 			
 			int size = recvMail();
 			if(size == -1) {
-				printRes("收邮件失败！");
+				System.out.println("收邮件失败！");
 				return false;
 			}
 			
-			printRes("等待...");
+			System.out.println("等待...");
 			
 			class myTimerTask extends TimerTask{
 				boolean ready = false;
@@ -375,6 +375,7 @@ class RecvMail extends Request {
 			Date tmp = new Date();
 			boolean sig = true;
 			while(sig) {
+				
 				timer.schedule(myTT, tmp);
 				
 				try{
@@ -383,11 +384,11 @@ class RecvMail extends Request {
 						if(myTT.getReady() == true){
 							int newsize = recvMail();
 							if(newsize < 0) {
-								printRes("收邮件失败！");
+								System.out.println("收邮件失败！");
 								return false;
 							}
 							else if(newsize > size){
-								printRes("发现新邮件...");
+								System.out.println("发现新邮件...");
 								sig = false;
 								break;
 							}
@@ -405,7 +406,11 @@ class RecvMail extends Request {
 	}
 	
 	public Object clone() throws CloneNotSupportedException {
-		return;
+		RecvMail recvMail = (RecvMail)super.clone();
+		recvMail.username = new String(this.username);
+		recvMail.password = new String(this.password);
+		recvMail.thisType = ThisType.RecvMail;
+		return recvMail;
 	}
 }
 

@@ -3,8 +3,6 @@ package web.formbean;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.beanutils.locale.converters.DateLocaleConverter;
-
 /**
  * 封装的用户注册表单bean，用来接收register.jsp中的表单输入项的值
  * RegisterFormBean中的属性与register.jsp中的表单输入项的name一一对应

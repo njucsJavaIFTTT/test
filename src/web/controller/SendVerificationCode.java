@@ -1,4 +1,4 @@
-package source.controller;
+package web.controller;
 
 import java.io.IOException;
 
@@ -38,7 +38,7 @@ public class SendVerificationCode extends HttpServlet {
 				+ request.getParameter("verificationCode")
 				+ "。如非本人直接访问IFTTT，请停止操作，切勿将验证码提供给第三方。";
 		String username = "809336646";//服务器邮箱账号
-		String password = "294112009yaoyao";//服务器邮箱密码
+		String password = "yjj950429";//服务器邮箱密码
 		
 		/* 验证邮箱是否已存在 */
 		/* Add here */
@@ -47,7 +47,6 @@ public class SendVerificationCode extends HttpServlet {
 		{
 			String message = "验证成功 ";
 			request.setAttribute("message",message);
-			
 			request.getRequestDispatcher("/register.jsp").forward(request,response);
 		}
 		else{

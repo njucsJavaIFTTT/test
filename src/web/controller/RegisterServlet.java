@@ -39,6 +39,8 @@ public class RegisterServlet extends HttpServlet {
 			ConvertUtils.register(new DateLocaleConverter(), Date.class);
 			BeanUtils.copyProperties(user, formbean);// 把表单中名称相同数据进行复制
 			// user.setId(WebUtils.makeId());//设置用户的Id属性
+			user.setMailAccount(formbean.getmailAccount());
+			user.setPassword(formbean.getPassword());
 			IUserService service = new UserServiceImpl();
 			service.registerUser(user);//调用service层提供的注册用户服务实现用户注册
 			String message = String.format("注册成功.3秒后为您自动跳到登录页面.<meta http-equiv='refresh' content='3;url=%s'/>",

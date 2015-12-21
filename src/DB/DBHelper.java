@@ -35,7 +35,7 @@ public class DBHelper {// 用于打开或关闭数据库
 	public void addUser(UserAccount user) {
 		// 执行sql语句
 		try {
-			sql = "INSERT INTO UserAccount VALUES(?,?)";
+			sql = "INSERT INTO UserAccount VALUES(?,?,?,?,?,?,?)";
 			pst = connect.prepareStatement(sql);// 准备执行语句
 			pst.setString(1, user.getUsername());
 			pst.setString(2, user.getPassword());
@@ -55,21 +55,22 @@ public class DBHelper {// 用于打开或关闭数据库
 
 	public String findUser(String uMailAccount) {
 		// 执行sql语句
-		String uPwd=null;
+		String uPwd = null;
 		try {
 			sql = "select * from UserAccount where mail=\'" + uMailAccount + "\';";
 			// pst.setBoolean(2,user.getState());不好弄不是bool也不是int是enum,暂时不加进去
+			pst = connect.prepareStatement(sql);
 			ret = pst.executeQuery();// 执行语句，得到结果集
-			if(!ret.wasNull()){//这句自己加的,防止找不到还硬读
-			uPwd = ret.getString("pwd");
-			String uName = ret.getString("username");
-
-			System.out.println("username:" + uName +"get pwd:" + uPwd+" mailAccount:"+uMailAccount);
-			System.out.println("Success do \'" + sql + "\'!(db-Users)");
-			return uPwd;
-			}
-			else
+			if(!ret.next())
 				return null;//"CF"cant find 关键词,会在调用此方法的上一级方法中检验
+			else
+			{
+				uPwd = ret.getString("pwd");
+				String uName = ret.getString("username");
+				System.out.println("username:" + uName +"get pwd:" + uPwd+" mailAccount:"+uMailAccount);
+				System.out.println("Success do \'" + sql + "\'!(db-Users)");
+				return uPwd;
+			}
 			//return new UserAccount(uName,uPwd,uMailAccount);//这边以后要用完全的复制
 		} catch (Exception e) {
 			System.out.print("Fail do \'" + sql + "\'!(db-Users)");

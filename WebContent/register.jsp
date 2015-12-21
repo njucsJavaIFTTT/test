@@ -137,7 +137,7 @@ $(document).ready(function(){
 			userID: $("#user-ID").val()
 	       	},
 	        function(data,status){
-	          	alert(data);
+	       		//$('#verifivation-code-msg').html(message);
 	        });
   	});
 });
@@ -215,6 +215,7 @@ border: 1px solid green;
 				<div class="form-group">
 					<div class="col-md-offset-4 col-md-8">
 						<button type="button" class="btn btn-default" id = "send-verification-code">发送验证码</button>
+						<span class = "verifivation-code-msg"></span>
 					</div>
 				</div>
 				<div class="form-group">

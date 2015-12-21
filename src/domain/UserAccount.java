@@ -123,6 +123,11 @@ public class UserAccount {
 	/* 修改密码，所改密码与原密码不相同 */
 	public boolean setPassword(String pass)
 	{
+		if(password == null)
+		{
+			password = new String(pass);
+			return true;
+		}
 		if(pass.compareTo(password) == 0)
 			return false;
 		else
@@ -133,6 +138,11 @@ public class UserAccount {
 	/* 修改邮箱账号，所改邮箱与原邮箱不同，一般不可调用 */
 	public boolean setMailAccount(String mail)
 	{
+		if(mailAccount == null)
+		{
+			mailAccount = new String(mail);
+			return true;
+		}
 		if(mail.compareTo(mailAccount) == 0)
 			return false;
 		else
