@@ -1,6 +1,8 @@
 package web.controller;
 
 import java.io.IOException;
+import java.io.OutputStream;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,10 +36,16 @@ public class LoginServlet extends HttpServlet {
 		try {
 			user = service.loginUser(username, password);
 		} catch (UserException e) {
-			String message = String.format("用户名或密码有误.请重新登录.2秒后为您自动跳到登录页面.<meta http-equiv='refresh' content='2;url=%s'",
-					request.getContextPath() + "/servlet/LoginUIServlet");
-			request.setAttribute("message", message);
-			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			System.out.println("用户名或密码错误");
+			response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
+		    String data = "用户名或密码错误";
+		    OutputStream stream = response.getOutputStream();
+		    stream.write(data.getBytes("UTF-8"));
+		//	response.sendRedirect("/test/message.jsp");
+//			String message = String.format("用户名或密码有误.请重新登录.2秒后为您自动跳到登录页面.<meta http-equiv='refresh' content='2;url=%s'",
+//					request.getContextPath() + "/servlet/LoginUIServlet");
+//			request.setAttribute("message", message);
+//			request.getRequestDispatcher("/message.jsp").forward(request, response);
 			return;
 		}
 		// 登录成功后，就将用户存储到session中

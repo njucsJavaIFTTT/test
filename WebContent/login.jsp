@@ -78,6 +78,7 @@ $(document).ready(function(){
     	       	},
     	       	function(data,status){
     	          	//登录成功or失败
+    	          	alert(data);
     	        });
 	}
   });

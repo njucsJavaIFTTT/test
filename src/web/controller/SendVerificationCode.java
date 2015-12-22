@@ -1,12 +1,16 @@
 package web.controller;
 
+import java.io.Console;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.sun.mail.iap.Response;
 
 import domain.Mail;
 
@@ -49,16 +53,17 @@ public class SendVerificationCode extends HttpServlet {
 		
 		if(Mail.sendAndCc(smtp, from, to, copyto, subject, content, username, password))
 		{
-			String message = "验证成功 ";
-			request.setAttribute("message",message);
-			request.getRequestDispatcher("/register.jsp").forward(request,response);
+			response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
+		    String data = "验证码已发送至邮箱" + from + "， 请注意查收";
+		    OutputStream stream = response.getOutputStream();
+		    stream.write(data.getBytes("UTF-8")); 
 		}
 		else{
-			String message = "服务器太过拥挤，请稍候片刻 ";
-			request.setAttribute("message",message);
-			request.getRequestDispatcher("/register.jsp").forward(request,response);
+			response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
+		    String data = "服务器太过拥挤，请稍候片刻 ";
+		    OutputStream stream = response.getOutputStream();
+		    stream.write(data.getBytes("UTF-8"));
 		}
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

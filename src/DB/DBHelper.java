@@ -57,6 +57,7 @@ public class DBHelper {// 用于打开或关闭数据库
 		// 执行sql语句
 		String uPwd = null;
 		try {
+
 			sql = "select * from UserAccount where mail=\'" + uMailAccount + "\';";
 			// pst.setBoolean(2,user.getState());不好弄不是bool也不是int是enum,暂时不加进去
 			pst = connect.prepareStatement(sql);
@@ -84,10 +85,12 @@ public class DBHelper {// 用于打开或关闭数据库
 		UserAccount user=null;
 		try {
 			sql = "select * from UserAccount where mail=\'" + uMailAccount + "\' and pwd=\'"+uPwd+"\';";
+			
 			// pst.setBoolean(2,user.getState());不好弄不是bool也不是int是enum,暂时不加进去
 			pst = connect.prepareStatement(sql);
 			ret = pst.executeQuery();// 执行语句，得到结果集
 			if(ret.next()){//这句自己加的,防止找不到还硬读
+				System.out.println("hhh");
 				String uName = ret.getString("username");
 				user=new UserAccount(uName,uPwd,uMailAccount);
 

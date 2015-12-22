@@ -157,7 +157,8 @@ $(document).ready(function(){
 			verificationCode: <%=verificationCode%>,
 			userID: $("#user-ID").val()
 	       	},
-	        function(data,status){
+	        function(data){
+	       		alert(data);
 	       		//$('#verifivation-code-msg').html(message);
 	        });
   	});
