@@ -416,7 +416,20 @@ class RecvMail extends Request {
 
 /* this-监听微博任务 */
 class MonitorWeibo extends Request {
+	private String username;
+	
+	public MonitorWeibo() {
+		username = "";
+		super.thisType = ThisType.MonitorWeibo;
+	}
+	
+	public MonitorWeibo(String name) {
+		username = new String(name);
+		super.thisType = ThisType.MonitorWeibo;
+	}
+	
 	public boolean ifThis() {
+		
 		return true;
 	}
 	
