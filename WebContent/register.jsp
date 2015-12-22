@@ -33,10 +33,31 @@ for (int i = 0; i < 6; i++) {
 }     
 String verificationCode = sb.toString();
 %>
-var userIDChecked = false,
+var userNameChecked = false,
+userIDChecked = false,
 passwordChecked = false,
 verificationCodeChecked = false;
 
+$(document).ready(function(){
+	$("#user-name").blur(function(){
+		if( $("#user-name").val()=="") {
+			$("#user-name").addClass("warn");
+			$("#user-name").removeClass("checked");
+			$(".empty-name").html("请输入用户名");
+			$(".empty-name").css({
+				"display":"inline",
+				"color":"red"        	   
+			});
+			userNameChecked = false;
+		}
+		else {
+			$("#user-name").addClass("checked");
+			$("#user-name").removeClass("warn");
+			$(".empty-name").css("display","none");
+			userNameChecked = true;
+		}
+	});
+});
 $(document).ready(function(){
 	$("#user-ID").blur(function(){
 		if( $("#user-ID").val()=="") {
@@ -144,13 +165,15 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $("#submit").click(function(){
-    	if (userIDChecked == false || passwordChecked == false || verificationCodeChecked == false) {
+    	if (userNameChecked == false || userIDChecked == false 
+    			|| passwordChecked == false || verificationCodeChecked == false) {
     		alert("填写信息有误");
     	}
     	else {
     		$.post(
     			"RegisterServlet",
     	        {
+    				userName: $("#user-name").val(),
     				mailAccount: $("#user-ID").val(),
     				password: $("#password").val()
     	       	},
@@ -191,6 +214,13 @@ border: 1px solid green;
 	<div class="row">
 		<div class="col-md-12">
 			<form class="form-horizontal" id = "register" style = "padding-top: 10%;">
+				<div class="form-group">
+					<label for="user-name" class="col-md-4 control-label">请输入用户名</label>
+					<div class="col-md-4">
+						<input type="text" class="form-control" id="user-name">
+						<span class = "error empty-name"></span>
+					</div>
+				</div>
 				<div class="form-group">
 					<label for="user-ID" class="col-md-4 control-label">请输入注册邮箱</label>
 					<div class="col-md-4">

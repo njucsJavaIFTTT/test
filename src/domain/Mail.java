@@ -138,8 +138,11 @@ public class Mail {
             mimeMsg.saveChanges();
             System.out.println("邮件发送中....");
             Session mailSession = Session.getInstance(props, null);
+            System.out.println("邮件发送中....");
             Transport transport = mailSession.getTransport("smtp");
+            System.out.println("邮件发送中....");
             transport.connect((String) props.get("mail.smtp.host"), username, password);
+            System.out.println("邮件发送中....");
             transport.sendMessage(mimeMsg, mimeMsg.getRecipients(Message.RecipientType.TO));
             System.out.println("发送成功！");
             transport.close();

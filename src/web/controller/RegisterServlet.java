@@ -39,6 +39,7 @@ public class RegisterServlet extends HttpServlet {
 			ConvertUtils.register(new DateLocaleConverter(), Date.class);
 			BeanUtils.copyProperties(user, formbean);// 把表单中名称相同数据进行复制
 			// user.setId(WebUtils.makeId());//设置用户的Id属性
+			user.SetUserName(formbean.getUserName());
 			user.setMailAccount(formbean.getmailAccount());
 			user.setPassword(formbean.getPassword());
 			IUserService service = new UserServiceImpl();
@@ -49,6 +50,7 @@ public class RegisterServlet extends HttpServlet {
 			request.getRequestDispatcher("/message.jsp").forward(request, response);
 
 		} catch (UserException e) {
+			System.out.println("用户已存在");
 			formbean.getErrors().put("userName", "注册用户已存在");
 			request.setAttribute("formbean", formbean);
 			request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
