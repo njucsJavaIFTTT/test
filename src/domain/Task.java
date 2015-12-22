@@ -5,17 +5,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.mail.Folder;
-import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Store;
 
-import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
-import org.eclipse.jdt.internal.compiler.flow.SwitchFlowContext;
+import weibo4j.model.Status;
+import weibo4j.model.User;
+import weibo4j.model.WeiboException;
+import weibo4j.Timeline;
+import weibo4j.Users;
 
 /* 任务实体类 */
 public class Task implements Cloneable{
@@ -229,16 +230,22 @@ abstract class Goal implements Cloneable{
 class OrderTime extends Request {
 	private MyDate date;
 	private MyTime time;
+	Timer timer;
+	MyTimerTask myTT;
 	
 	public OrderTime() {
 		date = new MyDate();
 		time = new MyTime();
+		timer = null;
+		myTT = null;
 		super.thisType = ThisType.OrderTime;
 	}
 	
 	public OrderTime(MyDate d,MyTime t) {
 		date = new MyDate(d);
 		time = new MyTime(t);
+		timer = null;
+		myTT = null;
 		super.thisType = ThisType.OrderTime;
 	}
 
@@ -249,8 +256,8 @@ class OrderTime extends Request {
 	}
 	
 	public boolean ifThis() {
-		Timer timer = new Timer();
-		MyTimerTask myTT = new MyTimerTask(); //设置定时器进行定时
+		timer = new Timer();
+		myTT = new MyTimerTask(); //设置定时器进行定时
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date tmp = null;
 		try{
@@ -283,16 +290,22 @@ class OrderTime extends Request {
 class RecvMail extends Request {
 	private String username;
 	private String password;
+	//private Timer timer;
+	//private MyTimerTask myTT;
 	
 	public RecvMail() {
 		username = "";
 		password = "";
+		//timer = null;
+		//myTT = null;
 		super.thisType = ThisType.RecvMail;
 	}
 	
 	public RecvMail(String name, String pw) {
 		username = new String(name);
 		password = new String(pw);
+		//timer = null;
+		//myTT = null;
 		super.thisType = ThisType.RecvMail;
 	}
 	
@@ -326,7 +339,6 @@ class RecvMail extends Request {
 			folder.open(Folder.READ_ONLY);
 			
 			size = folder.getMessageCount();
-			//Message message = folder.getMessage(size);
 		} catch (NoSuchProviderException e) {
 			e.printStackTrace();
 		} catch (MessagingException  e) {
@@ -348,7 +360,8 @@ class RecvMail extends Request {
 	}
     
 	public boolean ifThis() {
-		try{
+		try
+		{
 			System.out.println("收邮件...");
 			
 			int size = recvMail();
@@ -359,50 +372,24 @@ class RecvMail extends Request {
 			
 			System.out.println("等待...");
 			
-			class myTimerTask extends TimerTask{
-				boolean ready = false;
-				public void run() {
-					ready = true;
-				}
-				public boolean getReady(){
-					return ready;
-				}
-			}
-			
-			Timer timer = new Timer();
-			myTimerTask myTT = new myTimerTask();
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date tmp = new Date();
-			boolean sig = true;
-			while(sig) {
-				
-				timer.schedule(myTT, tmp);
-				
-				try{
-					while(true){
-						Thread.sleep(1000);
-						if(myTT.getReady() == true){
-							int newsize = recvMail();
-							if(newsize < 0) {
-								System.out.println("收邮件失败！");
-								return false;
-							}
-							else if(newsize > size){
-								System.out.println("发现新邮件...");
-								sig = false;
-								break;
-							}
-							else {
-								tmp = new Date();
-							}
-						}
+			try{
+				while(true){
+					Thread.sleep(1000);
+					int newsize = recvMail();
+					if(newsize < 0) {
+						System.out.println("收邮件失败！");
+						return false;
+					}
+					else if(newsize > size){
+						System.out.println("发现新邮件...");
+						break;
 					}
 				}
-				catch(Exception e){return false;}
 			}
+			catch(Exception e){return false;}
 		}
 		catch(Exception e){}		
-		return true;	
+		return true;
 	}
 	
 	public Object clone() throws CloneNotSupportedException {
@@ -410,43 +397,231 @@ class RecvMail extends Request {
 		recvMail.username = new String(this.username);
 		recvMail.password = new String(this.password);
 		recvMail.thisType = ThisType.RecvMail;
+		//recvMail.timer = null;
+		//recvMail.myTT = null;
 		return recvMail;
 	}
 }
 
 /* this-监听微博任务 */
 class MonitorWeibo extends Request {
+	private String accessToken;//被监听微博的授权accessToken
+	private String uid;//被监听微博id
+	private String contain;//监听所包含的内容
+	//MyTimerTask myTT;//设置TimerTask
+	//Timer timer;//设置Timer
+	
+	public MonitorWeibo() {
+		accessToken = "";
+		uid = "";
+		contain = "";
+		//timer = null;
+		//myTT = null;
+		super.thisType = ThisType.MonitorWeibo;
+	}
+	
+	/* 参数分别为accessToken，用户名，监听内容 */
+	public MonitorWeibo(String access,String id,String con) {
+		accessToken = new String(access);
+		uid = new String(id);
+		contain = new String(con);
+		//timer = null;
+		//myTT = null;
+		super.thisType = ThisType.MonitorWeibo;
+	}
+	
+	public void setAccessToken(String accessToken) {
+		this.accessToken = new String(accessToken);
+	}
+
+	public void setUid(String uid) {
+		this.uid = new String(uid);
+	}
+
+	public void setContain(String contain) {
+		this.contain = new String(contain);
+	}
+
+	/* 获取当前授权登录用户的最新微博内容 */
+	public Status GetLatestWeibo() {
+		Users users = new Users(accessToken);
+		User user = null;
+		try {
+			user = users.showUserById(uid);
+		}
+		catch(WeiboException ex) {
+			ex.printStackTrace();
+		}
+		Status status = null;
+		if(user != null)
+		{
+			status = user.getStatus();
+			return status;
+		}
+		return null;
+	}
+
 	public boolean ifThis() {
-		return true;
+		try{
+			System.out.println("监听微博...");
+			
+			Status oldStatus = GetLatestWeibo();
+			
+			if(oldStatus == null) {
+				System.out.println("监听失败！");
+				return false;
+			}
+			
+			System.out.println("等待...");
+			
+			Status newstatus = null;
+			try{
+				while(true){
+					Thread.sleep(1000);
+					newstatus = GetLatestWeibo();
+					if(newstatus == null) {
+						System.out.println("监听失败！");
+						return false;
+					}
+					else if(newstatus.getCreatedAt().after(oldStatus.getCreatedAt())){
+						System.out.println("发现新微博...");
+						if(newstatus.getText().contains(contain))
+						{
+							System.out.println("监听到指定信息！");
+							break;
+						}
+						oldStatus = newstatus;
+						newstatus = null;
+					}
+				}
+			}
+			catch(Exception e){return false;}
+		}
+		catch(Exception e){}		
+		return true;	
 	}
 	
 	public Object clone() throws CloneNotSupportedException
 	{
-		return;
+		MonitorWeibo monitorWeibo = (MonitorWeibo)super.clone();
+		monitorWeibo.accessToken = new String(accessToken);
+		monitorWeibo.uid = new String(uid);
+		monitorWeibo.contain = new String(contain);
+		monitorWeibo.thisType = ThisType.MonitorWeibo;
+		//monitorWeibo.timer = null;
+		//monitorWeibo.myTT = null;
+		return monitorWeibo;
 	}
 }
 
 /* that-发送微博任务 */
 class SendWeibo extends Goal {
+	private String accessToken;
+	private String uid;
+	private String content;
+
+	public SendWeibo() {
+		accessToken = "";
+		uid = "";
+		content = "";
+		thatType = ThatType.SendWeibo;
+	}
+	
+	public SendWeibo(String access, String id, String con)
+	{
+		accessToken = new String(access);
+		uid = new String(uid);
+		content = new String(con);
+		thatType = ThatType.SendWeibo;
+	}
+	
+	public void SendWeiboStatus()
+	{   
+		Timeline tm = new Timeline(accessToken);
+		try{ 
+			Status status = tm.updateStatus(content); 
+			Log.logInfo(status.toString()); 
+		} 
+		catch(WeiboException e) { 
+			e.printStackTrace(); 
+		} 
+	}
+	
 	public boolean thenThat() {
+		try{
+			System.out.println("发送微博...");
+			SendWeiboStatus();
+			System.out.println("发送完毕...");
+		}
+		catch(Exception e){
+			System.out.println("发送微博失败！");
+			return false;
+		}
 		return true;
 	}
 	
 	public Object clone() throws CloneNotSupportedException
 	{
-		return;
+		SendWeibo sendWeibo = (SendWeibo)super.clone();
+		sendWeibo.accessToken = new String(accessToken);
+		sendWeibo.uid = new String(uid);
+		sendWeibo.content = new String(content);
+		sendWeibo.thatType = ThatType.SendWeibo;
+		return sendWeibo;
 	}
 }
 
 /* that-发送邮件任务 */
 class SendMail extends Goal {
+	private String username;//收信人id
+	private String content;
+
+	public SendMail() {
+		username = null;
+		content = null;
+		thatType = ThatType.SendMail;
+	}
+	
+	public SendMail(String user, String pass, String con) {
+		username = new String(user);
+		content = new String(con);
+		thatType = ThatType.SendMail;
+	}
+	
+	public void setUsername(String username) {
+		this.username = new String(username);
+	}
+
+	public void setContent(String content) {
+		this.content = new String(content);
+	}
+
 	public boolean thenThat() {
+		System.out.println("发送邮件...");	
+		String smtp = "smtp.qq.com";
+		String from = "809336646@qq.com";
+		String to = username;
+		String copyto = "";
+		String subject = "[IFTTT]任务邮件";
+		String content = this.content;
+		String username = "809336646";
+		String password = "xieckoriioihbdia";
+		if(Mail.sendAndCc(smtp, from, to, copyto, subject, content, username, password))
+			System.out.println("发送完毕...");
+		else{
+			System.out.println("发送失败！");
+			return false;
+		}
 		return true;
 	}
 	
 	public Object clone() throws CloneNotSupportedException
 	{
-		return;
+		SendMail sendMail = (SendMail)super.clone();
+		sendMail.username = new String(username);
+		sendMail.content = new String(content);
+		sendMail.thatType = ThatType.SendMail;
+		return sendMail;
 	}
 }
 

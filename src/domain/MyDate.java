@@ -4,7 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimerTask;
 
-/* ÈÕÆÚÀà   */
+import org.apache.log4j.Logger;
+
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   */
 public class MyDate implements Cloneable{
 	public String year, month, day;
 	
@@ -34,7 +36,7 @@ public class MyDate implements Cloneable{
 	}
 }
 
-/* Ê±¼äÀà */
+/* Ê±ï¿½ï¿½ï¿½ï¿½ */
 class MyTime implements Cloneable{
 	String hour, minute, second;
 	
@@ -64,7 +66,7 @@ class MyTime implements Cloneable{
 	}
 }
 
-/* ¶¨Ê±Æ÷ÈÎÎñÀà */
+/* ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 class MyTimerTask extends TimerTask{
 	boolean ready = false;
 	public void run() {
@@ -75,3 +77,16 @@ class MyTimerTask extends TimerTask{
 	}	
 }
 
+/* å¾®åšè°ƒè¯•ç”¨ */
+class Log {
+	
+	static Logger log = Logger.getLogger(Log.class.getName());
+	
+    public static void logDebug(String message) {
+			log.debug(message);
+	}
+
+	public static void logInfo(String message) {
+			log.info(message);
+	}
+}
