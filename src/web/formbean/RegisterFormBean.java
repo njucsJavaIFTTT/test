@@ -13,7 +13,7 @@ import java.util.Map;
 public class RegisterFormBean {
 
 	//RegisterFormBean中的属性与register.jsp中的表单输入项的name一一对应
-	//private String userName;//前端还未实现昵称
+	private String userName;//前端还未实现昵称
 	private String password;
 	private String mailAccount;
 	//private String verificationCode;//验证码
@@ -32,16 +32,18 @@ public class RegisterFormBean {
 		this.errors = errors;
 	}
 
-	/*
+	
 	public String getUserName() {
+		System.out.println("username:"+userName);
 		return userName;
 	}
 
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	 */
+	
 	public String getPassword() {
+		System.out.println("username:"+userName);
 		return password;
 	}
 
