@@ -17,6 +17,12 @@ import javax.mail.Store;
 import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
 import org.eclipse.jdt.internal.compiler.flow.SwitchFlowContext;
 
+import javafx.scene.chart.ScatterChart;
+import weibo4j.model.Status;
+import weibo4j.model.User;
+import weibo4j.model.WeiboException;
+import weibo4j.Users;;
+
 /* 任务实体类 */
 public class Task implements Cloneable{
 	private String TaskName;//任务名，对于同一用户不可重复
@@ -326,7 +332,6 @@ class RecvMail extends Request {
 			folder.open(Folder.READ_ONLY);
 			
 			size = folder.getMessageCount();
-			//Message message = folder.getMessage(size);
 		} catch (NoSuchProviderException e) {
 			e.printStackTrace();
 		} catch (MessagingException  e) {
@@ -416,26 +421,115 @@ class RecvMail extends Request {
 
 /* this-监听微博任务 */
 class MonitorWeibo extends Request {
-	private String username;
+	String accessToken;//被监听微博的授权accessToken
+	String uid;//被监听微博id
+	String contain;//监听所包含的内容
 	
 	public MonitorWeibo() {
-		username = "";
+		accessToken = "";
+		uid = "";
+		contain = "";
 		super.thisType = ThisType.MonitorWeibo;
 	}
 	
-	public MonitorWeibo(String name) {
-		username = new String(name);
+	/* 参数分别为accessToken，用户名，监听内容 */
+	public MonitorWeibo(String access,String id,String con) {
+		accessToken = new String(access);
+		uid = new String(id);
+		contain = new String(con);
 		super.thisType = ThisType.MonitorWeibo;
 	}
 	
+	/* 获取当前授权登录用户的最新微博内容 */
+	public Status GetLatestWeibo() {
+		Users users = new Users(accessToken);
+		User user = null;
+		try {
+			user = users.showUserById(uid);
+		}
+		catch(WeiboException ex) {
+			ex.printStackTrace();
+		}
+		Status status = null;
+		if(user != null)
+		{
+			status = user.getStatus();
+			return status;
+		}
+		return null;
+	}
+
 	public boolean ifThis() {
-		
-		return true;
+		try{
+			System.out.println("监听微博...");
+			
+			Status oldStatus = GetLatestWeibo();
+			
+			if(oldStatus == null) {
+				System.out.println("监听失败！");
+				return false;
+			}
+			
+			System.out.println("等待...");
+			
+			class myTimerTask extends TimerTask{
+				boolean ready = false;
+				public void run() {
+					ready = true;
+				}
+				public boolean getReady(){
+					return ready;
+				}
+			}
+			
+			Timer timer = new Timer();
+			myTimerTask myTT = new myTimerTask();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			Date tmp = new Date();
+			boolean sig = true;
+			while(sig) {
+				
+				timer.schedule(myTT, tmp);
+				
+				try{
+					while(true){
+						Thread.sleep(1000);
+						if(myTT.getReady() == true){
+							Status newstatus = GetLatestWeibo();
+							if(newstatus == null) {
+								System.out.println("监听失败！");
+								return false;
+							}
+							else if(newstatus.getCreatedAt().after(oldStatus.getCreatedAt())){
+								System.out.println("发现新微博...");
+								if(newstatus.getText().contains(contain))
+								{
+									sig = false;
+									break;
+								}
+								else
+									tmp = new Date();
+							}
+							else 
+								tmp = new Date();
+						}
+					}
+				}
+				catch(Exception e){return false;}
+			}
+		}
+		catch(Exception e){}		
+		return true;	
 	}
 	
 	public Object clone() throws CloneNotSupportedException
 	{
-		return;
+		MonitorWeibo monitorWeibo = (MonitorWeibo)super.clone();
+		monitorWeibo.accessToken = new String(accessToken);
+		monitorWeibo.uid = new String(uid);
+		monitorWeibo.contain = new String(contain);
+		monitorWeibo.thisType = ThisType.MonitorWeibo;
+		return monitorWeibo;
 	}
 }
 
