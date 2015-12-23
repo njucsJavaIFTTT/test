@@ -7,16 +7,15 @@ import java.util.Map;
  * 封装的用户注册表单bean，用来接收register.jsp中的表单输入项的值
  * RegisterFormBean中的属性与register.jsp中的表单输入项的name一一对应
  * RegisterFormBean的职责除了负责接收register.jsp中的表单输入项的值之外还担任着校验表单输入项的值的合法性
- * @author gacl
+ * @author CZJ
  *
  */
 public class RegisterFormBean {
 
 	//RegisterFormBean中的属性与register.jsp中的表单输入项的name一一对应
-	private String userName;//前端还未实现昵称
+	private String userName;
 	private String password;
 	private String mailAccount;
-	//private String verificationCode;//验证码
 
 	
 	/**
@@ -58,13 +57,4 @@ public class RegisterFormBean {
 		this.mailAccount = mailAccount;
 	}
 	
-	/*
-	public String getVerificationCode() {
-		return verificationCode;
-	}
-
-	public void setVerificationCode(String verCode) {
-		this.verificationCode = verCode;
-	}
-	*/
 }

@@ -89,7 +89,7 @@ public class DBHelper {// 用于打开或关闭数据库
 			// pst.setBoolean(2,user.getState());不好弄不是bool也不是int是enum,暂时不加进去
 			pst = connect.prepareStatement(sql);
 			ret = pst.executeQuery();// 执行语句，得到结果集
-			if(ret.next()){//这句自己加的,防止找不到还硬读
+			if(ret.next()){// 结果集非空
 				System.out.println("hhh");
 				String uName = ret.getString("username");
 				user=new UserAccount(uName,uPwd,uMailAccount);
@@ -99,7 +99,7 @@ public class DBHelper {// 用于打开或关闭数据库
 				return user;
 			}
 			else
-				return null;//"CF"cant find 关键词,会在调用此方法的上一级方法中检验
+				return null;//找不到对应user，需要在调用此方法的上一级方法中检验
 			//return new UserAccount(uName,uPwd,uMailAccount);//这边以后要用完全的复制
 		} catch (Exception e) {
 			System.out.print("Fail do '" + sql + "'!(db-Users)");
@@ -112,7 +112,8 @@ public class DBHelper {// 用于打开或关闭数据库
 		try {
 			this.connect.close();
 			this.pst.close();
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

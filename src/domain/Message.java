@@ -2,8 +2,8 @@ package domain;
 
 import java.util.Date;
 
-/* ��Ϣ�� */
-public class Message{//һ����Ϣ
+/* 站内消息类 */
+public class Message{
 	private String content;
 	private Date time;
 	
@@ -13,7 +13,7 @@ public class Message{//һ����Ϣ
 	}
 }
 
-/* ���棬��������Ϣʵ���� */
+/* 公共消息类（公告） */
 class PublicMessage extends Message {
 
 	public PublicMessage(String c) {

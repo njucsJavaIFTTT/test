@@ -18,7 +18,7 @@ public class UserServiceImpl implements IUserService{
 	public UserAccount loginUser(String uName,String uPwd)throws UserException{
 		UserAccount user=uDao.find(uName,uPwd);
 		if (user==null) {
-			throw new UserException("MailAccount或pwd错误!");
+			throw new UserException("邮箱或密码错误!");
 		}
 		return user;
 	}

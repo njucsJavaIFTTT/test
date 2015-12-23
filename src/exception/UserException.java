@@ -1,6 +1,7 @@
 package exception;
 //自定义异常:用户已存在的异常
 public class UserException extends Exception{
+
 	public UserException() {
 		super();
 	}

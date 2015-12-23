@@ -14,7 +14,6 @@ public class UserDaoImpl implements IUserDao{
 		return user;
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void add(UserAccount user){
 
 		DBHelper db=new DBHelper();
@@ -22,7 +21,8 @@ public class UserDaoImpl implements IUserDao{
 		db.close();
 	}
 	
-	public String find(String uMailAccount){//返回pwd,在调用此方法的方法中校验,以后写好UserAccount深复制可能改成返回UserAccount
+	/* 返回pwd,在调用此方法的方法中校验,以后写好UserAccount深复制可能改成返回UserAccount */
+	public String find(String uMailAccount){
 
 		DBHelper db=new DBHelper();
 		String pwd=db.findUser(uMailAccount);
