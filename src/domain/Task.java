@@ -21,7 +21,7 @@ import weibo4j.Users;
 /* 任务实体类 */
 public class Task implements Cloneable{
 	private String TaskName;//任务名，对于同一用户不可重复
-	private Request request;//that任务指针
+	private Request request;//this任务指针
 	private Goal goal;//that任务指针
 	private double expense;//费用
 	
@@ -65,6 +65,30 @@ public class Task implements Cloneable{
 		return expense;
 	}
 
+	public Request getRequest() {
+		Request r = null;
+		try{
+			r = (Request)request.clone();
+		}
+		catch(CloneNotSupportedException e)
+		{
+			e.printStackTrace();
+		}
+		return r;
+	}
+	
+	public Goal getGoal() {
+		Goal g = null;
+		try{
+			g = (Goal)goal.clone();
+		}
+		catch(CloneNotSupportedException e)
+		{
+			e.printStackTrace();
+		}
+		return g;
+	}
+	
 	public Object clone() throws CloneNotSupportedException {
 		Task temp = (Task)super.clone();
 		temp.TaskName = new String(this.TaskName);
