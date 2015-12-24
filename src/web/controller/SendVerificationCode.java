@@ -28,8 +28,6 @@ public class SendVerificationCode extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		//将客户端提交的表单数据封装到VerificationFormBean对象中
-		System.out.println("hahaha");
        	String smtp = "smtp.qq.com";
 		String from = "809336646@qq.com";
 		//String from = "376575092@qq.com";

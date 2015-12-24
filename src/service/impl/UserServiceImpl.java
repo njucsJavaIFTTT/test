@@ -4,6 +4,7 @@ import dao.impl.UserDaoImpl;
 import domain.UserAccount;
 import exception.UserException;
 import service.IUserService;
+
 //IUserService接口的实现-提供给用户的服务的实现
 public class UserServiceImpl implements IUserService{
 	private IUserDao uDao=new UserDaoImpl();
