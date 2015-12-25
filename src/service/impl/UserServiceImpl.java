@@ -1,8 +1,4 @@
 package service.impl;
-import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
-
-import com.mysql.jdbc.exceptions.MySQLTimeoutException;
-
 import dao.IUserDao;
 import dao.impl.UserDaoImpl;
 import domain.Goal;
@@ -20,7 +16,6 @@ import domain.UserAccount;
 import exception.UserException;
 import service.IUserService;
 import web.formbean.CreateTaskFormBean;
-import weibo4j.model.User;
 
 //IUserService接口的实现-提供给用户的服务的实现
 public class UserServiceImpl implements IUserService{
