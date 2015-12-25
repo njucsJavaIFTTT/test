@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.Execute;
+import service.ITaskService;
+import service.impl.TaskServiceImpl;
 
 /**
  * 处理停止任务的Servlet

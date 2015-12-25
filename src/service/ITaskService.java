@@ -1,17 +1,23 @@
 package service;
 
+import domain.Execute;
+import domain.Task;
 import domain.UserAccount;
+import exception.TaskException;
 import exception.UserException;
 import web.formbean.CreateTaskFormBean;
 
 public interface ITaskService {
 
-	// 注册服务
-	void registerUser(UserAccount user) throws UserException;
+	// 从数据库按TaskId查找TaskFormBean
+	CreateTaskFormBean findTask(int taskId) throws TaskException;
 
-	// 登录服务
-	UserAccount loginUser(String uName, String uPwd) throws UserException;
-		
-	// 扣费服务
-	void chargeUser(CreateTaskFormBean formBean) throws UserException;
+	// 将任务添加到运行队列
+	Execute addTaskIntoExecuteList(Task task) throws TaskException;
+	
+	// 按照TaskId从运行队列中找到运行任务
+	Execute findExecuteInList(int taskId) throws TaskException;
+	
+	// 创建Task任务
+	Task createTask(CreateTaskFormBean formBean) throws TaskException;
 }
