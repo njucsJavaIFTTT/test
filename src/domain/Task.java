@@ -26,7 +26,7 @@ public class Task implements Cloneable{
 	private double expense;//费用
 	static private int taskID=0;//任务编号
 	
-	public Task(String name,Request r,Goal g) throws Exception
+	public Task(String name,Request r,Goal g) throws CloneNotSupportedException
 	{
 		TaskName = new String(name);
 		request = (Request)r.clone();

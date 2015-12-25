@@ -112,7 +112,16 @@ public class UserServiceImpl implements IUserService{
 			throw new UserException("Wrong That Type!");
 		}
 		}
-		Task task = new Task(formBean.getTaskName(), request, goal);
+		
+		/* 创建Task用于收费 */
+		Task task = null;
+		try {
+			task = new Task(formBean.getTaskName(), request, goal);
+		}
+		catch(CloneNotSupportedException e){
+			e.printStackTrace();
+		}
+		
 		uDao.charge(uMailAccount,task);
 		
 	}
