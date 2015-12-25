@@ -8,14 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.annotation.XmlElementDecl.GLOBAL;
 
-import domain.Goal;
-import domain.Request;
-import domain.Task;
+
 import domain.UserAccount;
-import service.IUserService;
-import service.impl.UserServiceImpl;
 import util.WebUtils;
 import web.formbean.CreateTaskFormBean;
 
@@ -35,7 +30,7 @@ public class CreateTaskServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
     	/* 
-    	 * Task.jsp中的thisType应为下拉框，post的值为int型；
+    	 * Task.jsp中的thisType的post值为int型；
     	 * 其中，0 - 定时，1 - 收邮件， 2 - 监听微博, 3 - 在给定时间内监听微博；
     	 * thatType同理，0 - 发微博， 1 - 发邮件；
     	 */
@@ -60,7 +55,7 @@ public class CreateTaskServlet extends HttpServlet {
     	}
     	*/
     	
-    	/* 返回任务信息给用户 */
+    	/* 返回创建任务信息给用户 */
     	if(flag){
     		response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
 		    String data = "创建任务成功， 可以在我的任务中查看。";

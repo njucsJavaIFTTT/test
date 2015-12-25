@@ -12,6 +12,6 @@ public interface IUserService {
 	// 登录服务
 	UserAccount loginUser(String uName, String uPwd) throws UserException;
 	
-	//扣费服务
+	// 扣费服务
 	void chargeUser(CreateTaskFormBean formBean) throws UserException;
 }
