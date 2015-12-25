@@ -8,7 +8,6 @@ package web.formbean;
  */
 
 public class CreateTaskFormBean {
-
 	private String taskName;//任务名
 	private int taskID;//任务ID唯一标识
 	private String ownerMail;//任务所属用户的账号邮箱
@@ -27,7 +26,31 @@ public class CreateTaskFormBean {
 	private String sendWeiboAccessToken;//that任务-发送微博授权码
 	private String mailContent;//that任务-发送邮件内容
 	private String receiverMailAccount;//that任务-收件邮箱账号
-	
+
+	public CreateTaskFormBean(String taskName, int taskID, String ownerMail, int thisType, int thatType,
+			String orderedTime, String monitorMailAccount, String monitorMailpassword, String monitorWeiboAccount,
+			String monitorWeiboAccessToken, String monitorContain, int listenMinute, String weiboContent,
+			String sendWeiboAccount, String sendWeiboAccessToken, String mailContent, String receiverMailAccount) {
+		super();
+		this.taskName = taskName;
+		this.taskID = taskID;
+		this.ownerMail = ownerMail;
+		this.thisType = thisType;
+		this.thatType = thatType;
+		this.orderedTime = orderedTime;
+		MonitorMailAccount = monitorMailAccount;
+		MonitorMailpassword = monitorMailpassword;
+		MonitorWeiboAccount = monitorWeiboAccount;
+		MonitorWeiboAccessToken = monitorWeiboAccessToken;
+		MonitorContain = monitorContain;
+		this.listenMinute = listenMinute;
+		this.weiboContent = weiboContent;
+		this.sendWeiboAccount = sendWeiboAccount;
+		this.sendWeiboAccessToken = sendWeiboAccessToken;
+		this.mailContent = mailContent;
+		this.receiverMailAccount = receiverMailAccount;
+	}
+
 	public String getOwner() {
 		return ownerMail;
 	}
@@ -154,6 +177,18 @@ public class CreateTaskFormBean {
 
 	public void setTime(String time) {
 		this.orderedTime = time;
+	}
+
+	@Override
+	public String toString() {
+		return "CreateTaskFormBean [taskName=" + taskName + ", taskID=" + taskID + ", ownerMail=" + ownerMail
+				+ ", thisType=" + thisType + ", thatType=" + thatType + ", orderedTime=" + orderedTime
+				+ ", MonitorMailAccount=" + MonitorMailAccount + ", MonitorMailpassword=" + MonitorMailpassword
+				+ ", MonitorWeiboAccount=" + MonitorWeiboAccount + ", MonitorWeiboAccessToken="
+				+ MonitorWeiboAccessToken + ", MonitorContain=" + MonitorContain + ", listenMinute=" + listenMinute
+				+ ", weiboContent=" + weiboContent + ", sendWeiboAccount=" + sendWeiboAccount
+				+ ", sendWeiboAccessToken=" + sendWeiboAccessToken + ", mailContent=" + mailContent
+				+ ", receiverMailAccount=" + receiverMailAccount + "]";
 	}
 	
 	/*

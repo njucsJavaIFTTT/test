@@ -4,8 +4,9 @@ import java.sql.*;
 import domain.Task;
 import domain.UserAccount;
 import domain.ExpenseCalendar;
+import web.formbean.CreateTaskFormBean;
+import java.util.Vector;
 import java.util.Date;
-import java.sql.Timestamp;
 
 public class DBHelper {// 用于打开或关闭数据库
 
@@ -24,7 +25,7 @@ public class DBHelper {// 用于打开或关闭数据库
 				+ "lv int,"
 				+"credit int,"
 				+ "discount double,"
-				+ "UserState bool)";
+				+ "UserState int)";
 		try {
 			pst = connect.prepareStatement(sql);
 		} catch (SQLException e) {
@@ -164,7 +165,6 @@ public class DBHelper {// 用于打开或关闭数据库
 		UserAccount user=null;
 		try {
 			sql = "select * from UserAccount where mail=\'" + uMailAccount + "\' and pwd=\'"+uPwd+"\';";
-			
 			// pst.setBoolean(2,user.getState());不好弄不是bool也不是int是enum,暂时不加进去
 			pst = connect.prepareStatement(sql);
 			ret = pst.executeQuery();// 执行语句，得到结果集
@@ -215,5 +215,73 @@ public class DBHelper {// 用于打开或关闭数据库
 			e.printStackTrace();
 		}
 		return true;
+	}
+	
+	public Vector<Task> viewTask(String uMailAccount) throws SQLException{//根据用户mail查其所有Task
+		Vector<Task> t=new Vector<Task>();
+		sql = "select * from taskFormbean where ownerMail=\'" + uMailAccount +"\';";
+		pst = connect.prepareStatement(sql);
+		ret = pst.executeQuery();// 执行语句，得到结果集
+		while(ret.next()){// 结果集非空
+			//System.out.println("hhh");
+			CreateTaskFormBean tf=new CreateTaskFormBean(ret.getString("taskName"),
+			ret.getInt("taskID"),//任务ID唯一标识
+			ret.getString("ownerMail"),//任务所属用户的账号邮箱
+			ret.getInt("thisType"),
+			ret.getInt("thatType"),
+			ret.getString("orderedTime"),//定时
+			ret.getString("MonitorMailAccount"),//this任务-收件QQ邮箱账号
+			ret.getString("MonitorMailpassword"),//this任务-收件QQ邮箱密码
+			ret.getString("MonitorWeiboAccount"),//this任务-监听微博账号
+			ret.getString("MonitorWeiboAccessToken"),//this任务-监听微博授权码
+			ret.getString("MonitorContain"),//this任务-监听微博内容
+			ret.getInt("listenMinute"),//this任务-监听微博时长
+			
+			ret.getString("weiboContent"),//that任务-发送微博内容
+			ret.getString("sendWeiboAccount"),//that任务-发送微博账号
+			ret.getString("sendWeiboAccessToken"),//that任务-发送微博授权码
+			ret.getString("mailContent"),//that任务-发送邮件内容
+			ret.getString("receiverMailAccount") );//that任务-收件邮箱账号
+			System.out.println(tf.toString());
+			//Task tmpTask=createTask(tf);//待实现
+			//t.add(tmpTask);
+		}
+		System.out.println("Success do '" + sql + "'!(db-viewTask)");
+		return t;
+	}
+	
+	public CreateTaskFormBean tIDgetTFB(int taskID) throws SQLException{//通过taskID返回相应formbean
+		sql = "select * from taskFormbean where taskID=" + taskID +";";
+		pst = connect.prepareStatement(sql);
+		ret = pst.executeQuery();// 执行语句，得到结果集
+		if(ret.next()){// 结果集非空
+			//System.out.println("hhh");
+			CreateTaskFormBean tf=new CreateTaskFormBean(ret.getString("taskName"),
+			ret.getInt("taskID"),//任务ID唯一标识
+			ret.getString("ownerMail"),//任务所属用户的账号邮箱
+			ret.getInt("thisType"),
+			ret.getInt("thatType"),
+			ret.getString("orderedTime"),//定时
+			ret.getString("MonitorMailAccount"),//this任务-收件QQ邮箱账号
+			ret.getString("MonitorMailpassword"),//this任务-收件QQ邮箱密码
+			ret.getString("MonitorWeiboAccount"),//this任务-监听微博账号
+			ret.getString("MonitorWeiboAccessToken"),//this任务-监听微博授权码
+			ret.getString("MonitorContain"),//this任务-监听微博内容
+			ret.getInt("listenMinute"),//this任务-监听微博时长
+			
+			ret.getString("weiboContent"),//that任务-发送微博内容
+			ret.getString("sendWeiboAccount"),//that任务-发送微博账号
+			ret.getString("sendWeiboAccessToken"),//that任务-发送微博授权码
+			ret.getString("mailContent"),//that任务-发送邮件内容
+			ret.getString("receiverMailAccount") );//that任务-收件邮箱账号
+			System.out.println(tf.toString());
+			System.out.println("find-Success do '" + sql + "'!(db-tIDgetTFB)");
+			return tf;
+		}
+		else{
+			System.out.println("can't find-Success do '" + sql + "'!(db-tIDgetTFB)");
+			return null;
+		}
+		
 	}
 }

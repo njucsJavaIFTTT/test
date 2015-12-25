@@ -2,6 +2,7 @@ package dao.impl;
 import dao.IUserDao;
 import domain.ExpenseCalendar;
 import domain.Task;
+import java.util.Vector;
 import domain.UserAccount;
 
 import java.util.List;
@@ -36,7 +37,7 @@ public class UserDaoImpl implements IUserDao{
 	}
 	
 	public boolean charge(String uMailAccount,int ExpCnt,Task task){
-		//开始任务时对用户收费
+		//开始任务时对用户收费，收费成功则true
 		//①修改userAccount的余额 ②增加user的expenseCalendar
 		//ExpCnt为user.ExpenseCalendar.size
 		DBHelper db=new DBHelper();
@@ -45,13 +46,15 @@ public class UserDaoImpl implements IUserDao{
 		return ret;
 	};
 	
-	public List<Task> viewTask(String uMailAccount){//根据用户mail查其所有Task
-		List<Task> t;
+	public Vector<Task> viewTask(String uMailAccount){//根据用户mail查其所有Task
+		DBHelper db=new DBHelper();
+		Vector<Task> t=db.viewTask(uMailAccount);
+		db.close();
 		return t;
 	};
 	
-	public List<ExpenseCalendar> viewExpCalendar(String uMailAccount){//根据用户mail查其所有消费记录
-		List<ExpenseCalendar> expC;
+	public Vector<ExpenseCalendar> viewExpCalendar(String uMailAccount){//根据用户mail查其所有消费记录
+		Vector<ExpenseCalendar> expC;
 		return expC;
 	};
 }
