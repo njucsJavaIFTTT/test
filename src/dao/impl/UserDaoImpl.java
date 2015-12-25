@@ -1,10 +1,14 @@
 package dao.impl;
 import dao.IUserDao;
+import domain.ExpenseCalendar;
 import domain.Task;
 import domain.UserAccount;
+
+import java.util.List;
+
 import DB.DBHelper;
 //import util.XmlUtils;
-//IUserDao接口的实现类-关于用户的增查服务实现-连接数据库
+//IUserDao接口的实现类-关于用户的各种服务实现-连接数据库
 
 public class UserDaoImpl implements IUserDao{
 	
@@ -31,7 +35,23 @@ public class UserDaoImpl implements IUserDao{
 		return pwd;
 	}
 	
-	public void charge(String uMailAccount, Task task){
-		
+	public boolean charge(String uMailAccount,int ExpCnt,Task task){
+		//开始任务时对用户收费
+		//①修改userAccount的余额 ②增加user的expenseCalendar
+		//ExpCnt为user.ExpenseCalendar.size
+		DBHelper db=new DBHelper();
+		boolean ret=db.charge(uMailAccount,ExpCnt,task);
+		db.close();
+		return ret;
+	};
+	
+	public List<Task> viewTask(String uMailAccount){//根据用户mail查其所有Task
+		List<Task> t;
+		return t;
+	};
+	
+	public List<ExpenseCalendar> viewExpCalendar(String uMailAccount){//根据用户mail查其所有消费记录
+		List<ExpenseCalendar> expC;
+		return expC;
 	};
 }

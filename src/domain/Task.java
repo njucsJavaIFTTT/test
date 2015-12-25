@@ -25,7 +25,7 @@ public class Task implements Cloneable{
 	private Goal goal;//that任务指针
 	private double expense;//费用
 	static private int taskID=0;//任务编号
-	
+
 	public Task(String name,Request r,Goal g) throws CloneNotSupportedException
 	{
 		TaskName = new String(name);
@@ -89,6 +89,10 @@ public class Task implements Cloneable{
 			e.printStackTrace();
 		}
 		return g;
+	}
+	
+	public static int getTaskID() {
+		return taskID;
 	}
 	
 	public Object clone() throws CloneNotSupportedException {

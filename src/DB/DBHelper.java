@@ -1,8 +1,11 @@
 package DB;
 
 import java.sql.*;
+import domain.Task;
 import domain.UserAccount;
 import domain.ExpenseCalendar;
+import java.util.Date;
+import java.sql.Timestamp;
 
 public class DBHelper {// 用于打开或关闭数据库
 
@@ -69,7 +72,7 @@ public class DBHelper {// 用于打开或关闭数据库
 		
 		//create table expenseCalendar
 		sql ="create table ExpenseCalendar("
-				+ "startDate date,"
+				+ "startDate timestamp,"
 				+ "taskID int not null primary key,"
 				+ "num int";
 		try {
@@ -166,7 +169,7 @@ public class DBHelper {// 用于打开或关闭数据库
 			pst = connect.prepareStatement(sql);
 			ret = pst.executeQuery();// 执行语句，得到结果集
 			if(ret.next()){// 结果集非空
-				System.out.println("hhh");
+				//System.out.println("hhh");
 				String uName = ret.getString("username");
 				user=new UserAccount(uName,uPwd,uMailAccount);
 
@@ -194,7 +197,23 @@ public class DBHelper {// 用于打开或关闭数据库
 		}
 	}
 	
-	public boolean charge(String mailAccount,ExpenseCalendar expCal){
+	public boolean charge(String mailAccount,int ExpCnt,Task t){
+		//根据任务对用户进行收费并增加消费记录
+		try {
+			sql = "INSERT INTO ExpenseCalendar VALUES(?,?,?)";
+			pst = connect.prepareStatement(sql);// 准备执行语句
+			Date date=new Date();
+			Timestamp tStamp = new Timestamp(date.getTime());
+		
+			pst.setTimestamp(1, tStamp);
+			pst.setInt(2, t.getTaskID());
+			pst.setInt(3, ExpCnt);
+			pst.executeUpdate();
+			System.out.println("Success do '" + sql + "'!(db-Users)");
+		} catch (Exception e) {
+			System.out.print("Fail do '" + sql + "'!(db-Users)");
+			e.printStackTrace();
+		}
 		return true;
 	}
 }
