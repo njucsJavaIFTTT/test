@@ -2,9 +2,7 @@ package service;
 
 import domain.Execute;
 import domain.Task;
-import domain.UserAccount;
 import exception.TaskException;
-import exception.UserException;
 import web.formbean.CreateTaskFormBean;
 
 public interface ITaskService {
@@ -20,4 +18,7 @@ public interface ITaskService {
 	
 	// 创建Task任务
 	Task createTask(CreateTaskFormBean formBean) throws TaskException;
+	
+	// 将TaskFormBean存入到数据库中
+	void storeTask(CreateTaskFormBean formBean)throws TaskException;
 }
