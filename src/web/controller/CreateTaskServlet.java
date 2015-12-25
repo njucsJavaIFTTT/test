@@ -1,6 +1,7 @@
 package web.controller;
 
 import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,25 +39,17 @@ public class CreateTaskServlet extends HttpServlet {
     	 * 其中，0 - 定时，1 - 收邮件， 2 - 监听微博, 3 - 在给定时间内监听微博；
     	 * thatType同理，0 - 发微博， 1 - 发邮件；
     	 */
-    	int thisType = Integer.parseInt(request.getParameter("thisType"));
-    	int thatType = Integer.parseInt(request.getParameter("thatType"));
     	
     	/* 将表单数据存储到formbean中 */
     	CreateTaskFormBean formBean = WebUtils.request2Bean(request, CreateTaskFormBean.class);
     	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
     	formBean.setOwner(user.getMailAccount());
     	
-    	/* 对用户进行扣费,并更新DB中的用户信息（余额、消费记录、任务序列） */
-    	IUserService userService = new UserServiceImpl();
-    	try {
-    		userService.chargeUser(formBean);
-    	}
-    	catch()
-    	{
-    		
-    	}
+    	boolean flag = true;//用于记录存储formBean是否成功的标志位
     	
-    	/* 将formBean存储到DB中 */
+    	/* 将formBean存储到DB中的Task表中 */
+    	/* Add Here */
+    	/*
     	ITaskService taskService = new TaskServiceImpl();
     	try {
     		taskService.storeTask(formBean);
@@ -65,9 +58,21 @@ public class CreateTaskServlet extends HttpServlet {
     	{
     		
     	}
+    	*/
     	
     	/* 返回任务信息给用户 */
-    	
+    	if(flag){
+    		response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
+		    String data = "创建任务成功， 可以在我的任务中查看。";
+		    OutputStream stream = response.getOutputStream();
+		    stream.write(data.getBytes("UTF-8")); 
+    	}
+    	else {
+    		response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
+		    String data = "任务创建失败，请稍后重新创建。 ";
+		    OutputStream stream = response.getOutputStream();
+		    stream.write(data.getBytes("UTF-8"));
+    	}
     }
     
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import domain.Mail;
 
-
-
 /**
  * 处理邮箱验证的Servlet
  * @author YJJ
