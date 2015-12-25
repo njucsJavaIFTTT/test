@@ -10,7 +10,7 @@ package web.formbean;
 public class CreateTaskFormBean {
 
 	private String taskName;//任务名
-	private String owner;//任务所属用户的账号邮箱
+	private String ownerMail;//任务所属用户的账号邮箱
 	private int thisType;
 	private int thatType;
 	private String time;//定时
@@ -28,11 +28,11 @@ public class CreateTaskFormBean {
 	private String ReceiverMailAccount;//that任务-收件邮箱账号
 	
 	public String getOwner() {
-		return owner;
+		return ownerMail;
 	}
 
 	public void setOwner(String owner) {
-		this.owner = owner;
+		this.ownerMail = owner;
 	}
 
 	public int getThatType() {

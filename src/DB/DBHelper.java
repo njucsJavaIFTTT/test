@@ -10,7 +10,37 @@ public class DBHelper {// 用于打开或关闭数据库
 	static String sql = null;// sql是要执行的语句
 	public PreparedStatement pst = null;
 	static ResultSet ret = null;// 返回结果集
-
+	public void createALL(){//只要第一次建立网站的时候调用即可
+		//已经create DB Users好了-手动在Mysql workbench弄。
+		//create table users
+		sql = "create table UserAccount("
+				+ "	username char(50),"
+				+ "pwd char(50),"
+				+"mail char(100) not null primary key,"
+				+ "balance double,"
+				+ "lv int,"
+				+"credit int,"
+				+ "discount double,"
+				+ "UserState bool)";
+		try {
+			pst = connect.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			ret = pst.executeQuery();// 执行语句，得到结果集
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//create table taskFormbean
+		
+		//create table expenseCalendar
+		
+		//create table message（待定）
+	}
 	public DBHelper() {
 		// 加载MYSQL JDBC驱动程序
 		try {
@@ -30,7 +60,7 @@ public class DBHelper {// 用于打开或关闭数据库
 			System.out.print("connect Mysql server error!(db-Users)");
 			e.printStackTrace();
 		}
-
+		
 	}
 
 	public void addUser(UserAccount user) {

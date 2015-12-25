@@ -6,22 +6,7 @@ import java.util.Set;
 
 enum UserState{login,logout};//登入、登出
 
-/* 消费记录类 */
-class ExpenseCalendar {
-	private Date date;//点击运行任务的时间
-	private int taskID;//任务编号
-	private int num;//消费记录编号，根据date的先后来编号
-	
-	public ExpenseCalendar(int tID,int n){
-		date= new Date();
-		taskID = tID;
-		num = n;
-	}
-	
-	public ExpenseCalendar getRecord(){
-		return this;
-	}
-}
+
 
 /* 用户账号实体类 */
 /* 尚未实现用户消息查看、管理 */
