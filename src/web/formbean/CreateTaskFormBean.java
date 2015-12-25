@@ -13,7 +13,7 @@ public class CreateTaskFormBean {
 	private String ownerMail;//任务所属用户的账号邮箱
 	private int thisType;
 	private int thatType;
-	private String time;//定时
+	private String orderedtime;//定时
 	private String MonitorMailAccount;//this任务-收件QQ邮箱账号
 	private String MonitorMailpassword;//this任务-收件QQ邮箱密码
 	private String MonitorWeiboAccount;//this任务-监听微博账号
@@ -148,11 +148,11 @@ public class CreateTaskFormBean {
 	}
 
 	public String getTime() {
-		return time;
+		return orderedtime;
 	}
 
 	public void setTime(String time) {
-		this.time = time;
+		this.orderedtime = time;
 	}
 	
 	/*
