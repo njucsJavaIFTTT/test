@@ -49,7 +49,7 @@ public class CreateTaskServlet extends HttpServlet {
     	/* 对用户进行扣费,并更新DB中的用户信息（余额、消费记录、任务序列） */
     	IUserService userService = new UserServiceImpl();
     	try {
-    		userService.Charge(user.getMailAccount(),formBean.getTaskName());
+    		userService.chargeUser(formBean);
     	}
     	catch()
     	{

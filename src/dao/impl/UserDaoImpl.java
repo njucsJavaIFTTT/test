@@ -1,5 +1,6 @@
 package dao.impl;
 import dao.IUserDao;
+import domain.Task;
 import domain.UserAccount;
 import DB.DBHelper;
 //import util.XmlUtils;
@@ -29,4 +30,8 @@ public class UserDaoImpl implements IUserDao{
 		db.close();
 		return pwd;
 	}
+	
+	public void charge(String uMailAccount, Task task){
+		
+	};
 }

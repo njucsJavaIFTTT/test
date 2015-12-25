@@ -1,8 +1,5 @@
 package web.formbean;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 封装的创建任务表单，用来接收task.jsp中的表单输入项的值
  * Bean中的属性与jsp中的表单输入项的名字一一对应
@@ -26,6 +23,7 @@ public class CreateTaskFormBean {
 	
 	private String WeiboContent;//that任务-发送微博内容
 	private String SendWeiboAccount;//that任务-发送微博账号
+	private String sendWeiboAccessToken;//that任务-发送微博授权码
 	private String MailContent;//that任务-发送邮件内容
 	private String ReceiverMailAccount;//that任务-收件邮箱账号
 	
@@ -109,6 +107,14 @@ public class CreateTaskFormBean {
 		SendWeiboAccount = sendWeiboAccount;
 	}
 
+	public String getSendWeiboAccessToken() {
+		return sendWeiboAccessToken;
+	}
+
+	public void setSendWeiboAccessToken(String sendWeiboAccessToken) {
+		this.sendWeiboAccessToken = sendWeiboAccessToken;
+	}
+	
 	public String getMailContent() {
 		return MailContent;
 	}
