@@ -24,6 +24,7 @@ public class Task implements Cloneable{
 	private Request request;//this任务指针
 	private Goal goal;//that任务指针
 	private double expense;//费用
+	static private int taskID=0;//任务编号
 	
 	public Task(String name,Request r,Goal g) throws Exception
 	{
@@ -32,6 +33,7 @@ public class Task implements Cloneable{
 		goal = (Goal)g.clone();
 		/* 收费方式 */
 		expense = 0;
+		taskID++;
 		switch (request.thisType) {
 		case OrderTime:
 			expense += 50;

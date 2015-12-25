@@ -7,23 +7,19 @@ import java.util.Set;
 enum UserState{login,logout};//登入、登出
 
 /* 消费记录类 */
-class ExpenceCalendar {
-	private Date date;//时间
-	private double amount;//金额
-	private int thisnum;//this任务编号
-	private int thatnum;//that任务编号
-	private int num;//消费记录编号
+class ExpenseCalendar {
+	private Date date;//点击运行任务的时间
+	private int taskID;//任务编号
+	private int num;//消费记录编号，根据date的先后来编号
 	
-	public ExpenceCalendar(double cost,int thisn,int thatn,int n)
+	public ExpenseCalendar(int tID,int n)
 	{
 		date= new Date();
-		amount = cost;
-		thisnum = thisn;
-		thatnum = thatn;
+		taskID = tID;
 		num = n;
 	}
 	
-	public ExpenceCalendar getRecord()
+	public ExpenseCalendar getRecord()
 	{
 		return this;
 	}
@@ -40,7 +36,7 @@ public class UserAccount {
 	private String mailAccount;//邮箱账号，唯一
 	private double balance;//余额
 	private int level;
-	private Set<ExpenceCalendar> expenceCalendar;//消费记录
+	private Set<ExpenseCalendar> expenseCalendar;//消费记录
 	private int credit;//积分
 	private double discount;//折扣
 	private TaskQueue taskQueue;//任务队列类
@@ -49,7 +45,7 @@ public class UserAccount {
 	public UserAccount(){
 		balance = 1000;
 		level = 1;
-		expenceCalendar = new HashSet<ExpenceCalendar>();
+		expenseCalendar = new HashSet<ExpenseCalendar>();
 		credit = 0;
 		discount = 1;
 		//taskQueue = new TaskQueue(mailAccount);
@@ -63,7 +59,7 @@ public class UserAccount {
 		mailAccount = new String(mail);
 		balance = 1000;
 		level = 1;
-		expenceCalendar = new HashSet<ExpenceCalendar>();
+		expenseCalendar = new HashSet<ExpenseCalendar>();
 		credit = 0;
 		discount = 1;
 		taskQueue = new TaskQueue(mailAccount);
@@ -91,9 +87,9 @@ public class UserAccount {
 		return level;
 	}
 
-	public Set<ExpenceCalendar> getExpenceCanlendar() {
-		Set<ExpenceCalendar> records = new HashSet<ExpenceCalendar>();
-		records.addAll(expenceCalendar);
+	public Set<ExpenseCalendar> getExpenceCanlendar() {
+		Set<ExpenseCalendar> records = new HashSet<ExpenseCalendar>();
+		records.addAll(expenseCalendar);
 		return records;
 	}
 
@@ -194,7 +190,7 @@ public class UserAccount {
 			return false;
 		balance -= amount * discount;
 		credit += amount;
-		expenceCalendar.add(new ExpenceCalendar(amount*discount, thisn, thatn, expenceCalendar.size()));
+		expenseCalendar.add(new ExpenseCalendar(amount*discount, thisn, thatn, expenseCalendar.size()));
 		if(credit <= 1000)
 		{
 			level = 1;
