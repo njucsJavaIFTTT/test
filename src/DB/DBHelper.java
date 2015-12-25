@@ -2,6 +2,7 @@ package DB;
 
 import java.sql.*;
 import domain.UserAccount;
+import domain.ExpenseCalendar;
 
 public class DBHelper {// 用于打开或关闭数据库
 
@@ -108,7 +109,7 @@ public class DBHelper {// 用于打开或关闭数据库
 		return null;//cant find 关键词,会在调用此方法的上一级方法中检验,这里也写是因为trycatch里的东西不被认可存在
 	}
 	
-	public void close() {
+	public void close() {//关闭对数据库的连接
 		try {
 			this.connect.close();
 			this.pst.close();
@@ -117,5 +118,8 @@ public class DBHelper {// 用于打开或关闭数据库
 			e.printStackTrace();
 		}
 	}
-
+	
+	public boolean charge(String mailAccount,ExpenseCalendar expCal){
+		return true;
+	}
 }

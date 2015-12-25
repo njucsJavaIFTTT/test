@@ -12,15 +12,13 @@ class ExpenseCalendar {
 	private int taskID;//任务编号
 	private int num;//消费记录编号，根据date的先后来编号
 	
-	public ExpenseCalendar(int tID,int n)
-	{
+	public ExpenseCalendar(int tID,int n){
 		date= new Date();
 		taskID = tID;
 		num = n;
 	}
 	
-	public ExpenseCalendar getRecord()
-	{
+	public ExpenseCalendar getRecord(){
 		return this;
 	}
 }
