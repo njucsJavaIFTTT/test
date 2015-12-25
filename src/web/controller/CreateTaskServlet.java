@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import domain.UserAccount;
+import exception.TaskException;
+import service.ITaskService;
+import service.impl.TaskServiceImpl;
 import util.WebUtils;
 import web.formbean.CreateTaskFormBean;
 
@@ -43,18 +46,15 @@ public class CreateTaskServlet extends HttpServlet {
     	boolean flag = true;//用于记录存储formBean是否成功的标志位
     	
     	/* 将formBean存储到DB中的Task表中 */
-    	/* Add Here */
-    	/*
     	ITaskService taskService = new TaskServiceImpl();
     	try {
     		taskService.storeTask(formBean);
     	}
-    	catch()
+    	catch(TaskException e)
     	{
-    		
+    		e.printStackTrace();
     	}
-    	*/
-    	
+
     	/* 返回创建任务信息给用户 */
     	if(flag){
     		response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
