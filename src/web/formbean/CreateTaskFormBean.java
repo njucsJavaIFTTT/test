@@ -10,22 +10,23 @@ package web.formbean;
 public class CreateTaskFormBean {
 
 	private String taskName;//任务名
+	private int taskID;//任务ID唯一标识
 	private String ownerMail;//任务所属用户的账号邮箱
 	private int thisType;
 	private int thatType;
-	private String orderedtime;//定时
+	private String orderedTime;//定时
 	private String MonitorMailAccount;//this任务-收件QQ邮箱账号
 	private String MonitorMailpassword;//this任务-收件QQ邮箱密码
 	private String MonitorWeiboAccount;//this任务-监听微博账号
 	private String MonitorWeiboAccessToken;//this任务-监听微博授权码
 	private String MonitorContain;//this任务-监听微博内容
-	private int minute;//this任务-监听微博时长
+	private int listenMinute;//this任务-监听微博时长
 	
-	private String WeiboContent;//that任务-发送微博内容
-	private String SendWeiboAccount;//that任务-发送微博账号
+	private String weiboContent;//that任务-发送微博内容
+	private String sendWeiboAccount;//that任务-发送微博账号
 	private String sendWeiboAccessToken;//that任务-发送微博授权码
-	private String MailContent;//that任务-发送邮件内容
-	private String ReceiverMailAccount;//that任务-收件邮箱账号
+	private String mailContent;//that任务-发送邮件内容
+	private String receiverMailAccount;//that任务-收件邮箱账号
 	
 	public String getOwner() {
 		return ownerMail;
@@ -84,27 +85,27 @@ public class CreateTaskFormBean {
 	}
 
 	public int getMinute() {
-		return minute;
+		return listenMinute;
 	}
 
 	public void setMinute(int minute) {
-		this.minute = minute;
+		this.listenMinute = minute;
 	}
 
 	public String getWeiboContent() {
-		return WeiboContent;
+		return weiboContent;
 	}
 
 	public void setWeiboContent(String weiboContent) {
-		WeiboContent = weiboContent;
+		weiboContent = weiboContent;
 	}
 
 	public String getSendWeiboAccount() {
-		return SendWeiboAccount;
+		return sendWeiboAccount;
 	}
 
 	public void setSendWeiboAccount(String sendWeiboAccount) {
-		SendWeiboAccount = sendWeiboAccount;
+		sendWeiboAccount = sendWeiboAccount;
 	}
 
 	public String getSendWeiboAccessToken() {
@@ -116,19 +117,19 @@ public class CreateTaskFormBean {
 	}
 	
 	public String getMailContent() {
-		return MailContent;
+		return mailContent;
 	}
 
 	public void setMailContent(String mailContent) {
-		MailContent = mailContent;
+		mailContent = mailContent;
 	}
 
 	public String getReceiverMailAccount() {
-		return ReceiverMailAccount;
+		return receiverMailAccount;
 	}
 
 	public void setReceiverMailAccount(String receiverMailAccount) {
-		ReceiverMailAccount = receiverMailAccount;
+		receiverMailAccount = receiverMailAccount;
 	}
 
 	public String getTaskName() {
@@ -148,11 +149,11 @@ public class CreateTaskFormBean {
 	}
 
 	public String getTime() {
-		return orderedtime;
+		return orderedTime;
 	}
 
 	public void setTime(String time) {
-		this.orderedtime = time;
+		this.orderedTime = time;
 	}
 	
 	/*

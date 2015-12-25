@@ -36,9 +36,54 @@ public class DBHelper {// 用于打开或关闭数据库
 		}
 		
 		//create table taskFormbean
+		sql ="create table taskFormbean("
+				+ "taskID int not null primary key,"
+				+ "taskName char(50),"
+				+ "ownerMail char(50),"
+				+ "thisType int,"
+				+ "thatType int,"
+				+ "time char(50),"
+				+ "MonitorMailAccount char(50),"
+				+ "MonitorMailpassword char(50),"
+				+ "MonitorWeiboAccount char(50),"
+				+ "MonitorWeiboAccessToken char(50),"
+				+ "MonitorContain char(50),"
+				+ "ListenMinute int,"
+				+ "WeiboContent char(50),"
+				+ "sendWeiboAccount char(50),"
+				+ "sendWeiboAccessToken char(50),"
+				+ "mailContent char(50),"
+				+ "receiverMailAccount char(50) )";
+		try {
+			pst = connect.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			ret = pst.executeQuery();// 执行语句，得到结果集
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//create table expenseCalendar
-		
+		sql ="create table ExpenseCalendar("
+				+ "startDate date,"
+				+ "taskID int not null primary key,"
+				+ "num int";
+		try {
+			pst = connect.prepareStatement(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			ret = pst.executeQuery();// 执行语句，得到结果集
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//create table message（待定）
 	}
 	public DBHelper() {
