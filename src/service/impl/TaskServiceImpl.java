@@ -1,5 +1,6 @@
 package service.impl;
 
+import DB.DBHelper;
 import domain.Execute;
 import domain.Goal;
 import domain.MonitorWeibo;
@@ -20,14 +21,16 @@ public class TaskServiceImpl implements ITaskService{
 
 	@Override
 	public CreateTaskFormBean findTask(int taskId) throws TaskException {
-		// TODO Auto-generated method stub
-		return null;
+		DBHelper db = new DBHelper();
+		CreateTaskFormBean formBean = db.findTask(taskId);
+		db.close();
+		return formBean;
 	}
 
 	@Override
 	public Execute addTaskIntoExecuteList(Task task) throws TaskException {
-		// TODO Auto-generated method stub
-		return null;
+		Execute execute = null;
+		return execute;
 	}
 
 	@Override
