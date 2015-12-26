@@ -41,7 +41,7 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public void chargeUser(CreateTaskFormBean formBean) throws UserException {
-		String uMailAccount = formBean.getOwner();
+		String uMailAccount = formBean.getOwnerMail();
 		String password = uDao.find(uMailAccount);
 		if(password == null)
 			throw new UserException("任务所属用户不存在!");

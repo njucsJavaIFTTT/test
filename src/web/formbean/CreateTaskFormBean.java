@@ -51,11 +51,11 @@ public class CreateTaskFormBean {
 		this.receiverMailAccount = receiverMailAccount;
 	}
 
-	public String getOwner() {
+	public String getOwnerMail() {
 		return ownerMail;
 	}
 
-	public void setOwner(String owner) {
+	public void setOwnerMail(String owner) {
 		this.ownerMail = owner;
 	}
 
@@ -107,11 +107,11 @@ public class CreateTaskFormBean {
 		MonitorContain = monitorContain;
 	}
 
-	public int getMinute() {
+	public int getListenMinute() {
 		return listenMinute;
 	}
 
-	public void setMinute(int minute) {
+	public void setListenMinute(int minute) {
 		this.listenMinute = minute;
 	}
 
@@ -155,10 +155,18 @@ public class CreateTaskFormBean {
 		receiverMailAccount = receiverMailAccount;
 	}
 
+	public int getTaskID() {
+		return taskID;
+	}
+
+	public void setTaskID(int taskID) {
+		this.taskID = taskID;
+	}
+
 	public String getTaskName() {
 		return taskName;
 	}
-
+	
 	public void setTaskName(String taskName) {
 		this.taskName = new String(taskName);
 	}
@@ -171,11 +179,11 @@ public class CreateTaskFormBean {
 		this.thisType = thisType;
 	}
 
-	public String getTime() {
+	public String getOrderedTime() {
 		return orderedTime;
 	}
 
-	public void setTime(String time) {
+	public void setOrderedTime(String time) {
 		this.orderedTime = time;
 	}
 

@@ -3,18 +3,16 @@ import dao.IUserDao;
 import domain.ExpenseCalendar;
 import domain.Task;
 import java.util.Vector;
+
+import DB.DBHelperImpl;
 import domain.UserAccount;
 
 import java.util.List;
 
-import DB.DBHelper;
-//import util.XmlUtils;
-//IUserDao接口的实现类-关于用户的各种服务实现-连接数据库
-
 public class UserDaoImpl implements IUserDao{
 	
 	public UserAccount find(String uMailAccount,String uPwd){	
-		DBHelper db=new DBHelper();
+		DBHelperImpl db=new DBHelperImpl();
 		UserAccount user=db.findUser(uMailAccount,uPwd);
 		db.close();
 		return user;
@@ -22,7 +20,7 @@ public class UserDaoImpl implements IUserDao{
 	
 	public void add(UserAccount user){
 
-		DBHelper db=new DBHelper();
+		DBHelperImpl db=new DBHelperImpl();
 		db.addUser(user);
 		db.close();
 	}
@@ -30,7 +28,7 @@ public class UserDaoImpl implements IUserDao{
 	/* 返回pwd,在调用此方法的方法中校验,以后写好UserAccount深复制可能改成返回UserAccount */
 	public String find(String uMailAccount){
 
-		DBHelper db=new DBHelper();
+		DBHelperImpl db=new DBHelperImpl();
 		String pwd=db.findUser(uMailAccount);
 		db.close();
 		return pwd;
@@ -40,14 +38,14 @@ public class UserDaoImpl implements IUserDao{
 		//开始任务时对用户收费，收费成功则true
 		//①修改userAccount的余额 ②增加user的expenseCalendar
 		//ExpCnt为user.ExpenseCalendar.size
-		DBHelper db=new DBHelper();
+		DBHelperImpl db=new DBHelperImpl();
 		boolean ret=db.charge(uMailAccount,ExpCnt,task);
 		db.close();
 		return ret;
 	};
 	
 	public Vector<Task> viewTask(String uMailAccount){//根据用户mail查其所有Task
-		DBHelper db=new DBHelper();
+		DBHelperImpl db=new DBHelperImpl();
 		Vector<Task> t=db.viewTask(uMailAccount);
 		db.close();
 		return t;

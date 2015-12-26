@@ -49,6 +49,21 @@ public class UserAccount {
 		state = UserState.logout;
 	}
 		
+	public UserAccount(String username, String password, String mailAccount, double balance, int level,
+			Set<ExpenseCalendar> expenseCalendar, int credit, double discount, TaskQueue taskQueue, UserState state) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.mailAccount = mailAccount;
+		this.balance = balance;
+		this.level = level;
+		this.expenseCalendar = expenseCalendar;
+		this.credit = credit;
+		this.discount = discount;
+		this.taskQueue = taskQueue;
+		this.state = state;
+	}
+
 	/* Getters，注意获取消费记录传递的不是原指针，即不可修改消费记录 */
 	public String getUsername() {
 		return username;
@@ -92,6 +107,13 @@ public class UserAccount {
 	
 	public UserState getState() {
 		return state;
+	}
+	
+	public int getStateInt(){
+		if(state==UserState.login)
+			return 0;
+		else
+			return 1;
 	}
 	
 	/* 修改昵称 */
