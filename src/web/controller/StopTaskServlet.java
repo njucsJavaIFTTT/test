@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.Execute;
+import exception.TaskException;
 import service.ITaskService;
 import service.impl.TaskServiceImpl;
 
@@ -34,16 +35,31 @@ public class StopTaskServlet extends HttpServlet {
     	
     	/* 到ExecuteList中搜索ID为id的Execute任务 */
     	ITaskService service = new TaskServiceImpl();
-    	Execute execute = service.findExecuteInList(taskId);
+    	Execute execute = null;
+    	try{
+    		execute = service.findExecuteInList(taskId);
+    	}
+    	catch(TaskException e){
+    		e.printStackTrace();
+    	}
     	
-    	boolean flag = true;
-    	/* 调用ExecuteQueue类的方法，停止该任务 */
-    	try {
-    		execute.Stop();
+    	boolean flag  = true;
+    	if(execute == null)
+    	{
+    		System.out.println("任务已停止。");
+    		return;
     	}
-    	catch(Exception e){
-    		
+    	else{
+    		try {
+    	    	/* 调用ExecuteQueue类的方法，停止该任务 */
+        		execute.stopExecute();
+        	}
+        	catch(Exception e){
+        		flag = false;
+        		e.printStackTrace();
+        	}
     	}
+    	
     	
     	/* 返回停止成功或失败 */
     	if(flag){

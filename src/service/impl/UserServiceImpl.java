@@ -1,6 +1,9 @@
 package service.impl;
+import java.util.List;
+
 import dao.IUserDao;
 import dao.impl.UserDaoImpl;
+import domain.ExpenseCalendar;
 import domain.Goal;
 import domain.MonitorWeibo;
 import domain.MonitorWeiboWithinLimitTime;
@@ -117,7 +120,9 @@ public class UserServiceImpl implements IUserService{
 			e.printStackTrace();
 		}
 		
-		uDao.charge(uMailAccount,task);
+		/* 收费，参数2应该写个获取参数的函数 */
+		List<ExpenseCalendar> list = uDao.viewExpCalendar(uMailAccount);
+		uDao.charge(uMailAccount,list.size(),task);
 		
 	}
 	
