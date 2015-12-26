@@ -250,7 +250,7 @@ public class DBHelper {// 用于打开或关闭数据库
 		return t;
 	}
 	
-	public CreateTaskFormBean tIDgetTFB(int taskID) throws SQLException{//通过taskID返回相应formbean
+	public CreateTaskFormBean findTask(int taskID) throws SQLException{//通过taskID返回相应formbean
 		sql = "select * from taskFormbean where taskID=" + taskID +";";
 		pst = connect.prepareStatement(sql);
 		ret = pst.executeQuery();// 执行语句，得到结果集

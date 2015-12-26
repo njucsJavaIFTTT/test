@@ -1,39 +1,24 @@
 package domain;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Properties;
-import java.util.Timer;
-
-import javax.mail.Folder;
-import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
-import javax.mail.Session;
-import javax.mail.Store;
-
-import weibo4j.model.Status;
-import weibo4j.model.User;
-import weibo4j.model.WeiboException;
-import weibo4j.Timeline;
-import weibo4j.Users;
-
 /* 任务实体类 */
 public class Task implements Cloneable{
 	private String TaskName;//任务名，对于同一用户不可重复
 	private Request request;//this任务指针
 	private Goal goal;//that任务指针
 	private double expense;//费用
-	static private int taskID=0;//任务编号
-
+	private int taskID;//任务编号
+	private static int totalTask = 0;//任务总数
+	
 	public Task(String name,Request r,Goal g) throws CloneNotSupportedException
 	{
 		TaskName = new String(name);
 		request = (Request)r.clone();
 		goal = (Goal)g.clone();
+		taskID = totalTask;
+		totalTask ++;
+		
 		/* 收费方式 */
 		expense = 0;
-		taskID++;
 		switch (request.thisType) {
 		case OrderTime:
 			expense += 50;
@@ -91,8 +76,12 @@ public class Task implements Cloneable{
 		return g;
 	}
 	
-	public static int getTaskID() {
+	public int getTaskID() {
 		return taskID;
+	}
+	
+	public static int getTotalTask() {
+		return totalTask;
 	}
 	
 	public Object clone() throws CloneNotSupportedException {
@@ -100,16 +89,10 @@ public class Task implements Cloneable{
 		temp.TaskName = new String(this.TaskName);
 		temp.request = (Request)this.request.clone();
 		temp.goal = (Goal)this.goal.clone();
+		temp.expense = this.expense;
+		temp.taskID = this.taskID;
 		return temp;
 	}
-	
-	/* 新建任务：  用户创建好之后，返回刚刚创建的任务信息给用户。
-付款是采用扣除会员会费的方式。 */
-	/* 查看、删除、修改任务： 任务查看功能可以显示用户已经创建的所有任务， 每条显
-示内容必须包括任务的完整信息描述。 用户也可以选择删除已有的任务。 同时，用
-户可以修改已有的任务。 */
-	/* 开始、停止任务：用户可以手动开始、停止已有的任务。 任务的运行收费采用扣除
-会员会费的方式，同时根据会员的等级来给予一定的折扣和积分。 */
 }
 
 /* 面向用户的任务序列实体类 */

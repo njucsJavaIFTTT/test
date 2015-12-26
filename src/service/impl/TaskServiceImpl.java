@@ -1,7 +1,10 @@
 package service.impl;
 
+import java.sql.SQLException;
+
 import DB.DBHelper;
 import domain.Execute;
+import domain.ExecuteQueue;
 import domain.Goal;
 import domain.MonitorWeibo;
 import domain.MonitorWeiboWithinLimitTime;
@@ -22,7 +25,13 @@ public class TaskServiceImpl implements ITaskService{
 	@Override
 	public CreateTaskFormBean findTask(int taskId) throws TaskException {
 		DBHelper db = new DBHelper();
-		CreateTaskFormBean formBean = db.findTask(taskId);
+		CreateTaskFormBean  formBean = null;
+		try{
+			formBean = db.findTask(taskId);
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
 		db.close();
 		return formBean;
 	}
@@ -30,13 +39,14 @@ public class TaskServiceImpl implements ITaskService{
 	@Override
 	public Execute addTaskIntoExecuteList(Task task) throws TaskException {
 		Execute execute = null;
+		ExecuteQueue.addExecute(execute);
 		return execute;
 	}
 
 	@Override
 	public Execute findExecuteInList(int taskId) throws TaskException {
-		// TODO Auto-generated method stub
-		return null;
+		Execute execute = ExecuteQueue.findExecuteInList(taskId);
+		return execute;
 	}
 
 	@Override
@@ -119,8 +129,13 @@ public class TaskServiceImpl implements ITaskService{
 
 	@Override
 	public void storeTask(CreateTaskFormBean formBean) throws TaskException {
-		// TODO Auto-generated method stub
-		
+		DBHelper db = new DBHelper();
+		try{
+			db.storeTask(formBean);
+		}
+		catch(){
+			
+		}
 	}
 
 }
