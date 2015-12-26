@@ -46,7 +46,7 @@ public class SendVerificationCode extends HttpServlet {
 		if(Mail.sendAndCc(smtp, from, to, copyto, subject, content, username, password))
 		{
 			response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
-		    String data = "验证码已发送至邮箱" + from + "， 请注意查收";
+		    String data = "验证码已发送至邮箱" + to + "， 请注意查收";
 		    OutputStream stream = response.getOutputStream();
 		    stream.write(data.getBytes("UTF-8")); 
 		}
