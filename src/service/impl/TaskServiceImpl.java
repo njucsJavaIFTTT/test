@@ -1,6 +1,7 @@
 package service.impl;
 
 import java.sql.SQLException;
+import java.util.Vector;
 
 import DB.DBHelper;
 import domain.Execute;
@@ -136,6 +137,52 @@ public class TaskServiceImpl implements ITaskService{
 		catch(){
 			
 		}
+	}
+
+	@Override
+	public boolean modifyTask(CreateTaskFormBean formBean) throws TaskException {
+		DBHelper db = new DBHelper();
+		try{
+			db.modifyTask(formBean);
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			db.close();
+			return false;
+		}
+		db.close();
+		return true;
+	}
+
+	@Override
+	public Vector<Task> findTaskByMailAccount(String userMailAccount) throws TaskException {
+		DBHelper db = new DBHelper();
+		Vector<Task> vector = null;
+		try{
+			vector = db.viewTask(userMailAccount);
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			db.close();
+			return null;
+		}
+		db.close();
+		return vector;
+	}
+
+	@Override
+	public boolean deleteTaskFormBean(int taskId) throws TaskException {
+		DBHelper db = new DBHelper();
+		try{
+			db.deleteTask(taskId);
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+			db.close();
+			return false;
+		}
+		db.close();
+		return true;
 	}
 
 }

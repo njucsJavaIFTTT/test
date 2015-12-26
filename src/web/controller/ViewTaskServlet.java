@@ -1,7 +1,6 @@
 package web.controller;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Vector;
 
 import javax.servlet.ServletException;
@@ -9,9 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.threads.TaskQueue;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import domain.Task;
 import domain.UserAccount;
