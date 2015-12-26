@@ -1,5 +1,7 @@
 package service;
 
+import java.util.Vector;
+
 import domain.Execute;
 import domain.Task;
 import exception.TaskException;
@@ -21,4 +23,13 @@ public interface ITaskService {
 	
 	// 将TaskFormBean存入到数据库中
 	void storeTask(CreateTaskFormBean formBean)throws TaskException;
+
+	// 修改数据库中的任务内容
+	boolean modifyTask(CreateTaskFormBean formBean) throws TaskException;
+
+	// 按照用户邮箱查找其名下的任务列表
+	Vector<Task> findTaskByMailAccount(String userMailAccount) throws TaskException;
+
+	// 按照TaskId删除数据库中的TaskFormBean
+	boolean deleteTaskFormBean(int taskId) throws TaskException;
 }
