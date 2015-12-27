@@ -58,15 +58,17 @@ public class CreateTaskServlet extends HttpServlet {
     	/* 返回创建任务信息给用户 */
     	if(flag){
     		response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
-		    String data = "创建任务成功， 可以在我的任务中查看。";
+		    String data = "Create task successfully.";
 		    OutputStream stream = response.getOutputStream();
 		    stream.write(data.getBytes("UTF-8")); 
+		    /* 前端应跳转到当前任务的详细内容查看界面 */
     	}
     	else {
     		response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
-		    String data = "任务创建失败，请稍后重新创建。 ";
+		    String data = "Fail to create the task. Please try later.";
 		    OutputStream stream = response.getOutputStream();
 		    stream.write(data.getBytes("UTF-8"));
+		    /* 不需跳转 */
     	}
     }
     

@@ -105,7 +105,6 @@ border: 1px solid green;
 
 </head>
 <body>
-
 <div class="form-group" style= "padding-top: 1%;background-color: #87CEFA;" >
 		<strong class="col-md-offset-1 col-sm-offset-1" style = "font-size:120%;color:#FFFFFF">IFTTT</strong>
 </div>
