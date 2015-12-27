@@ -20,20 +20,22 @@
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 
 <script type="text/javascript">
-<%
-UserAccount user = (UserAccount)request.getSession().getAttribute("user");
-%>
-var userID = <%=user.getMailAccount()%>;
-var userName = <%=user.getUsername()%>;
+<%-- <% --%>
+// UserAccount user = (UserAccount)request.getSession().getAttribute("user");
+<%-- %> --%>
+<%-- var userID = <%=user.getMailAccount()%>; --%>
+<%-- var userName = <%=user.getUsername()%>; --%>
+var userName = "username";
 
 
-
-int thisType = 0, thatType = 0, taskID = 0;
+var thisType = 0;
+var thatType = 0;
+var taskID = 0;
 var ownerMail = "", orderedTime = "", MonitorMailAccount = "", MonitorMailpassword = "";
 var MonitorWeiboAccount = "", MonitorWeiboAccessToken = "", MonitorContain = "", listenMinute = 0;
 var sendWeiboAccount = "", sendWeiboAccessToken = "", weiboContent = "", mailContent = "", receiverMailAccount = "";
 $(document).ready(function(){
-	$("#userName").html("Hi~ "+userName);
+	$("#userName").text("Hi~ "+userName);
 	$("#this-to-choose").hide();
 	$("#weibo-login").hide();
 	$("#mail-login").hide();
@@ -546,7 +548,7 @@ border: 1px solid green;
 <body>
 <div class="form-group" style= "padding-top: 1%;background-color: #87CEFA;" >
 	<strong class="col-md-offset-1 col-sm-offset-1" style = "font-size:120%;color:#FFFFFF">IFTTT</strong>
-	<p id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"></p>
+	<strong id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"></strong>
 </div>
 <div class="container">
 	<ul style = "list-style-type:none;">
