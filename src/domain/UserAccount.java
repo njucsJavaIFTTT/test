@@ -5,9 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Vector;
 
-enum UserState{login,logout};//登入、登出
-
-
 
 /* 用户账号实体类 */
 /* 尚未实现用户消息查看、管理 */
@@ -24,7 +21,6 @@ public class UserAccount {
 	private int credit;//积分
 	private double discount;//折扣
 	private TaskQueue taskQueue;//任务队列类
-	private UserState state;//登录状态，包括登入、登出
 	private Vector<Message> msg;//私人消息
 	public UserAccount(){
 		balance = 1000;
@@ -33,7 +29,6 @@ public class UserAccount {
 		credit = 0;
 		discount = 1;
 		//taskQueue = new TaskQueue(mailAccount);
-		state = UserState.logout;
 	}
 	
 	public UserAccount(String user,String pw,String mail){
@@ -47,7 +42,6 @@ public class UserAccount {
 		credit = 0;
 		discount = 1;
 		taskQueue = new TaskQueue(mailAccount);
-		state = UserState.logout;
 	}
 		
 	public UserAccount(String username, String password, String mailAccount, double balance, int level,
@@ -62,7 +56,6 @@ public class UserAccount {
 		this.credit = credit;
 		this.discount = discount;
 		this.taskQueue = taskQueue;
-		this.state = state;
 	}
 
 	/* Getters，注意获取消费记录传递的不是原指针，即不可修改消费记录 */
@@ -104,17 +97,6 @@ public class UserAccount {
 		TaskQueue temp = new TaskQueue(mailAccount);
 		temp = (TaskQueue)taskQueue.clone();
 		return temp;
-	}
-	
-	public UserState getState() {
-		return state;
-	}
-	
-	public int getStateInt(){
-		if(state==UserState.login)
-			return 0;
-		else
-			return 1;
 	}
 	
 	public Vector<Message> getMsg() {
@@ -185,12 +167,6 @@ public class UserAccount {
 			if(credit <= 2000 || credit > 3000)
 				credit = 2001;
 		}
-	}
-
-	/* 改变登陆状态 */
-	public void setState(UserState s)
-	{
-		state = s;
 	}
 	
 	/* 充值 */

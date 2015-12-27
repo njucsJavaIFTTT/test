@@ -51,7 +51,7 @@ public class UserServiceImpl implements IUserService{
 		Request request = null;
 		switch (thistype) {
 		case 0:{
-			String timeset = formBean.getTime();
+			String timeset = formBean.getOrderedTime();
 			String year = timeset.substring(0, 3);
 			String month = timeset.substring(5, 6);
 			String day = timeset.substring(8, 9);
@@ -79,7 +79,7 @@ public class UserServiceImpl implements IUserService{
 		case 3:{
 			String userWeiboAccount = formBean.getMonitorWeiboAccount();
 			String accessToken = formBean.getMonitorWeiboAccessToken();
-			int minute = formBean.getMinute();
+			int minute = formBean.getListenMinute();
 			request = new MonitorWeiboWithinLimitTime(accessToken, userWeiboAccount, minute);
 			break;
 		}

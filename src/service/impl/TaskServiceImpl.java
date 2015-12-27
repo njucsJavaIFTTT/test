@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import DB.DBHelper;
+import DB.DBHelperImpl;
 import domain.Execute;
 import domain.ExecuteQueue;
 import domain.Goal;
@@ -25,7 +26,7 @@ public class TaskServiceImpl implements ITaskService{
 
 	@Override
 	public CreateTaskFormBean findTask(int taskId) throws TaskException {
-		DBHelper db = new DBHelper();
+		DBHelper db = new DBHelperImpl();
 		CreateTaskFormBean  formBean = null;
 		try{
 			formBean = db.findTask(taskId);
@@ -57,7 +58,7 @@ public class TaskServiceImpl implements ITaskService{
 		Request rqt = null;
 		switch (thistype) {
 		case 0:{
-			String timeset = formBean.getTime();
+			String timeset = formBean.getOrderedTime();
 			String year = timeset.substring(0, 3);
 			String month = timeset.substring(5, 6);
 			String day = timeset.substring(8, 9);
@@ -85,7 +86,7 @@ public class TaskServiceImpl implements ITaskService{
 		case 3:{
 			String userWeiboAccount = formBean.getMonitorWeiboAccount();
 			String accessToken = formBean.getMonitorWeiboAccessToken();
-			int minute = formBean.getMinute();
+			int minute = formBean.getListenMinute();
 			rqt = new MonitorWeiboWithinLimitTime(accessToken, userWeiboAccount, minute);
 			break;
 		}
@@ -130,33 +131,21 @@ public class TaskServiceImpl implements ITaskService{
 
 	@Override
 	public void storeTask(CreateTaskFormBean formBean) throws TaskException {
-		DBHelper db = new DBHelper();
-		try{
-			db.storeTask(formBean);
-		}
-		catch(){
-			
-		}
+		DBHelper db = new DBHelperImpl();
+		db.storeTask(formBean);
+		db.close();
 	}
 
 	@Override
-	public boolean modifyTask(CreateTaskFormBean formBean) throws TaskException {
-		DBHelper db = new DBHelper();
-		try{
-			db.modifyTask(formBean);
-		}
-		catch(SQLException e){
-			e.printStackTrace();
-			db.close();
-			return false;
-		}
+	public void modifyTask(CreateTaskFormBean formBean) throws TaskException {
+		DBHelper db = new DBHelperImpl();
+		db.modifyTask(formBean);
 		db.close();
-		return true;
 	}
 
 	@Override
 	public Vector<Task> findTaskByMailAccount(String userMailAccount) throws TaskException {
-		DBHelper db = new DBHelper();
+		DBHelper db = new DBHelperImpl();
 		Vector<Task> vector = null;
 		try{
 			vector = db.viewTask(userMailAccount);
@@ -171,18 +160,10 @@ public class TaskServiceImpl implements ITaskService{
 	}
 
 	@Override
-	public boolean deleteTaskFormBean(int taskId) throws TaskException {
-		DBHelper db = new DBHelper();
-		try{
-			db.deleteTask(taskId);
-		}
-		catch(SQLException e){
-			e.printStackTrace();
-			db.close();
-			return false;
-		}
-		db.close();
-		return true;
+	public void deleteTaskFormBean(CreateTaskFormBean formBean) throws TaskException {
+		DBHelper db = new DBHelperImpl();
+		db.deleteTask(formBean);
+		db.close();;
 	}
 
 }
