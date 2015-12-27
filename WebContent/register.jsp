@@ -177,10 +177,7 @@ $(document).ready(function(){
     				userName: $("#user-name").val(),
     				mailAccount: $("#user-ID").val(),
     				password: $("#password").val()
-    	       	},
-    	       	function(data,status){
-    	          	//注册成功or失败
-    	        });
+    	       	});
     	}
   	});
 });
