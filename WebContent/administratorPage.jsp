@@ -1,5 +1,4 @@
-<%@page import="java.util.Vector"%>
-<%@ page language="java" import="domain.UserAccount; import domain.Task" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -21,62 +20,79 @@
 </script>
 
 <script type="text/javascript">
-	<% 
-// /*
-// TODO:传入管理员发布的公告
-//		int currentTask
-// */
-	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
-	
+	<%
+	//TODO:得到用户信息列表
 	%>
-var userID = <%=user.getMailAccount()%>;
-var userName = <%=user.getUsername()%>;
-var userBalance = <%=user.getBalance()%>;
-var userCredit = <%=user.getCredit()%>;
-
-
-
 $(document).ready(function(){
-	$("#userName").html("Hi~ "+userName);
-	$("#user-name").text(userName);
-	$("#user-id").text(userID);
-	$(".user-balance").text(userBalance);
-	$("#user-credit").text(userCredit);
-	var listlength = <%=user.getMsg().size()%>;
+	//添加用户信息
+	var listLength = <%=%>;
 	<%
 	int j = 0;
 	%>
-	var msg = <%=user.getMsg().get(j).getContent()%>;
-	for (var i = 0; i < listlength; i++) {
-		$("#private-message-list").append("<li class=\"list-group-item\">"+msg+"</li>");
+	var userInfo = <%=%>;
+	var userID = <%=%>;
+	for (var i = 0; i < listLength; i++) {
+		$("#users-list").append("<button type=\"button\" class=\"list-group-item users-info-btn\" id = \""+userID+"\">"+userInfo+"</button>");
+		$("#message-receivers-list").append("<button type=\"button\" class=\"list-group-item send-message-btn\" id = \""+userID+"\">"+userInfo+"</button>");
 		<%j++;%>
-		msg = <%=user.getMsg().get(j).getContent()%>;
+		userInfo = <%=%>;
+		userID = <%=%>;
 	}
 	//添加公告
 	//添加消费记录
 });
 
 $(document).ready(function(){
-	$("#recharge-button").click(function(){
-		if ($("#recharge-value").val() == "") {
-			alert("请填写充值金额");
+	$(".users-info-btn").click(function(){
+		//查找用户信息
+		$("#user-name").text();
+		$("#user-id").text();
+		$("#user-balance").text();
+		$("#user-credit").text();
+	});
+});
+
+$(document).ready(function(){
+	$("#submit-public-message-button").click(function(){
+		if ($("#public-message-content").val() == "") {
+			alert("请填写公告内容");
 		}
 		else {
 			$.post("",
 				{	
-					taskID: taskID
+					
 				},
 				function(data){//返回的data为充值之后的金额或者0
-					if (data != "0") {
-						$(".user-balance").text(data);
-						alert("充值成功");
+					if (data == "success") {
+						alert("公告发布成功");
 					}
-					else alert("充值失败");
+					else alert("公告发布失败");
 				});
 		}
 	});
 });
 
+
+$(document).ready(function(){
+	$(".send-message-btn").click(function(){
+		if ($("#private-message-content").val() == "") {
+			alert("请填写私信内容");
+		}
+		else {
+			$.post("",
+				{	
+					userID:$(".send-message-btn").attr(id)
+					//...
+				},
+				function(data){//返回的data为充值之后的金额或者0
+					if (data == "success") {
+						alert("私信发布成功");
+					}
+					else alert("私信发布失败");
+				});
+		}
+	});
+});
 </script>
 
 </head>
@@ -85,31 +101,29 @@ $(document).ready(function(){
 	<strong class="col-md-offset-1 col-sm-offset-1" style = "font-size:120%;color:#FFFFFF">IFTTT</strong>
 	<strong id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"></strong>
 </div>
+
 <ul id="myTab" class="nav nav-tabs">
 	<li class="active">
-		<a href="#user-account" data-toggle="tab">我的资料</a>
+		<a href="#view-users" data-toggle="tab">会员资料查看</a>
 	</li>
 	<li>
-		<a href="#recharge" data-toggle="tab">账户充值</a>
+		<a href="#send-public-message" data-toggle="tab">发布公告</a>
 	</li>
 	<li>
-		<a href="#expense-calendar" data-toggle="tab">消费记录</a>
-	</li>
-	<li class="dropdown">
-		<a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown">消息盒子 
-			<b class="caret"></b>
-		</a>
-		<ul class="dropdown-menu" role="menu" aria-labelledby="myTabDrop1">
-			<li><a href="#public-message" tabindex="-1" data-toggle="tab">公告消息</a></li>
-			<li><a href="#private-message" tabindex="-1" data-toggle="tab">私信消息</a></li>
-		</ul>
+		<a href="#send-private-message" data-toggle="tab">发送私信</a>
 	</li>
 </ul>
 <div id="myTabContent" class="tab-content">
-	<div class="tab-pane fade in active" id="user-account">
+	<div class="tab-pane fade in active" id="view-users">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-5">
+					<div class="list-group" id = "users-list">
+						<button type="button" class="list-group-item users-info-btn" id = ""></button>
+  
+					</div>
+				</div>
+				<div class="col-md-4">
 					<form class="form-horizontal" role="form">
 						<div class="form-group">
 							<label class="col-sm-2 control-label">用户名</label>
@@ -130,7 +144,7 @@ $(document).ready(function(){
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="user-credit" class="col-sm-2 control-label">我的积分</label>
+							<label for="user-credit" class="col-sm-2 control-label">会员积分</label>
 							<div class="col-sm-6">
 								<p class="form-control-static" id = "user-credit"></p>
 							</div>
@@ -138,28 +152,22 @@ $(document).ready(function(){
 					</form>
 				</div>
 			</div>
-		</div>
+		</div>		
 	</div>
-	<div class="tab-pane fade" id="recharge">
+	<div class="tab-pane fade" id="send-public-message">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
 					<form class="form-horizontal" role="form">
 						<div class="form-group">
-							<label for="user-balance" class="col-sm-2 control-label">账户余额</label>
+							<label class="col-sm-2 control-label">公告内容</label>
 							<div class="col-sm-6">
-								<p class="form-control-static user-balance"></p>
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label">充值金额</label>
-							<div class="col-sm-6">
-								<input type="text" class="form-control" id="recharge-value">
+								<textarea class="form-control" rows="3" id="public-message-content"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-md-offset-4 col-md-8">
-								<button id = "recharge-button" type="button" class="btn btn-default">充值</button>
+								<button id = "submit-public-message-button" type="button" class="btn btn-default">发布公告</button>
 							</div>
 						</div>
 					</form>
@@ -167,20 +175,33 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
-	<div class="tab-pane fade" id="expense-calendar">
-		<ul class="list-group" id="expense-calendar-list">
-			<li class="list-group-item"></li>
-		</ul>
-	</div>
-	<div class="tab-pane fade" id="public-message">
-		<ul class="list-group" id = "public-message-list">
-			<li class="list-group-item"></li>
-		</ul>
-	</div>
-	<div class="tab-pane fade" id="private-message">
-		<ul class="list-group" id="private-message-list">
-			<li class="list-group-item"></li>
-		</ul>
+	<div class="tab-pane fade" id="send-private-message">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">私信内容</label>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-6">
+								<textarea class="form-control" rows="3" id="private-message-content"></textarea>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-2">
+					<strong style = "size:200%">发送至：</strong>
+				</div>
+				<div class="col-md-4">
+					<div class="tab-pane fade in active" id="view-users">
+						<div class="list-group" id = "message-receivers-list">
+							<button type="button" class="list-group-item send-message-btn" id = ""></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 </div>
