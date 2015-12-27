@@ -48,18 +48,20 @@ public class ModifyTaskServlet extends HttpServlet{
     	catch(TaskException e)
     	{
     		response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
-		    String data = "修改任务失败。 ";
+		    String data = "Fail to modify the task.";
 		    OutputStream stream = response.getOutputStream();
 		    stream.write(data.getBytes("UTF-8"));
     		e.printStackTrace();
+    		/* 前端应跳转到message界面 */
     	}
     	
     	/* 向前端返回修改是否成功 */
     	response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
-		String data = "任务已修改。";
+		String data = "The task has been modified successfully.";
 		OutputStream stream = response.getOutputStream();
 		stream.write(data.getBytes("UTF-8")); 
-    	
+		
+    	/* 前端应跳转到查看任务界面 */
     	String userMailAccount = user.getMailAccount();
 		Vector<Task> taskList = null;
     	try {

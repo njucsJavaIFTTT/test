@@ -42,17 +42,19 @@ public class DeleteTaskServlet {
     	}
     	catch(TaskException e){
     		response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
-		    String data = "删除任务失败。 ";
+		    String data = "Fail to delete the task.";
 		    OutputStream stream = response.getOutputStream();
 		    stream.write(data.getBytes("UTF-8"));
     		e.printStackTrace();
+    		/* 跳转到message界面 */
     	}
     	
     	/* 向前端返回删除信息，和新的任务序列 */
     	response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
-		String data = "任务已删除。";
+		String data = "Delete the task successfully.";
 		OutputStream stream = response.getOutputStream();
 		stream.write(data.getBytes("UTF-8")); 
+		/* 跳转到查看任务界面 */
 		
 		UserAccount user = (UserAccount)request.getSession().getAttribute("user");
     	String userMailAccount = user.getMailAccount();

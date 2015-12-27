@@ -1,6 +1,7 @@
 package web.controller;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,22 +41,35 @@ public class RegisterServlet extends HttpServlet {
 			user.setPassword(formbean.getPassword());
 			IUserService service = new UserServiceImpl();
 			service.registerUser(user);//调用service层提供的注册用户服务实现用户注册
-			//String message = String.format("注册成功.3秒后为您自动跳到登录页面.<meta http-equiv='refresh' content='3;url=%s'/>",
-					//request.getContextPath() + "/login.jsp");
+			
+			response.setHeader("Content-type","text/html;charset=UTF-8");
+		    String data = "Register successfully.It will turn to login page in 3 seconds.";
+		    OutputStream stream = response.getOutputStream();
+		    stream.write(data.getBytes("UTF-8")); 
+		    /* 应跳转到登录界面 */
+		    return;
+			/*String message = String.format("注册成功.3秒后为您自动跳到登录页面.<meta http-equiv='refresh' content='3;url=%s'/>",
+				request.getContextPath() + "/login.jsp");
 			request.setAttribute("message", "注册成功");
-			//System.out.println(message);
+			System.out.println(message);
 			request.getRequestDispatcher("http://localhost:8080/test/message.jsp").forward(request, response);
-			return;
+			response.sendRedirect("index.jsp");*/
 		} catch (UserException e) {
-			System.out.println("用户已存在");
-			formbean.getErrors().put("userName", "注册用户已存在");
-			request.setAttribute("formbean", formbean);
-			request.getRequestDispatcher("register.jsp").forward(request, response);
+			response.setHeader("Content-type","text/html;charset=UTF-8");
+		    String data = "Fail to register.Please check your information.";
+		    OutputStream stream = response.getOutputStream();
+		    stream.write(data.getBytes("UTF-8")); 
 			return;
 		} catch (Exception e) {
 			e.printStackTrace(); // 在后台记录异常
-			request.setAttribute("message", "对不起，注册失败。");
-			request.getRequestDispatcher("/message.jsp").forward(request, response);
+			response.setHeader("Content-type","text/html;charset=UTF-8");
+		    String data = "Sorry,something wrong with your register,please try later.";
+		    OutputStream stream = response.getOutputStream();
+		    stream.write(data.getBytes("UTF-8"));
+		    /* 此处应跳转到message界面 */
+		    
+			/*request.setAttribute("message", "对不起，注册失败。");
+			request.getRequestDispatcher("/message.jsp").forward(request, response);*/
 			return;
 		}
 	}

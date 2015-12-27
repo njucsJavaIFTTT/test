@@ -64,10 +64,12 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-  $("#submit-button").click(function(){
+	$("#submit-button").click(function(){
 	//alert("heihei");
+	location.href = "http://www.baidu.com";
 	if (userIDChecked == false || passwordChecked == false) {
     	alert("填写信息有误");
+    	
     }
 	else {
 		$.post(
