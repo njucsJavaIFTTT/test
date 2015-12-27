@@ -6,6 +6,7 @@ import java.util.Vector;
 import domain.Message;
 import domain.Task;
 import domain.UserAccount;
+import domain.ExpenseCalendar;
 import web.formbean.CreateTaskFormBean;
 
 public interface DBHelper {
@@ -19,6 +20,7 @@ public interface DBHelper {
 	public boolean deleteTask(CreateTaskFormBean tf);//删除taskFormbean
 	public CreateTaskFormBean findTask(int taskID) throws SQLException;//通过taskID返回相应formbean
 	public Vector<Message> findMsg(String uMail);//user获取个人私人消息
+	public Vector<ExpenseCalendar> findExpCal(String uMail);//user获取个人消费记录
 	//public Vector<Message> viewAllMsg();//管理员获取全部私人消息，暂没用不写
 	public Vector<String> viewBullet();//获取公告
 	public Vector<Task> viewTask(String uMailAccount) throws SQLException;//根据用户mail查其所有Task
@@ -26,4 +28,7 @@ public interface DBHelper {
 	public boolean storeTask(CreateTaskFormBean tf);//保存taskFormbean
 	public boolean storeMsg(String uMail,String cont);//存私信
 	public boolean storeBullet(String cont);//存公告	
+	//public boolean storeExpCal(String cont);//存消费记录已在charge里实现
+	public boolean setBalance(String uMail);//set余额，可用于充值或其他修改
+	//public boolean setUser(UserAccount user);//修改会员资料,暂不用
 }
