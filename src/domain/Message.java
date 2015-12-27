@@ -1,33 +1,16 @@
 package domain;
 
-import java.util.Date;
-
-/* 站内消息类 */
-public class Message{
-	private String content;
-	private Date time;
-	
-	public Message(String c){
-		content=new String(c);
-		time=new Date();
+public class Message{//私人消息
+	String content;
+	String targetMail;
+	public Message(String content, String targetMail) {
+		super();
+		this.content = content;
+		this.targetMail = targetMail;
 	}
-}
-
-/* 公共消息类（公告） */
-class PublicMessage extends Message {
-
-	public PublicMessage(String c) {
-		super(c);
-		// TODO Auto-generated constructor stub
-	}
-	
-}
-
-/* ˽�ţ���˽����Ϣʵ���� */
-class PrivateMessage extends Message {
-	public PrivateMessage(String c) {
-		super(c);
-		// TODO Auto-generated constructor stub
+	@Override
+	public String toString() {
+		return "Massage [content=" + content + ", targetMail=" + targetMail + "]";
 	}
 	
 }

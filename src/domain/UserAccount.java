@@ -3,6 +3,7 @@ package domain;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Vector;
 
 enum UserState{login,logout};//登入、登出
 
@@ -24,7 +25,7 @@ public class UserAccount {
 	private double discount;//折扣
 	private TaskQueue taskQueue;//任务队列类
 	private UserState state;//登录状态，包括登入、登出
-	
+	private Vector<Message> msg;//私人消息
 	public UserAccount(){
 		balance = 1000;
 		level = 1;
@@ -116,6 +117,16 @@ public class UserAccount {
 			return 1;
 	}
 	
+	public Vector<Message> getMsg() {
+		return msg;
+	}
+
+	public void setMsg(Vector<Message> msg) {
+		this.msg = msg;//需要深复制吗？
+	}
+	public void addMas(Message m){//增加msg
+		msg.add(m);
+	}
 	/* 修改昵称 */
 	public void SetUserName(String newName)
 	{

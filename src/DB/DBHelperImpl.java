@@ -4,6 +4,7 @@ import java.sql.*;
 import domain.Task;
 import domain.UserAccount;
 import domain.ExpenseCalendar;
+import domain.Message;
 import web.formbean.CreateTaskFormBean;
 import java.util.Vector;
 import java.util.Date;
@@ -215,6 +216,112 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		}
 		return true;
 	}
+
+
+	
+	
+	public boolean modifyTask(CreateTaskFormBean tf){//修改已有的taskFormbean
+		//先delete再add
+		if(deleteTask(tf))
+			if(storeTask(tf))
+				return true;
+		return false;
+	}
+	
+	public boolean deleteTask(CreateTaskFormBean tf){//删除taskFormbean
+		try {
+			sql = "delete * from taskFormbean where taskID=" + tf.getTaskID() +";";
+			pst = connect.prepareStatement(sql);
+			pst.executeQuery();// 执行语句，得到结果集
+			System.out.println("Success do '" + sql + "'!(db-deleteTask)");
+			return true;
+		} catch (Exception e) {
+			System.out.print("Fail do '" + sql + "'!(db-deleteTask)");
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public CreateTaskFormBean findTask(int taskID) throws SQLException{//通过taskID返回相应formbean
+		sql = "select * from taskFormbean where taskID=" + taskID +";";
+		pst = connect.prepareStatement(sql);
+		ret = pst.executeQuery();// 执行语句，得到结果集
+		if(ret.next()){// 结果集非空
+			//System.out.println("hhh");
+			CreateTaskFormBean tf=new CreateTaskFormBean(ret.getString("taskName"),
+			ret.getInt("taskID"),//任务ID唯一标识
+			ret.getString("ownerMail"),//任务所属用户的账号邮箱
+			ret.getInt("thisType"),
+			ret.getInt("thatType"),
+			ret.getString("orderedTime"),//定时
+			ret.getString("MonitorMailAccount"),//this任务-收件QQ邮箱账号
+			ret.getString("MonitorMailpassword"),//this任务-收件QQ邮箱密码
+			ret.getString("MonitorWeiboAccount"),//this任务-监听微博账号
+			ret.getString("MonitorWeiboAccessToken"),//this任务-监听微博授权码
+			ret.getString("MonitorContain"),//this任务-监听微博内容
+			ret.getInt("listenMinute"),//this任务-监听微博时长
+			
+			ret.getString("weiboContent"),//that任务-发送微博内容
+			ret.getString("sendWeiboAccount"),//that任务-发送微博账号
+			ret.getString("sendWeiboAccessToken"),//that任务-发送微博授权码
+			ret.getString("mailContent"),//that任务-发送邮件内容
+			ret.getString("receiverMailAccount") );//that任务-收件邮箱账号
+			System.out.println(tf.toString());
+			System.out.println("find-Success do '" + sql + "'!(db-tIDgetTFB)");
+			return tf;
+		}
+		else{
+			System.out.println("can't find-Success do '" + sql + "'!(db-tIDgetTFB)");
+			return null;
+		}
+	}
+	public Vector<Message> findMsg(String uMail){//user获取个人私人消息
+		Vector<Message> msg=new Vector<Message>();
+		try{
+			sql = "select * from Message where targerMail=\'" + uMail +"\';";
+			pst = connect.prepareStatement(sql);
+			ret = pst.executeQuery();// 执行语句，得到结果集
+			while(ret.next()){// 结果集非空
+				//System.out.println("hhh");
+				Message m=new Message(
+				ret.getString("content"),//this任务-收件QQ邮箱账号
+				ret.getString("targetMail") );//that任务-收件邮箱账号
+				msg.add(m);
+				System.out.println(m.toString());
+				//Task tmpTask=createTask(tf);//待实现
+				//t.add(tmpTask);
+			}
+			System.out.println("Success do '" + sql + "'!(db-findMsg)");
+			return msg;
+		} catch (Exception e) {
+			System.out.print("Fail do '" + sql + "'!(db-findMsg)");
+			e.printStackTrace();
+			return null;
+		}
+	}
+	//public Vector<Message> viewAllMsg();//管理员获取全部私人消息，暂没用不写
+	public Vector<String> viewBullet(){//获取公告
+		Vector<String> Bul=new Vector<String>();
+		try{
+			sql = "select * from Bullet;";
+			pst = connect.prepareStatement(sql);
+			ret = pst.executeQuery();// 执行语句，得到结果集
+			while(ret.next()){// 结果集非空
+				//System.out.println("hhh");
+				String cont=new String(
+				ret.getString("content"));//that任务-收件邮箱账号
+				Bul.add(cont);
+				System.out.println(cont);
+				//Task tmpTask=createTask(tf);//待实现
+				//t.add(tmpTask);
+			}
+			System.out.println("Success do '" + sql + "'!(db-viewBullet)");
+			return Bul;
+		} catch (Exception e) {
+			System.out.print("Fail do '" + sql + "'!(db-viewBullet)");
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	public Vector<Task> viewTask(String uMailAccount) throws SQLException{//根据用户mail查其所有Task
 		Vector<Task> t=new Vector<Task>();
@@ -249,40 +356,10 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		return t;
 	}
 	
-	public CreateTaskFormBean findTask(int taskID) throws SQLException{//通过taskID返回相应formbean
-		sql = "select * from taskFormbean where taskID=" + taskID +";";
-		pst = connect.prepareStatement(sql);
-		ret = pst.executeQuery();// 执行语句，得到结果集
-		if(ret.next()){// 结果集非空
-			//System.out.println("hhh");
-			CreateTaskFormBean tf=new CreateTaskFormBean(ret.getString("taskName"),
-			ret.getInt("taskID"),//任务ID唯一标识
-			ret.getString("ownerMail"),//任务所属用户的账号邮箱
-			ret.getInt("thisType"),
-			ret.getInt("thatType"),
-			ret.getString("orderedTime"),//定时
-			ret.getString("MonitorMailAccount"),//this任务-收件QQ邮箱账号
-			ret.getString("MonitorMailpassword"),//this任务-收件QQ邮箱密码
-			ret.getString("MonitorWeiboAccount"),//this任务-监听微博账号
-			ret.getString("MonitorWeiboAccessToken"),//this任务-监听微博授权码
-			ret.getString("MonitorContain"),//this任务-监听微博内容
-			ret.getInt("listenMinute"),//this任务-监听微博时长
-			
-			ret.getString("weiboContent"),//that任务-发送微博内容
-			ret.getString("sendWeiboAccount"),//that任务-发送微博账号
-			ret.getString("sendWeiboAccessToken"),//that任务-发送微博授权码
-			ret.getString("mailContent"),//that任务-发送邮件内容
-			ret.getString("receiverMailAccount") );//that任务-收件邮箱账号
-			System.out.println(tf.toString());
-			System.out.println("find-Success do '" + sql + "'!(db-tIDgetTFB)");
-			return tf;
-		}
-		else{
-			System.out.println("can't find-Success do '" + sql + "'!(db-tIDgetTFB)");
-			return null;
-		}
+	public Vector<UserAccount> viewAllUsers(){//获取全部user
+		
 	}
-	
+
 	public boolean storeTask(CreateTaskFormBean tf){//保存taskFormbean
 		try {
 			sql = "INSERT INTO UserAccount VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -314,27 +391,11 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			return false;
 		}
 	}
-	
-	public boolean modifyTask(CreateTaskFormBean tf){//修改已有的taskFormbean
-		//先delete再add
-		if(deleteTask(tf))
-			if(storeTask(tf))
-				return true;
-		return false;
+	public boolean storeMsg(String uMail,String cont){//存私信
+		
 	}
-	
-	public boolean deleteTask(CreateTaskFormBean tf){//删除taskFormbean
-		try {
-			sql = "delete * from taskFormbean where taskID=" + tf.getTaskID() +";";
-			pst = connect.prepareStatement(sql);
-			pst.executeQuery();// 执行语句，得到结果集
-			System.out.println("Success do '" + sql + "'!(db-deleteTask)");
-			return true;
-		} catch (Exception e) {
-			System.out.print("Fail do '" + sql + "'!(db-deleteTask)");
-			e.printStackTrace();
-			return false;
-		}
+	public boolean storeBullet(String cont){//存公告	
+		
 	}
 }
 
