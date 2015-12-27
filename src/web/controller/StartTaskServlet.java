@@ -88,7 +88,7 @@ public class StartTaskServlet extends HttpServlet {
 			OutputStream stream = response.getOutputStream();
 			stream.write(data.getBytes("UTF-8")); 
 		}
-		
+		/* 此处不需跳转 */
     }
     
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
