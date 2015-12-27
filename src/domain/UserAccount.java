@@ -2,7 +2,7 @@ package domain;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.Vector;
 import java.util.Vector;
 
 
@@ -17,15 +17,16 @@ public class UserAccount {
 	private String mailAccount;//邮箱账号，唯一
 	private double balance;//余额
 	private int level;
-	private Set<ExpenseCalendar> expenseCalendar;//消费记录
 	private int credit;//积分
 	private double discount;//折扣
-	private TaskQueue taskQueue;//任务队列类
+	private Vector<ExpenseCalendar> expenseCalendar;//消费记录
+	//private TaskQueue taskQueue;//任务队列类
+	private Vector<Task> taskQueue;//任务
 	private Vector<Message> msg;//私人消息
 	public UserAccount(){
 		balance = 1000;
 		level = 1;
-		expenseCalendar = new HashSet<ExpenseCalendar>();
+		expenseCalendar = new Vector<ExpenseCalendar>();
 		credit = 0;
 		discount = 1;
 		//taskQueue = new TaskQueue(mailAccount);
@@ -38,24 +39,27 @@ public class UserAccount {
 		mailAccount = new String(mail);
 		balance = 1000;
 		level = 1;
-		expenseCalendar = new HashSet<ExpenseCalendar>();
+		expenseCalendar = new Vector<ExpenseCalendar>();
 		credit = 0;
 		discount = 1;
-		taskQueue = new TaskQueue(mailAccount);
+		taskQueue = new Vector<Task>();
 	}
 		
-	public UserAccount(String username, String password, String mailAccount, double balance, int level,
-			Set<ExpenseCalendar> expenseCalendar, int credit, double discount, TaskQueue taskQueue, UserState state) {
+
+
+	public UserAccount(String username, String password, String mailAccount, double balance, int level, int credit,
+			double discount, Vector<ExpenseCalendar> expenseCalendar, Vector<Task> taskQueue, Vector<Message> msg) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.mailAccount = mailAccount;
 		this.balance = balance;
 		this.level = level;
-		this.expenseCalendar = expenseCalendar;
 		this.credit = credit;
 		this.discount = discount;
+		this.expenseCalendar = expenseCalendar;
 		this.taskQueue = taskQueue;
+		this.msg = msg;
 	}
 
 	/* Getters，注意获取消费记录传递的不是原指针，即不可修改消费记录 */
@@ -79,8 +83,8 @@ public class UserAccount {
 		return level;
 	}
 
-	public Set<ExpenseCalendar> getExpenceCanlendar() {
-		Set<ExpenseCalendar> records = new HashSet<ExpenseCalendar>();
+	public Vector<ExpenseCalendar> getExpenceCanlendar() {
+		Vector<ExpenseCalendar> records = new Vector<ExpenseCalendar>();
 		records.addAll(expenseCalendar);
 		return records;
 	}
@@ -182,7 +186,7 @@ public class UserAccount {
 			return false;
 		balance -= amount * discount;
 		credit += amount;
-		expenseCalendar.add(new ExpenseCalendar(amount*discount, thisn, thatn, expenseCalendar.size()));
+		//expenseCalendar.add(new ExpenseCalendar(, thisn, thatn));
 		if(credit <= 1000)
 		{
 			level = 1;
