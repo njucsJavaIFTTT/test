@@ -25,11 +25,11 @@ public interface ITaskService {
 	void storeTask(CreateTaskFormBean formBean)throws TaskException;
 
 	// 修改数据库中的任务内容
-	boolean modifyTask(CreateTaskFormBean formBean) throws TaskException;
+	void modifyTask(CreateTaskFormBean formBean) throws TaskException;
 
 	// 按照用户邮箱查找其名下的任务列表
 	Vector<Task> findTaskByMailAccount(String userMailAccount) throws TaskException;
 
 	// 按照TaskId删除数据库中的TaskFormBean
-	boolean deleteTaskFormBean(int taskId) throws TaskException;
+	void deleteTaskFormBean(CreateTaskFormBean formBean) throws TaskException;
 }

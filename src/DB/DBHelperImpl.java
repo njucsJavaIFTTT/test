@@ -124,7 +124,6 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			pst.setInt(5, user.getLevel());
 			pst.setInt(6, user.getCredit());
 			pst.setDouble(7, user.getDiscount());
-			pst.setInt(8,user.getStateInt());
 			pst.executeUpdate();
 			System.out.println("Success do '" + sql + "'!(db-Users)");
 		} catch (Exception e) {

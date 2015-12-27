@@ -66,7 +66,7 @@ $(document).ready(function(){
 			$(".empty-id").html("请输入注册邮箱");
 			$(".empty-id").css({
 				"display":"inline",
-				"color":"red"        	   
+				"color":"red"
 			});
 			userIDChecked = false;
 		}
