@@ -1,5 +1,9 @@
+
+<%@page import="domain.ExpenseCalendar"%>
+<%@page import="domain.Message"%>
+<%@page import="DB.DBHelperImpl"%>
 <%@page import="java.util.Vector"%>
-<%@ page language="java" import="domain.UserAccount; import domain.Task" contentType="text/html; charset=UTF-8"
+<%@ page language="java" import="domain.UserAccount,domain.Task" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -27,44 +31,13 @@
 //		int currentTask
 // */
 	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
+	//UserAccount user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
 	
+	DBHelperImpl db=new DBHelperImpl();
+	Vector<Message> msgList = db.findMsg(user.getMailAccount());
+	Vector<ExpenseCalendar> expCalendar = db.findExpCal(user.getMailAccount());
+	Vector<String> bulletList = db.viewBullet();
 	%>
-var userID = <%=user.getMailAccount()%>;
-var userName = <%=user.getUsername()%>;
-var userBalance = <%=user.getBalance()%>;
-var userCredit = <%=user.getCredit()%>;
-
-
-
-$(document).ready(function(){
-	$("#userName").html("Hi~ "+userName);
-	$("#user-name").text(userName);
-	$("#user-id").text(userID);
-	$(".user-balance").text(userBalance);
-	$("#user-credit").text(userCredit);
-	var listlength = <%=user.getMsg().size()%>;
-	<%
-	int j = 0;
-	%>
-	var msg = <%=user.getMsg().get(j).getContent()%>;
-	for (var i = 0; i < listlength; i++) {
-		$("#private-message-list").append("<li class=\"list-group-item\">"+msg+"</li>");
-		<%j++;%>
-		msg = <%=user.getMsg().get(j).getContent()%>;
-	}
-	//添加公告
-	//添加消费记录
-	$.post("viewExpCalServlet",
-			{	
-				user:$(this).attr(id)
-			},
-			function(data){
-				$("#expence-calendar").text(data);
-				<%
-				user = (UserAccount)session.getAttribute("currentUser");
-				%>
-			});
-});
 
 $(document).ready(function(){
 	$("#recharge-button").click(function(){
@@ -93,7 +66,7 @@ $(document).ready(function(){
 <body>
 <div class="form-group" style= "padding-top: 1%;background-color: #87CEFA;">
 	<strong class="col-md-offset-1 col-sm-offset-1" style = "font-size:120%;color:#FFFFFF">IFTTT</strong>
-	<strong id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"></strong>
+	<strong id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"><%out.print("Hi~ "+user.getUsername());%></strong>
 </div>
 <ul id="myTab" class="nav nav-tabs">
 	<li class="active">
@@ -124,25 +97,25 @@ $(document).ready(function(){
 						<div class="form-group">
 							<label class="col-sm-2 control-label">用户名</label>
 							<div class="col-sm-6">
-								<p class="form-control-static" id = "user-name"></p>
+								<p class="form-control-static" id = "user-name"><%out.print(user.getUsername());%></p>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="user-id" class="col-sm-2 control-label">注册邮箱</label>
 							<div class="col-sm-6">
-								<p class="form-control-static" id = "user-id"></p>
+								<p class="form-control-static" id = "user-id"><%out.print(user.getMailAccount());%></p>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="user-balance" class="col-sm-2 control-label">账户余额</label>
 							<div class="col-sm-6">
-								<p class="form-control-static user-balance"></p>
+								<p class="form-control-static user-balance"><%out.print(user.getBalance());%></p>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="user-credit" class="col-sm-2 control-label">我的积分</label>
 							<div class="col-sm-6">
-								<p class="form-control-static" id = "user-credit"></p>
+								<p class="form-control-static" id = "user-credit"><%out.print(user.getCredit());%></p>
 							</div>
 						</div>
 					</form>
@@ -158,7 +131,7 @@ $(document).ready(function(){
 						<div class="form-group">
 							<label for="user-balance" class="col-sm-2 control-label">账户余额</label>
 							<div class="col-sm-6">
-								<p class="form-control-static user-balance"></p>
+								<p class="form-control-static user-balance"><%out.print(user.getBalance());%></p>
 							</div>
 						</div>
 						<div class="form-group">
@@ -179,17 +152,32 @@ $(document).ready(function(){
 	</div>
 	<div class="tab-pane fade" id="expense-calendar">
 		<ul class="list-group" id="expense-calendar-list">
-			<li class="list-group-item"></li>
+			<%if (expCalendar != null) {
+				for (int i = 0; i < expCalendar.size(); i++) {%>
+					<li class="list-group-item">
+					<%out.print(expCalendar.get(i).toString()); %>
+					</li>
+			<%} }%>
 		</ul>
 	</div>
 	<div class="tab-pane fade" id="public-message">
 		<ul class="list-group" id = "public-message-list">
-			<li class="list-group-item"></li>
+			<%if (bulletList != null) {
+				for (int i = 0; i < bulletList.size(); i++) {%>
+				<li class="list-group-item">
+				<%out.print(bulletList.get(i)); %>
+				</li>
+			<%} }%>
 		</ul>
 	</div>
 	<div class="tab-pane fade" id="private-message">
 		<ul class="list-group" id="private-message-list">
-			<li class="list-group-item"></li>
+			<%if (msgList != null) {
+			for (int i = 0; i < msgList.size(); i++) {%>
+				<li class="list-group-item">
+				<%out.print(msgList.get(i).getContent()); %>
+				</li>
+			<%}} %>
 		</ul>
 	</div>
 	

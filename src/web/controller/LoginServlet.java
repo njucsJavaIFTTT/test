@@ -40,6 +40,7 @@ public class LoginServlet extends HttpServlet {
 		    String data = "manager";
 		    OutputStream stream = response.getOutputStream();
 		    stream.write(data.getBytes("UTF-8"));
+		    return;
 		}
 		else {
 			IUserService service = new UserServiceImpl();

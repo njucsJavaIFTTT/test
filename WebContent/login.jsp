@@ -79,7 +79,7 @@ $(document).ready(function(){
     	          	//登录成功则跳转到mainPage
     	          	var d = data;
     	          	if (d == "manager") {
-    	          		location.href = "http://localhost:8080/test/administrator.jsp"
+    	          		location.href = "http://localhost:8080/test/administratorPage.jsp"
     	          	}
     	          	else {
     	          		alert(data);
