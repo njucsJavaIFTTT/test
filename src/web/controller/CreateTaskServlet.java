@@ -10,14 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.Task;
-import domain.UserAccount;
 import exception.TaskException;
 import service.ITaskService;
 import service.impl.TaskServiceImpl;
 import util.WebUtils;
 import web.formbean.CreateTaskFormBean;
 import weibo4j.Oauth;
-import weibo4j.examples.oauth2.Log;
 import weibo4j.http.AccessToken;
 import weibo4j.model.WeiboException;
 
