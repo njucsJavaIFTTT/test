@@ -1,4 +1,5 @@
 package web.controller;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Iterator;
@@ -22,42 +23,43 @@ import web.formbean.CreateTaskFormBean;
  * 处理查看公告的Servlet
  * @author YJJ
  */
-@WebServlet("/ViewBulletServlet")
+@WebServlet("/RechargeServlet")
 
-public class viewBulletServlet extends HttpServlet{
+public class RechargeServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
-    public viewBulletServlet() {
+    public RechargeServlet() {
         super();
     }
     
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
     	/* 获取当前session的用户名 */
     	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
-    	String userMailAccount = user.getMailAccount();
+    	String uMail = user.getMailAccount();
+    	String value_s=(String) request.getSession().getAttribute("value");
+    	double value=Double.valueOf(value_s.toString());
     	
-    	/* 从数据库中获取公告 */
-   		DBHelperImpl db=new DBHelperImpl();
-   		Vector<String> Bullet=db.viewBullet();
+    	/* 从数据库中充值该用户名下的Balance */
+    	DBHelperImpl db=new DBHelperImpl();
+   		boolean ret=db.setBalance(uMail,value);
    		db.close();
    		
     	/* 将当前查询的用户名通过Session传递到前端 */
-    	request.getSession().setAttribute("currentUser", userMailAccount);
+    	request.getSession().setAttribute("currentUser", uMail);
     	
-    	/* 将当前查询用户的消费记录通过data传递到前端 */
-    	response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
-	    String data = "";
-	    Iterator<String> iterator = Bullet.iterator();
-	    while(iterator.hasNext()){
-	    	String bl = iterator.next();
-	    	data = data + bl.toString() + "\n";
-	    }
+    	/* 将结果通过Session传递到前端 */	
+    	String data;
+    	if(ret==true)
+    		data = "Recharge successfully.";
+    	else
+    		data= "Fail to recharge.";
 	    OutputStream stream = response.getOutputStream();
 	    stream.write(data.getBytes("UTF-8"));
+ //   	request.getSession().setAttribute("data", taskList);
     }
     
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	doGet(request, response);
     }
-    
 }

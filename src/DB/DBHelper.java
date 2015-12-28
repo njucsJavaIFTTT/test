@@ -29,6 +29,6 @@ public interface DBHelper {
 	public boolean storeMsg(String uMail,String cont);//存私信
 	public boolean storeBullet(String cont);//存公告	
 	//public boolean storeExpCal(String cont);//存消费记录已在charge里实现
-	public boolean setBalance(String uMail);//set余额，可用于充值或其他修改
+	public boolean setBalance(String uMail,double balance);//set余额，可用于充值或其他修改
 	//public boolean setUser(UserAccount user);//修改会员资料,暂不用
 }

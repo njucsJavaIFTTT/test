@@ -258,7 +258,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 	
 	public Vector<ExpenseCalendar> findExpCal(String uMail){//user获取个人消费记录
 		Vector<ExpenseCalendar> expC=new Vector<ExpenseCalendar>();
-		String sql = "select * from ExpenseCalendar where targerMail=\'" + uMail +"\';";
+		String sql = "select * from ExpenseCalendar where targetMail=\'" + uMail +"\';";
 		try{
 			PreparedStatement pst = connect.prepareStatement(sql);
 			ResultSet ret = pst.executeQuery();// 执行语句，得到结果集
@@ -286,7 +286,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 	
 	public Vector<Message> findMsg(String uMail){//user获取个人私人消息
 		Vector<Message> msg=new Vector<Message>();
-		String sql = "select * from Message where targerMail=\'" + uMail +"\';";
+		String sql = "select * from Message where targetMail=\'" + uMail +"\';";
 		try{
 			PreparedStatement pst = connect.prepareStatement(sql);
 			ResultSet ret = pst.executeQuery();// 执行语句，得到结果集
@@ -489,10 +489,5 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		
 	}*/
 	
-	@Override
-	public boolean setBalance(String uMail) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }
 
