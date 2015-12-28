@@ -32,15 +32,14 @@
 	int currentTask = -1, taskNum = 0;
 	String currentTaskName = "";
 	//...
-<<<<<<< HEAD
  //UserAccount user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
-=======
-t user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
->>>>>>> 28e4097d7ad2ad6e0f3f3c8664aefb9cf8f5a56f
+
+//t user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
+
 	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
 	Vector<CreateTaskFormBean> tasklist = (Vector<CreateTaskFormBean>)request.getSession().getAttribute("list");
 	//Vector<CreateTaskFormBean> tasklist =null;
-	
+	if (tasklist == null) System.out.println("00000");
 	if (tasklist != null) {
 		taskNum = tasklist.size();
 		currentTask = 0;
