@@ -2,6 +2,7 @@ package web.controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Iterator;
 import java.util.Vector;
 
 import javax.servlet.ServletException;
@@ -43,8 +44,20 @@ public class viewExpCalServlet extends HttpServlet {
    		DBHelperImpl db=new DBHelperImpl();
    		Vector<ExpenseCalendar> expCal=db.findExpCal(userMailAccount);
    		db.close();
-    	/* 将任务列表通过Session传递到前端 */
-    	request.getSession().setAttribute("list", expCal);
+   		
+    	/* 将当前查询的用户名通过Session传递到前端 */
+    	request.getSession().setAttribute("currentUser", userMailAccount);
+    	
+    	/* 将当前查询用户的消费记录通过data传递到前端 */
+    	response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
+	    String data = "";
+	    Iterator<ExpenseCalendar> iterator = expCal.iterator();
+	    while(iterator.hasNext()){
+	    	ExpenseCalendar expenseCalendar = iterator.next();
+	    	data = data + expenseCalendar.toString() + "\n";
+	    }
+	    OutputStream stream = response.getOutputStream();
+	    stream.write(data.getBytes("UTF-8"));
     }
     
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
