@@ -33,10 +33,10 @@
 	String currentTaskName = "";
 	String currentTaskID;
 	//...
- UserAccount user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
-	//UserAccount user = (UserAccount)request.getSession().getAttribute("user");
-	//Vector<CreateTaskFormBean> tasklist = (Vector<CreateTaskFormBean>)request.getSession().getAttribute("list");
-	Vector<CreateTaskFormBean> tasklist =null;
+ //UserAccount user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
+	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
+	Vector<CreateTaskFormBean> tasklist = (Vector<CreateTaskFormBean>)request.getSession().getAttribute("list");
+	//Vector<CreateTaskFormBean> tasklist =null;
 	
 	if (tasklist != null) {
 		taskNum = tasklist.size();
