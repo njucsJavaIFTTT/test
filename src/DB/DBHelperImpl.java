@@ -109,9 +109,9 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			pst.setInt(6, user.getCredit());
 			pst.setDouble(7, user.getDiscount());
 			pst.executeUpdate();
-			System.out.println("Success do '" + sql + "'!(db-Users)");
+			System.out.println("Success do '" + sql + "'!(db-addUser)");
 		} catch (Exception e) {
-			System.out.print("Fail do '" + sql + "'!(db-Users)");
+			System.out.print("Fail do '" + sql + "'!(db-addUser)");
 			e.printStackTrace();
 		}
 	}
@@ -131,12 +131,12 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 				uPwd = ret.getString("pwd");
 				String uName = ret.getString("username");
 				System.out.println("username:" + uName +"get pwd:" + uPwd+" mailAccount:"+uMailAccount);
-				System.out.println("Success do \'" + sql + "\'!(db-Users)");
+				System.out.println("Success do \'" + sql + "\'!(db-findUser)");
 				return uPwd;
 			}
 			//return new UserAccount(uName,uPwd,uMailAccount);//这边以后要用完全的复制
 		} catch (Exception e) {
-			System.out.print("Fail do \'" + sql + "\'!(db-Users)");
+			System.out.print("Fail do \'" + sql + "\'!(db-findUser)");
 			e.printStackTrace();
 		}
 		return null;//cant find 关键词,会在调用此方法的上一级方法中检验,这里也写是因为trycatch里的东西不被认可存在
@@ -193,9 +193,9 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			pst.setString(4, mailAccount);
 			pst.setDouble(5, t.getExpense());
 			pst.executeUpdate();
-			System.out.println("Success do '" + sql + "'!(db-Users)");
+			System.out.println("Success do '" + sql + "'!(db-charge)");
 		} catch (Exception e) {
-			System.out.print("Fail do '" + sql + "'!(db-Users)");
+			System.out.print("Fail do '" + sql + "'!(db-charge)");
 			e.printStackTrace();
 		}
 		return true;
