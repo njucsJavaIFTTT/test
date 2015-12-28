@@ -34,8 +34,8 @@
 	String password = (new UserDaoImpl()).find(userMailAccount);
 	UserAccount user = (new UserDaoImpl()).find(userMailAccount, password);
 %>
-var userID = <%=user.getMailAccount()%>;
-var userName = <%=user.getUsername()%>;
+<%-- var userID = <%=user.getMailAccount()%>; --%>
+<%-- var userName = <%=user.getUsername()%>; --%>
 
 var thisType = 0;
 var thatType = 0;
@@ -44,7 +44,6 @@ var ownerMail = "", orderedTime = "", MonitorMailAccount = "", MonitorMailpasswo
 var MonitorWeiboAccount = "", MonitorWeiboAccessToken = "", MonitorContain = "", listenMinute = 0;
 var sendWeiboAccount = "", sendWeiboAccessToken = "", weiboContent = "", mailContent = "", receiverMailAccount = "";
 $(document).ready(function(){
-	$("#userName").text("Hi~ "+userName);
 	$("#this-to-choose").hide();
 	$("#weibo-login").hide();
 	$("#mail-login").hide();
@@ -501,7 +500,7 @@ $(document).ready(function(){
 					{	
 						taskName: $("#task-name").val(),
 						taskID: taskID,//////////////////////////////////////////////////////////
-						ownerMail: userID,
+						ownerMail: "",
 						thisType: thisType,
 						thatType: thatType,
 						orderedTime: orderedTime,
@@ -518,10 +517,7 @@ $(document).ready(function(){
 						receiverMailAccount: receiverMailAccount
 					},
 					function(data){
-						/* taskID自增 */
-						taskID++;
 						var d = data;
-						alert(taskID);
 						alert(data);
 						if(d == "Create task successfully.")
 							location.href = "http://localhost:8080/test/mainPage.jsp";
@@ -562,7 +558,7 @@ border: 1px solid green;
 <body>
 <div class="form-group" style= "padding-top: 1%;background-color: #87CEFA;" >
 	<strong class="col-md-offset-1 col-sm-offset-1" style = "font-size:120%;color:#FFFFFF">IFTTT</strong>
-	<strong id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"></strong>
+	<strong id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"><%out.print("Hi~ "+user.getUsername());%></strong>
 </div>
 <div class="container">
 	<ul style = "list-style-type:none;">

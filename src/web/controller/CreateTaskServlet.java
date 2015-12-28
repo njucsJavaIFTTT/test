@@ -45,6 +45,8 @@ public class CreateTaskServlet extends HttpServlet {
     	/* 设置TaskId */
     	formBean.setTaskID(String.valueOf(Task.getTotalTask()));
     	Task.setTotalTask();
+    	String userMailAccount = (String)request.getSession().getAttribute("userMailAccount");
+    	formBean.setOwnerMail(userMailAccount);
     	
     	boolean flag = true;//用于记录存储formBean是否成功的标志位
     	
