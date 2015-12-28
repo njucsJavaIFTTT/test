@@ -1,4 +1,5 @@
-<%@ page language="java" import="domain.UserAccount" contentType="text/html; charset=UTF-8"
+<%@page import="dao.impl.UserDaoImpl"%>
+<%@ page language="java" import="domain.UserAccount,dao.impl.UserDaoImpl" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -22,7 +23,18 @@
 
 <script type="text/javascript">
 <%
-	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
+	String userMailAccount = null;
+	userMailAccount = (String)session.getAttribute("userMailAccount");
+	if(null == userMailAccount){
+		response.sendRedirect("index.jsp");
+		return;  
+	}
+	else if (userMailAccount.compareTo("admin") == 0){
+		response.sendRedirect("administratorPage.jsp");
+		return;  
+	}
+	String password = (new UserDaoImpl()).find(userMailAccount);
+	UserAccount user = (new UserDaoImpl()).find(userMailAccount, password);
 %>
 var userID = <%=user.getMailAccount()%>;
 var userName = <%=user.getUsername()%>;
@@ -52,10 +64,10 @@ $(document).ready(function(){
 						<a id = "newTask" type="button" class="btn btn-default" href = "/test/newTask.jsp">新建任务</a>
 					</div>
 					<div class="form-group">
-						<a id = "editTask" type="button" class="btn btn-default" href = "">查看任务</a>
+						<a id = "editTask" type="button" class="btn btn-default" href = "/test/editTask.jsp">查看任务</a>
 					</div>
 					<div class="form-group">
-						<a id = "account-center" type="button" class="btn btn-default" href = "">用户中心</a>
+						<a id = "account-center" type="button" class="btn btn-default" href = "/test/personalAccount.jsp">用户中心</a>
 					</div>
 				</form>
 			</div>

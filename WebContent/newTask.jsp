@@ -1,4 +1,4 @@
-<%@ page language="java" import="domain.UserAccount" contentType="text/html; charset=UTF-8"
+<%@ page language="java" import="domain.UserAccount,dao.impl.UserDaoImpl" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -20,12 +20,22 @@
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 
 <script type="text/javascript">
-<%-- <% --%>
-// UserAccount user = (UserAccount)request.getSession().getAttribute("user");
-<%-- %> --%>
-<%-- var userID = <%=user.getMailAccount()%>; --%>
-<%-- var userName = <%=user.getUsername()%>; --%>
-var userName = "username";
+<%
+	String userMailAccount = null;
+	userMailAccount = (String)session.getAttribute("userMailAccount");
+	if(null == userMailAccount){
+		response.sendRedirect("index.jsp");
+		return;  
+	}
+	else if (userMailAccount.compareTo("admin") == 0){
+		response.sendRedirect("administratorPage.jsp");
+		return;  
+	}
+	String password = (new UserDaoImpl()).find(userMailAccount);
+	UserAccount user = (new UserDaoImpl()).find(userMailAccount, password);
+%>
+var userID = <%=user.getMailAccount()%>;
+var userName = <%=user.getUsername()%>;
 
 var thisType = 0;
 var thatType = 0;
@@ -491,8 +501,7 @@ $(document).ready(function(){
 					{	
 						taskName: $("#task-name").val(),
 						taskID: taskID,//////////////////////////////////////////////////////////
-						//调试设置,应设为user(Session)的userMailAccount
-						ownerMail: "15195758921@163.com",
+						ownerMail: userId,
 						thisType: thisType,
 						thatType: thatType,
 						orderedTime: orderedTime,
@@ -509,8 +518,14 @@ $(document).ready(function(){
 						receiverMailAccount: receiverMailAccount
 					},
 					function(data){
+						/* taskID自增 */
+						taskID++;
+						var d = data;
+						alert(taskID);
 						alert(data);
-				       		//$('#verifivation-code-msg').html(message);
+						if(d == "Create task successfully.")
+							location.href = "http://localhost:8080/test/editTask.jsp";
+				       	//$('#verifivation-code-msg').html(message);
 					});
 		}
 		

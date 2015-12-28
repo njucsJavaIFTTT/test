@@ -65,11 +65,8 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$("#submit-button").click(function(){
-	//alert("heihei");
-	location.href = "http://localhost:8080/test/mainPage.jsp";
 	if (userIDChecked == false || passwordChecked == false) {
     	alert("填写信息有误");
-    	
     }
 	else {
 		$.post(
@@ -79,8 +76,11 @@ $(document).ready(function(){
     				password: $("#password").val()
     	       	},
     	       	function(data,status){
-    	          	//登录成功or失败
+    	          	//登录成功则跳转到mainPage
+    	          	var d = data;
     	          	alert(data);
+    	          	if(d == "Login successfully.")
+    	          		location.href = "http://localhost:8080/test/mainPage.jsp";
     	        });
 	}
   });

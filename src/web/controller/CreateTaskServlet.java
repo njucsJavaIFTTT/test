@@ -40,10 +40,10 @@ public class CreateTaskServlet extends HttpServlet {
     	
     	/* 将表单数据存储到formbean中 */
     	CreateTaskFormBean formBean = WebUtils.request2Bean(request, CreateTaskFormBean.class);
-    	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
-    	System.out.println(formBean.getMailContent());
-    	System.out.println(request.getParameter("mailContent"));
-    	System.out.println(formBean.getReceiverMailAccount());
+    	//UserAccount user = (UserAccount)request.getSession().getAttribute("user");
+    	//System.out.println(formBean.getMailContent());
+    	//System.out.println(request.getParameter("mailContent"));
+    	//System.out.println(formBean.getReceiverMailAccount());
     	//formBean.setOwnerMail(user.getMailAccount());
     	
     	boolean flag = true;//用于记录存储formBean是否成功的标志位

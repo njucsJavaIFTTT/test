@@ -28,9 +28,7 @@ public class WebUtils {
 				String name = (String)e.nextElement();
 				String value = request.getParameter(name);
 				BeanUtils.setProperty(bean, name, value);
-				System.out.println(BeanUtils.getProperty(bean, name));
 			}
-			System.out.println(BeanUtils.getProperty(bean, "mailContent"));
 			return bean;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
