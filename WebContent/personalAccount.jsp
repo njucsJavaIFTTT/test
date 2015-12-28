@@ -30,8 +30,8 @@
 // TODO:传入管理员发布的公告
 //		int currentTask
 // */
-//	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
-	UserAccount user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
+	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
+	//UserAccount user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
 	
 	DBHelperImpl db=new DBHelperImpl();
 	Vector<Message> msgList = db.findMsg(user.getMailAccount());
