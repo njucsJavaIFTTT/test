@@ -46,7 +46,7 @@ public class UserDaoImpl implements IUserDao{
 	
 	public Vector<Task> viewTask(String uMailAccount){//根据用户mail查其所有Task
 		DBHelperImpl db=new DBHelperImpl();
-		Vector<Task> t=db.viewTask(uMailAccount);
+		Vector<Task> t= db.viewTask(uMailAccount);
 		db.close();
 		return t;
 	};
