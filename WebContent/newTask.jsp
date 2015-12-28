@@ -491,20 +491,21 @@ $(document).ready(function(){
 					{	
 						taskName: $("#task-name").val(),
 						taskID: taskID,//////////////////////////////////////////////////////////
+						//调试设置,应设为user(Session)的userMailAccount
 						ownerMail: "15195758921@163.com",
 						thisType: thisType,
 						thatType: thatType,
 						orderedTime: orderedTime,
-						MonitorMailAccount: MonitorMailAccount,
-						MonitorMailpassword: MonitorMailpassword,
-						MonitorWeiboAccount: MonitorWeiboAccount,
-						MonitorWeiboAccessToken: MonitorWeiboAccessToken,
-						MonitorContain: MonitorContain,
+						monitorMailAccount: MonitorMailAccount,
+						monitorMailpassword: MonitorMailpassword,
+						monitorWeiboAccount: MonitorWeiboAccount,
+						monitorWeiboAccessToken: MonitorWeiboAccessToken,
+						monitorContain: MonitorContain,
 						listenMinute: listenMinute,
 						weiboContent: weiboContent,
-						mailContent: mailContent,
 						sendWeiboAccount: sendWeiboAccount,
 						sendWeiboAccessToken: sendWeiboAccessToken,
+						mailContent: mailContent,
 						receiverMailAccount: receiverMailAccount
 					},
 					function(data){

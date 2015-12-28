@@ -39,9 +39,11 @@ public class CreateTaskServlet extends HttpServlet {
     	 */
     	
     	/* 将表单数据存储到formbean中 */
-    	System.out.println("hahaha");
     	CreateTaskFormBean formBean = WebUtils.request2Bean(request, CreateTaskFormBean.class);
     	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
+    	System.out.println(formBean.getMailContent());
+    	System.out.println(request.getParameter("mailContent"));
+    	System.out.println(formBean.getReceiverMailAccount());
     	//formBean.setOwnerMail(user.getMailAccount());
     	
     	boolean flag = true;//用于记录存储formBean是否成功的标志位
@@ -53,12 +55,12 @@ public class CreateTaskServlet extends HttpServlet {
     	}
     	catch(TaskException e)
     	{
+    		flag = false;
     		e.printStackTrace();
     	}
 
     	/* 返回创建任务信息给用户 */
     	if(flag){
-    		System.out.println("hahaha");
     		response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
 		    String data = "Create task successfully.";
 		    OutputStream stream = response.getOutputStream();

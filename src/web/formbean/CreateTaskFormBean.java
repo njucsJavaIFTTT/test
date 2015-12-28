@@ -14,11 +14,11 @@ public class CreateTaskFormBean {
 	private String thisType;
 	private String thatType;
 	private String orderedTime;//定时
-	private String MonitorMailAccount;//this任务-收件QQ邮箱账号
-	private String MonitorMailpassword;//this任务-收件QQ邮箱密码
-	private String MonitorWeiboAccount;//this任务-监听微博账号
-	private String MonitorWeiboAccessToken;//this任务-监听微博授权码
-	private String MonitorContain;//this任务-监听微博内容
+	private String monitorMailAccount;//this任务-收件QQ邮箱账号
+	private String monitorMailpassword;//this任务-收件QQ邮箱密码
+	private String monitorWeiboAccount;//this任务-监听微博账号
+	private String monitorWeiboAccessToken;//this任务-监听微博授权码
+	private String monitorContain;//this任务-监听微博内容
 	private String listenMinute;//this任务-监听微博时长
 	
 	private String weiboContent;//that任务-发送微博内容
@@ -39,11 +39,11 @@ public class CreateTaskFormBean {
 		this.thisType = String.valueOf(thisType);
 		this.thatType = String.valueOf(thatType);
 		this.orderedTime = orderedTime;
-		MonitorMailAccount = monitorMailAccount;
-		MonitorMailpassword = monitorMailpassword;
-		MonitorWeiboAccount = monitorWeiboAccount;
-		MonitorWeiboAccessToken = monitorWeiboAccessToken;
-		MonitorContain = monitorContain;
+		this.monitorMailAccount = monitorMailAccount;
+		this.monitorMailpassword = monitorMailpassword;
+		this.monitorWeiboAccount = monitorWeiboAccount;
+		this.monitorWeiboAccessToken = monitorWeiboAccessToken;
+		this.monitorContain = monitorContain;
 		this.listenMinute = String.valueOf(listenMinute);
 		this.weiboContent = weiboContent;
 		this.sendWeiboAccount = sendWeiboAccount;
@@ -69,43 +69,43 @@ public class CreateTaskFormBean {
 	}
 
 	public String getMonitorMailAccount() {
-		return MonitorMailAccount;
+		return monitorMailAccount;
 	}
 
 	public void setMonitorMailAccount(String monitorMailAccount) {
-		MonitorMailAccount = monitorMailAccount;
+		this.monitorMailAccount = monitorMailAccount;
 	}
 
 	public String getMonitorMailpassword() {
-		return MonitorMailpassword;
+		return monitorMailpassword;
 	}
 
 	public void setMonitorMailpassword(String monitorMailpassword) {
-		MonitorMailpassword = monitorMailpassword;
+		this.monitorMailpassword = monitorMailpassword;
 	}
 
 	public String getMonitorWeiboAccount() {
-		return MonitorWeiboAccount;
+		return monitorWeiboAccount;
 	}
 
 	public void setMonitorWeiboAccount(String monitorWeiboAccount) {
-		MonitorWeiboAccount = monitorWeiboAccount;
+		this.monitorWeiboAccount = monitorWeiboAccount;
 	}
 
 	public String getMonitorWeiboAccessToken() {
-		return MonitorWeiboAccessToken;
+		return monitorWeiboAccessToken;
 	}
 
 	public void setMonitorWeiboAccessToken(String monitorWeiboAccessToken) {
-		MonitorWeiboAccessToken = monitorWeiboAccessToken;
+		this.monitorWeiboAccessToken = monitorWeiboAccessToken;
 	}
 
 	public String getMonitorContain() {
-		return MonitorContain;
+		return monitorContain;
 	}
 
 	public void setMonitorContain(String monitorContain) {
-		MonitorContain = monitorContain;
+		this.monitorContain = monitorContain;
 	}
 
 	public String getListenMinute() {
@@ -121,7 +121,7 @@ public class CreateTaskFormBean {
 	}
 
 	public void setWeiboContent(String weiboContent) {
-		weiboContent = weiboContent;
+		this.weiboContent = weiboContent;
 	}
 
 	public String getSendWeiboAccount() {
@@ -129,7 +129,7 @@ public class CreateTaskFormBean {
 	}
 
 	public void setSendWeiboAccount(String sendWeiboAccount) {
-		sendWeiboAccount = sendWeiboAccount;
+		this.sendWeiboAccount = sendWeiboAccount;
 	}
 
 	public String getSendWeiboAccessToken() {
@@ -145,7 +145,7 @@ public class CreateTaskFormBean {
 	}
 
 	public void setMailContent(String mailContent) {
-		mailContent = mailContent;
+		this.mailContent = mailContent;
 	}
 
 	public String getReceiverMailAccount() {
@@ -153,7 +153,7 @@ public class CreateTaskFormBean {
 	}
 
 	public void setReceiverMailAccount(String receiverMailAccount) {
-		receiverMailAccount = receiverMailAccount;
+		this.receiverMailAccount = receiverMailAccount;
 	}
 
 	public String getTaskID() {
@@ -192,9 +192,9 @@ public class CreateTaskFormBean {
 	public String toString() {
 		return "CreateTaskFormBean [taskName=" + taskName + ", taskID=" + taskID + ", ownerMail=" + ownerMail
 				+ ", thisType=" + thisType + ", thatType=" + thatType + ", orderedTime=" + orderedTime
-				+ ", MonitorMailAccount=" + MonitorMailAccount + ", MonitorMailpassword=" + MonitorMailpassword
-				+ ", MonitorWeiboAccount=" + MonitorWeiboAccount + ", MonitorWeiboAccessToken="
-				+ MonitorWeiboAccessToken + ", MonitorContain=" + MonitorContain + ", listenMinute=" + listenMinute
+				+ ", MonitorMailAccount=" + monitorMailAccount + ", MonitorMailpassword=" + monitorMailpassword
+				+ ", MonitorWeiboAccount=" + monitorWeiboAccount + ", MonitorWeiboAccessToken="
+				+ monitorWeiboAccessToken + ", MonitorContain=" + monitorContain + ", listenMinute=" + listenMinute
 				+ ", weiboContent=" + weiboContent + ", sendWeiboAccount=" + sendWeiboAccount
 				+ ", sendWeiboAccessToken=" + sendWeiboAccessToken + ", mailContent=" + mailContent
 				+ ", receiverMailAccount=" + receiverMailAccount + "]";

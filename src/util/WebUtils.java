@@ -25,10 +25,12 @@ public class WebUtils {
 			T bean = clazz.newInstance();
 			Enumeration<String> e = request.getParameterNames();
 			while (e.hasMoreElements()) {
-				String name = (String) e.nextElement();
+				String name = (String)e.nextElement();
 				String value = request.getParameter(name);
 				BeanUtils.setProperty(bean, name, value);
+				System.out.println(BeanUtils.getProperty(bean, name));
 			}
+			System.out.println(BeanUtils.getProperty(bean, "mailContent"));
 			return bean;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
