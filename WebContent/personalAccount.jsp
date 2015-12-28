@@ -37,8 +37,6 @@
 	Vector<Message> msgList = db.findMsg(user.getMailAccount());
 	Vector<ExpenseCalendar> expCalendar = db.findExpCal(user.getMailAccount());
 	Vector<String> bulletList = db.viewBullet();
-	
-	
 	%>
 
 $(document).ready(function(){
@@ -133,7 +131,7 @@ $(document).ready(function(){
 						<div class="form-group">
 							<label for="user-balance" class="col-sm-2 control-label">账户余额</label>
 							<div class="col-sm-6">
-								<p class="form-control-static user-balance"></p>
+								<p class="form-control-static user-balance"><%out.print(user.getBalance());%></p>
 							</div>
 						</div>
 						<div class="form-group">
@@ -152,11 +150,6 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
-<!-- 	<div class="tab-pane fade" id="expense-calendar"> -->
-<!-- 		<p id="expense-calendar-list"> -->
-			
-<!-- 		</p> -->
-<!-- 	</div> -->
 	<div class="tab-pane fade" id="expense-calendar">
 		<ul class="list-group" id="expense-calendar-list">
 			<%if (expCalendar != null) {
@@ -167,11 +160,6 @@ $(document).ready(function(){
 			<%} }%>
 		</ul>
 	</div>
-<!-- 	<div class="tab-pane fade" id="public-message"> -->
-<!-- 		<p id="public-message-list"> -->
-			
-<!-- 		</p> -->
-<!-- 	</div> -->
 	<div class="tab-pane fade" id="public-message">
 		<ul class="list-group" id = "public-message-list">
 			<%if (bulletList != null) {
