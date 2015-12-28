@@ -29,20 +29,22 @@
 // TODO:传入任务列表
 //		int currentTask
 // */
-	int currentTask = 0, taskNum = 0;
+	int currentTask = -1, taskNum = 0;
 	String currentTaskName = "";
-	String currentTaskID;
 	//...
+<<<<<<< HEAD
  //UserAccount user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
+=======
+t user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
+>>>>>>> 28e4097d7ad2ad6e0f3f3c8664aefb9cf8f5a56f
 	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
 	Vector<CreateTaskFormBean> tasklist = (Vector<CreateTaskFormBean>)request.getSession().getAttribute("list");
 	//Vector<CreateTaskFormBean> tasklist =null;
 	
 	if (tasklist != null) {
 		taskNum = tasklist.size();
-		currentTask = 1;
-		currentTaskName = tasklist.get(1).getTaskName();
-		currentTaskID = tasklist.get(1).getTaskID();
+		currentTask = 0;
+		currentTaskName = tasklist.get(0).getTaskName();
 	}
 	else currentTask = 0;
 	String thisType="",thatType="";
@@ -54,7 +56,7 @@ var MonitorWeiboAccount = "", MonitorWeiboAccessToken = "", MonitorContain = "",
 var sendWeiboAccount = "", sendWeiboAccessToken = "", weiboContent = "", mailContent = "", receiverMailAccount = "";
 
 $(document).ready(function(){
-	<%if (currentTask == 0) {%>
+	<%if (currentTask == -1) {%>
 		$(".container").hide();
 		$("#empty-task").show();
 	<%} else {%>
@@ -98,7 +100,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$(".before-task").click(function(){
-	<%	if (currentTask != 1 && currentTask != 0) {
+	<%	if (currentTask != 0 && currentTask != -1) {
 			currentTask--;%>
 			//currentTaskID = 
 			$("#empty-task").hide();
@@ -142,7 +144,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$(".next-task").click(function(){
-	<%	if (currentTask != taskNum && currentTask != 0) {%>
+	<%	if (currentTask != taskNum-1 && currentTask != -1) {%>
 		<%	currentTask++;	%>
 
 			//currentTaskID = 
@@ -187,7 +189,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$(".start-button").click(function(){
-		<%if (currentTask != 0) {%>
+		<%if (currentTask != -1) {%>
 		$.post("StartTaskServlet",
 			{	
 				taskID: <%out.print(tasklist.get(currentTask).getTaskID());%>
@@ -201,7 +203,7 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
 	$(".stop-button").click(function(){
-		<%if (currentTask != 0) {%>
+		<%if (currentTask != -1) {%>
 		$.post("StopTaskServlet",
 			{	
 				taskID: <%out.print(tasklist.get(currentTask).getTaskID());%>
@@ -215,7 +217,7 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
 	$(".edit-button").click(function(){
-		<%if (currentTask != 0) {%>
+		<%if (currentTask != -1) {%>
 		MonitorMailAccount = <%out.print(tasklist.get(currentTask).getMonitorMailAccount());%>;
 		orderedTime = <%out.print(tasklist.get(currentTask).getOrderedTime());%>;
 		MonitorMailpassword = <%out.print(tasklist.get(currentTask).getMonitorMailpassword());%>;
@@ -260,7 +262,7 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
 	$(".delete-button").click(function(){
-		<%if (currentTask != 0) {%>
+		<%if (currentTask != -1) {%>
 		$.post("DeleteTaskServlet",
 			{	
 				taskID: <%out.print(tasklist.get(currentTask).getTaskID());%>
@@ -274,7 +276,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$("#submit-change").click(function(){
-		<%if (currentTask != 0) {%>
+		<%if (currentTask != -1) {%>
 		<%if (thisType.equals("0")) {%>
 			orderedTime = $("#this-time-time").val();
 		<%}else if (thisType.equals("2")) {%>
