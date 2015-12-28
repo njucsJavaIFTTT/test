@@ -1,5 +1,5 @@
 <%@page import="java.util.Vector"%>
-<%@ page language="java" import="domain.UserAccount; import domain.Task" contentType="text/html; charset=UTF-8"
+<%@ page language="java" import="domain.UserAccount,domain.Task" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -46,8 +46,8 @@
 	}
 	
 	%>
-<%-- var userID = <%=user.getMailAccount()%>; --%>
-<%-- var userName = <%=user.getUsername()%>; --%>
+var userID = <%=user.getMailAccount()%>;
+var userName = <%=user.getUsername()%>;
 
 
 int thisType = 0, thatType = 0, taskID = 0;
@@ -65,9 +65,9 @@ $(document).ready(function(){
 		$("#empty-task").hide();
 //  		TODO：
 //  			对当前任务进行设置
-//  		$("#task-name").text();
-//  		$("#this-detail").text();
-// 		$("#that-detail").text();
+ 		$("#task-name").text(<%=currentTaskName%>);
+ 		$("#this-detail").text();
+		$("#that-detail").text();
 	}
 });
 

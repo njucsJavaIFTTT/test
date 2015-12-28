@@ -43,7 +43,7 @@ public class RegisterServlet extends HttpServlet {
 			service.registerUser(user);//调用service层提供的注册用户服务实现用户注册
 			
 			response.setHeader("Content-type","text/html;charset=UTF-8");
-		    String data = "Register successfully.It will turn to login page in 3 seconds.";
+		    String data = "success";
 		    OutputStream stream = response.getOutputStream();
 		    stream.write(data.getBytes("UTF-8")); 
 		    /* 应跳转到登录界面 */
