@@ -11,7 +11,7 @@ public class ExpenseCalendar {
 	private String ownerMail;//用户mail
 	private double payment;//本次任务消费金额
 	
-	public ExpenseCalendar(){};
+	//public ExpenseCalendar(){};
 	
 	public ExpenseCalendar(Timestamp startDate, int taskID, int num, String ownerMail,double payment) {
 		super();
@@ -21,12 +21,14 @@ public class ExpenseCalendar {
 		this.ownerMail = ownerMail;
 		this.payment=payment;
 	}
-	public ExpenseCalendar(int taskID, int num, String ownerMail) {
-		super();
-		this.taskID = taskID;
-		this.num = num;
-		this.ownerMail = ownerMail;
+
+	
+	@Override
+	public String toString() {
+		return startDate.toString() + ", taskID=" + taskID + ", num=" + num + ", payment=" + payment;
 	}
+
+
 	public ExpenseCalendar getRecord(){
 		return this;
 	}
