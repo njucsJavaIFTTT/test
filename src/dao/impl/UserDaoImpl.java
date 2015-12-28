@@ -60,6 +60,9 @@ public class UserDaoImpl implements IUserDao{
 	
 	public Vector<ExpenseCalendar> viewExpCalendar(String uMailAccount){//根据用户mail查其所有消费记录
 		Vector<ExpenseCalendar> expC;
+		DBHelperImpl db=new DBHelperImpl();
+		expC= db.findExpCal(uMailAccount);
+		db.close();
 		return expC;
 	};
 }
