@@ -23,7 +23,7 @@ public interface DBHelper {
 	public Vector<ExpenseCalendar> findExpCal(String uMail);//user获取个人消费记录
 	//public Vector<Message> viewAllMsg();//管理员获取全部私人消息，暂没用不写
 	public Vector<String> viewBullet();//获取公告
-	public Vector<Task> viewTask(String uMailAccount) throws SQLException;//根据用户mail查其所有Task
+	public Vector<CreateTaskFormBean> viewTask(String uMailAccount) throws SQLException;//根据用户mail查其所有Task
 	public Vector<UserAccount> viewAllUsers();//获取全部user
 	public boolean storeTask(CreateTaskFormBean tf);//保存taskFormbean
 	public boolean storeMsg(String uMail,String cont);//存私信

@@ -48,6 +48,18 @@ public class UserAccount {
 
 
 	public UserAccount(String username, String password, String mailAccount, double balance, int level, int credit,
+			double discount) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.mailAccount = mailAccount;
+		this.balance = balance;
+		this.level = level;
+		this.credit = credit;
+		this.discount = discount;
+	}
+
+	public UserAccount(String username, String password, String mailAccount, double balance, int level, int credit,
 			double discount, Vector<ExpenseCalendar> expenseCalendar, Vector<Task> taskQueue, Vector<Message> msg) {
 		super();
 		this.username = username;

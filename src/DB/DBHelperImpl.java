@@ -304,8 +304,8 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		}
 	}
 	
-	public Vector<Task> viewTask(String uMailAccount) throws SQLException{//根据用户mail查其所有Task
-		Vector<Task> t=new Vector<Task>();
+	public Vector<CreateTaskFormBean> viewTask(String uMailAccount) throws SQLException{//根据用户mail查其所有Task
+		Vector<CreateTaskFormBean> t=new Vector<CreateTaskFormBean>();
 		String sql = "select * from taskFormbean where ownerMail=\'" + uMailAccount +"\';";
 		try{
 			PreparedStatement pst = connect.prepareStatement(sql);
@@ -350,6 +350,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			PreparedStatement pst = connect.prepareStatement(sql);
 			ResultSet ret = pst.executeQuery();// 执行语句，得到结果集
 			while(ret.next()){// 结果集非空
+				/*
 				//System.out.println("hhh");
 				String mail=ret.getString("mailAccount");
 				//根据userMail获取ExpenseCalendar
@@ -358,17 +359,15 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 				Vector<Task> u_t=viewTask(mail);
 				//根据userMail获取Msg
 				Vector<Message> u_m=findMsg(mail);
+				*/
 				UserAccount u=new UserAccount(
 				ret.getString("username"),
 				ret.getString("password"),
-				mail,
+				ret.getString("mailAccount"),
 				ret.getDouble("balance"),
 				ret.getInt("level"),
 				ret.getInt("credit"),
-				ret.getDouble("discount"),
-				u_ec,
-				u_t,
-				u_m);
+				ret.getDouble("discount"));
 				System.out.println(u.toString());
 				//Task tmpTask=createTask(tf);//待实现
 				Users.add(u);
