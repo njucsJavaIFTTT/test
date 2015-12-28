@@ -6,7 +6,9 @@ import java.util.Vector;
 
 import DB.DBHelperImpl;
 import domain.UserAccount;
+import web.formbean.CreateTaskFormBean;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserDaoImpl implements IUserDao{
@@ -44,9 +46,14 @@ public class UserDaoImpl implements IUserDao{
 		return ret;
 	};
 	
-	public Vector<Task> viewTask(String uMailAccount){//根据用户mail查其所有Task
+	public Vector<CreateTaskFormBean> viewTask(String uMailAccount){//根据用户mail查其所有Task
 		DBHelperImpl db=new DBHelperImpl();
-		Vector<Task> t= db.viewTask(uMailAccount);
+		Vector<CreateTaskFormBean> t = null;
+		try {
+			t = db.viewTask(uMailAccount);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		db.close();
 		return t;
 	};

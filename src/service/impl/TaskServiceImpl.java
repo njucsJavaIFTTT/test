@@ -54,7 +54,7 @@ public class TaskServiceImpl implements ITaskService{
 	@Override
 	public Task createTask(CreateTaskFormBean formBean) throws TaskException {
 		/* 按任务种类创建this任务 */
-		int thistype = formBean.getThisType();
+		int thistype = Integer.parseInt(formBean.getThisType());
 		Request rqt = null;
 		switch (thistype) {
 		case 0:{
@@ -86,7 +86,7 @@ public class TaskServiceImpl implements ITaskService{
 		case 3:{
 			String userWeiboAccount = formBean.getMonitorWeiboAccount();
 			String accessToken = formBean.getMonitorWeiboAccessToken();
-			int minute = formBean.getListenMinute();
+			int minute = Integer.parseInt(formBean.getListenMinute());
 			rqt = new MonitorWeiboWithinLimitTime(accessToken, userWeiboAccount, minute);
 			break;
 		}
@@ -97,7 +97,7 @@ public class TaskServiceImpl implements ITaskService{
 		}
 		
 		/* 按任务种类创建that任务 */
-		int thattype = formBean.getThisType();
+		int thattype = Integer.parseInt(formBean.getThisType());
 		Goal goal = null;
 		switch (thattype) {
 		case 0:{
@@ -144,9 +144,9 @@ public class TaskServiceImpl implements ITaskService{
 	}
 
 	@Override
-	public Vector<Task> findTaskByMailAccount(String userMailAccount) throws TaskException {
+	public Vector<CreateTaskFormBean> findTaskByMailAccount(String userMailAccount) throws TaskException {
 		DBHelper db = new DBHelperImpl();
-		Vector<Task> vector = null;
+		Vector<CreateTaskFormBean> vector = null;
 		try{
 			vector = db.viewTask(userMailAccount);
 		}
