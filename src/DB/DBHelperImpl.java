@@ -183,7 +183,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 	
 	public boolean charge(String mailAccount,int ExpCnt,Task t){
 		//根据任务对用户进行收费并增加消费记录
-		String sql = "INSERT INTO ExpenseCalendar VALUES(?,?,?)";
+		String sql = "INSERT INTO ExpenseCalendar VALUES(?,?,?,?,?)";
 		try {
 			PreparedStatement pst = connect.prepareStatement(sql);// 准备执行语句
 			Date date=new Date();
@@ -192,6 +192,8 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			pst.setTimestamp(1, tStamp);
 			pst.setInt(2, t.getTaskID());
 			pst.setInt(3, ExpCnt);
+			pst.setString(4, mailAccount);
+			pst.setDouble(5, t.getExpense());
 			pst.executeUpdate();
 			System.out.println("Success do '" + sql + "'!(db-Users)");
 		} catch (Exception e) {
@@ -255,6 +257,35 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			return null;
 		}
 	}
+	
+	public Vector<ExpenseCalendar> findExpCal(String uMail){//user获取个人消费记录
+		Vector<ExpenseCalendar> expC=new Vector<ExpenseCalendar>();
+		String sql = "select * from ExpenseCalendar where targerMail=\'" + uMail +"\';";
+		try{
+			PreparedStatement pst = connect.prepareStatement(sql);
+			ResultSet ret = pst.executeQuery();// 执行语句，得到结果集
+			while(ret.next()){// 结果集非空
+				//System.out.println("hhh");
+				ExpenseCalendar ec=new ExpenseCalendar(
+				ret.getTimestamp("startDate"),
+				ret.getInt("taskID"),
+				ret.getInt("num"),
+				ret.getString("ownerMail"),
+				ret.getDouble("expense"));
+				expC.add(ec);
+				System.out.println(m.toString());
+			}
+			System.out.println("Success do '" + sql + "'!(db-findExpCal)");
+			return expC;
+		} catch (Exception e) {
+			System.out.print("Fail do '" + sql + "'!(db-findExpCal)");
+			e.printStackTrace();
+			return null;
+		}
+		
+	
+	}
+	
 	public Vector<Message> findMsg(String uMail){//user获取个人私人消息
 		Vector<Message> msg=new Vector<Message>();
 		String sql = "select * from Message where targerMail=\'" + uMail +"\';";
@@ -454,6 +485,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			return false;
 		}
 	}
+
 	/*
 	public boolean setUserLevel(String uMail){//修改会员资料
 		

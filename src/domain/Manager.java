@@ -12,10 +12,10 @@ public class Manager {
 		db.close();
 		return Users;
 	}
-	public boolean sendMasg(UserAccount u,String cont){//发给user私人消息
+	public boolean sendMsg(UserAccount u,String cont){//发给user私人消息
 		Message msg=new Message(u.getMailAccount(),cont);
 		DBHelperImpl db=new DBHelperImpl();
-		boolean ret=db.storeMsg(u,cont);
+		boolean ret=db.storeMsg(u.getMailAccount(),cont);
 		db.close();
 		u.addMas(msg);
 		return ret;
