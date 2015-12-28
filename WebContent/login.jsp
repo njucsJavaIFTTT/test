@@ -66,7 +66,7 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$("#submit-button").click(function(){
 	//alert("heihei");
-	location.href = "http://www.baidu.com";
+	location.href = "http://localhost:8080/test/newTask.jsp";
 	if (userIDChecked == false || passwordChecked == false) {
     	alert("填写信息有误");
     	

@@ -76,6 +76,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		}
 		//create table message（待定）
 	}
+	
 	public DBHelperImpl() {
 		// 加载MYSQL JDBC驱动程序
 		try {
@@ -199,9 +200,6 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		}
 		return true;
 	}
-
-
-	
 	
 	public boolean modifyTask(CreateTaskFormBean tf){//修改已有的taskFormbean
 		//先delete再add
@@ -230,7 +228,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		ResultSet ret = pst.executeQuery();// 执行语句，得到结果集
 		if(ret.next()){// 结果集非空
 			//System.out.println("hhh");
-			CreateTaskFormBean tf=new CreateTaskFormBean(ret.getString("taskName"),
+			CreateTaskFormBean tf = new CreateTaskFormBean(ret.getString("taskName"),
 			ret.getInt("taskID"),//任务ID唯一标识
 			ret.getString("ownerMail"),//任务所属用户的账号邮箱
 			ret.getInt("thisType"),
@@ -385,27 +383,26 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 	}
 
 	public boolean storeTask(CreateTaskFormBean tf){//保存taskFormbean
-		String sql = "INSERT INTO UserAccount VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO taskFormBean VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pst = connect.prepareStatement(sql);// 准备执行语句
-			pst.setInt(1, tf.getTaskID());
+			pst.setInt(1, Integer.parseInt(tf.getTaskID()));
 			pst.setString(2, tf.getTaskName());
 			pst.setString(3, tf.getOwnerMail());
-			pst.setInt(4, tf.getThisType());
-			pst.setInt(5, tf.getThatType());
+			pst.setInt(4, Integer.parseInt(tf.getThisType()));
+			pst.setInt(5, Integer.parseInt(tf.getThatType()));
 			pst.setString(6, tf.getOrderedTime());
 			pst.setString(7, tf.getMonitorMailAccount());
 			pst.setString(8,tf.getMonitorMailpassword());
 			pst.setString(9,tf.getMonitorWeiboAccount());
 			pst.setString(10,tf.getMonitorWeiboAccessToken());
-			pst.setString(11,tf.getMonitorMailpassword());
-			pst.setString(12,tf.getMonitorContain());
-			pst.setInt(13,tf.getListenMinute());
-			pst.setString(14,tf.getWeiboContent());
-			pst.setString(15,tf.getSendWeiboAccount());
-			pst.setString(16,tf.getSendWeiboAccessToken());
-			pst.setString(17,tf.getMailContent());
-			pst.setString(18,tf.getReceiverMailAccount());
+			pst.setString(11,tf.getMonitorContain());
+			pst.setInt(12,Integer.parseInt(tf.getListenMinute()));
+			pst.setString(13,tf.getWeiboContent());
+			pst.setString(14,tf.getSendWeiboAccount());
+			pst.setString(15,tf.getSendWeiboAccessToken());
+			pst.setString(16,tf.getMailContent());
+			pst.setString(17,tf.getReceiverMailAccount());
 			pst.executeUpdate();
 			System.out.println("Success do '" + sql + "'!(db-storeTask)");
 			return true;

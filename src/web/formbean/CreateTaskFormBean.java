@@ -9,17 +9,17 @@ package web.formbean;
 
 public class CreateTaskFormBean {
 	private String taskName;//任务名
-	private int taskID;//任务ID唯一标识
+	private String taskID;//任务ID唯一标识
 	private String ownerMail;//任务所属用户的账号邮箱
-	private int thisType;
-	private int thatType;
+	private String thisType;
+	private String thatType;
 	private String orderedTime;//定时
 	private String MonitorMailAccount;//this任务-收件QQ邮箱账号
 	private String MonitorMailpassword;//this任务-收件QQ邮箱密码
 	private String MonitorWeiboAccount;//this任务-监听微博账号
 	private String MonitorWeiboAccessToken;//this任务-监听微博授权码
 	private String MonitorContain;//this任务-监听微博内容
-	private int listenMinute;//this任务-监听微博时长
+	private String listenMinute;//this任务-监听微博时长
 	
 	private String weiboContent;//that任务-发送微博内容
 	private String sendWeiboAccount;//that任务-发送微博账号
@@ -27,23 +27,24 @@ public class CreateTaskFormBean {
 	private String mailContent;//that任务-发送邮件内容
 	private String receiverMailAccount;//that任务-收件邮箱账号
 
+	public CreateTaskFormBean(){};
+	
 	public CreateTaskFormBean(String taskName, int taskID, String ownerMail, int thisType, int thatType,
 			String orderedTime, String monitorMailAccount, String monitorMailpassword, String monitorWeiboAccount,
 			String monitorWeiboAccessToken, String monitorContain, int listenMinute, String weiboContent,
 			String sendWeiboAccount, String sendWeiboAccessToken, String mailContent, String receiverMailAccount) {
-		super();
 		this.taskName = taskName;
-		this.taskID = taskID;
+		this.taskID = String.valueOf(taskID);
 		this.ownerMail = ownerMail;
-		this.thisType = thisType;
-		this.thatType = thatType;
+		this.thisType = String.valueOf(thisType);
+		this.thatType = String.valueOf(thatType);
 		this.orderedTime = orderedTime;
 		MonitorMailAccount = monitorMailAccount;
 		MonitorMailpassword = monitorMailpassword;
 		MonitorWeiboAccount = monitorWeiboAccount;
 		MonitorWeiboAccessToken = monitorWeiboAccessToken;
 		MonitorContain = monitorContain;
-		this.listenMinute = listenMinute;
+		this.listenMinute = String.valueOf(listenMinute);
 		this.weiboContent = weiboContent;
 		this.sendWeiboAccount = sendWeiboAccount;
 		this.sendWeiboAccessToken = sendWeiboAccessToken;
@@ -59,11 +60,11 @@ public class CreateTaskFormBean {
 		this.ownerMail = owner;
 	}
 
-	public int getThatType() {
+	public String getThatType() {
 		return thatType;
 	}
 
-	public void setThatType(int thatType) {
+	public void setThatType(String thatType) {
 		this.thatType = thatType;
 	}
 
@@ -107,11 +108,11 @@ public class CreateTaskFormBean {
 		MonitorContain = monitorContain;
 	}
 
-	public int getListenMinute() {
+	public String getListenMinute() {
 		return listenMinute;
 	}
 
-	public void setListenMinute(int minute) {
+	public void setListenMinute(String minute) {
 		this.listenMinute = minute;
 	}
 
@@ -155,11 +156,11 @@ public class CreateTaskFormBean {
 		receiverMailAccount = receiverMailAccount;
 	}
 
-	public int getTaskID() {
+	public String getTaskID() {
 		return taskID;
 	}
 
-	public void setTaskID(int taskID) {
+	public void setTaskID(String taskID) {
 		this.taskID = taskID;
 	}
 
@@ -171,11 +172,11 @@ public class CreateTaskFormBean {
 		this.taskName = new String(taskName);
 	}
 
-	public int getThisType() {
+	public String getThisType() {
 		return thisType;
 	}
 
-	public void setThisType(int thisType) {
+	public void setThisType(String thisType) {
 		this.thisType = thisType;
 	}
 

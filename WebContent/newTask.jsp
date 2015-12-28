@@ -27,7 +27,6 @@
 <%-- var userName = <%=user.getUsername()%>; --%>
 var userName = "username";
 
-
 var thisType = 0;
 var thatType = 0;
 var taskID = 0;
@@ -492,7 +491,7 @@ $(document).ready(function(){
 					{	
 						taskName: $("#task-name").val(),
 						taskID: taskID,//////////////////////////////////////////////////////////
-						ownerMail: userID,
+						ownerMail: "15195758921@163.com",
 						thisType: thisType,
 						thatType: thatType,
 						orderedTime: orderedTime,
