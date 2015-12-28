@@ -33,18 +33,20 @@
 	String currentTaskName = "";
 	String currentTaskID;
 	//...
- 
-	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
-	Vector<CreateTaskFormBean> tasklist = (Vector<CreateTaskFormBean>)request.getSession().getAttribute("list");
+ UserAccount user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
+	//UserAccount user = (UserAccount)request.getSession().getAttribute("user");
+	//Vector<CreateTaskFormBean> tasklist = (Vector<CreateTaskFormBean>)request.getSession().getAttribute("list");
+	Vector<CreateTaskFormBean> tasklist =null;
 	
-	taskNum = tasklist.size();
-	if (taskNum == 0) currentTask = 0;
-	else {
+	if (tasklist != null) {
+		taskNum = tasklist.size();
 		currentTask = 1;
 		currentTaskName = tasklist.get(1).getTaskName();
 		currentTaskID = tasklist.get(1).getTaskID();
 	}
-	String thisType,thatType;
+	else currentTask = 0;
+	String thisType="",thatType="";
+	String outputInfo="";
 	
 	%>
 var ownerMail = "", orderedTime = "", MonitorMailAccount = "", MonitorMailpassword = "";
@@ -52,53 +54,51 @@ var MonitorWeiboAccount = "", MonitorWeiboAccessToken = "", MonitorContain = "",
 var sendWeiboAccount = "", sendWeiboAccessToken = "", weiboContent = "", mailContent = "", receiverMailAccount = "";
 
 $(document).ready(function(){
-	$("#userName").html("Hi~ "+userName);
-	if (currentTask == 0) {
+	<%if (currentTask == 0) {%>
 		$(".container").hide();
 		$("#empty-task").show();
-	}
-	else {
+	<%} else {%>
 		$("#empty-task").hide();
 //  		TODO：
 //  			对当前任务进行设置
  		$("#task-name").text(<%out.print(currentTaskName);%>);
 
 	 		<%		thisType = tasklist.get(currentTask).getThisType();%>
- 		$("#this-detail").text(
- 		 			<%	if (thisType.equals("0")) {
- 		 					out.print("定时"+tasklist.get(currentTask).getOrderedTime());
- 		 				}
- 		 				else if (thisType.equals("1")) {
- 		 					out.print(tasklist.get(currentTask).getMonitorMailAccount() + "收邮件");
- 		 				}
- 		 				else if (thisType.equals("2")) {
- 		 					out.print(tasklist.get(currentTask).getListenMinute() + "分钟内监听微博");
- 		 				}
- 		 				else if (thisType.equals("3")) {
- 		 					out.print("监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博");
- 		 				}
- 		 				else {
- 		 					out.print("");
- 		 				}
- 		 				%>);
+	 		<%	if (thisType.equals("0")) {
+					outputInfo = "定时"+tasklist.get(currentTask).getOrderedTime();
+				}
+				else if (thisType.equals("1")) {
+					outputInfo = tasklist.get(currentTask).getMonitorMailAccount() + "收邮件";
+				}
+				else if (thisType.equals("2")) {
+					outputInfo = tasklist.get(currentTask).getListenMinute() + "分钟内监听微博";
+				}
+				else if (thisType.equals("3")) {
+					outputInfo = "监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博";
+				}
+				else {
+					outputInfo = "";
+				}
+				%>
+ 		$("#this-detail").text(<%out.print(outputInfo);%>);
 
 			<%		thatType = tasklist.get(currentTask).getThisType();%>
- 				$("#that-detail").text(
- 		 			<%	if (thatType.equals("0")) {
- 		 					out.print("用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博");
- 		 				}
- 		 				else if (thatType.equals("1")) {
- 		 					out.print("向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件");
- 		 				}
- 		 				else {
- 		 					out.print("");
- 		 				}%>);
-	}
+			<%	if (thatType.equals("0")) {
+	 				outputInfo = "用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博";
+	 				}
+	 				else if (thatType.equals("1")) {
+	 					outputInfo = "向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件";
+	 				}
+	 				else {
+	 					outputInfo = "";
+	 				}%>
+ 				$("#that-detail").text(<%out.print(outputInfo);%>);
+	<%}%>
 });
 
 $(document).ready(function(){
 	$(".before-task").click(function(){
-	<%	if (currentTask != 1) {
+	<%	if (currentTask != 1 && currentTask != 0) {
 			currentTask--;%>
 			//currentTaskID = 
 			$("#empty-task").hide();
@@ -106,43 +106,43 @@ $(document).ready(function(){
 //  			对当前任务进行设置
  		$("#task-name").text(<%out.print(currentTaskName);%>);
 
-	 		<%		thisType = tasklist.get(currentTask).getThisType();%>
- 		$("#this-detail").text(
- 		 		<%		if (thisType.equals("0")) {
- 		 					out.print("定时"+tasklist.get(currentTask).getOrderedTime());
- 		 				}
- 		 				else if (thisType.equals("1")) {
- 		 					out.print(tasklist.get(currentTask).getMonitorMailAccount() + "收邮件");
- 		 				}
- 		 				else if (thisType.equals("2")) {
- 		 					out.print(tasklist.get(currentTask).getListenMinute() + "分钟内监听微博");
- 		 				}
- 		 				else if (thisType.equals("3")) {
- 		 					out.print("监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博");
- 		 				}
- 		 				else {
- 		 					out.print("");
- 		 				}%>);
+ 		<%		thisType = tasklist.get(currentTask).getThisType();%>
+ 		<%	if (thisType.equals("0")) {
+				outputInfo = "定时"+tasklist.get(currentTask).getOrderedTime();
+			}
+			else if (thisType.equals("1")) {
+				outputInfo = tasklist.get(currentTask).getMonitorMailAccount() + "收邮件";
+			}
+			else if (thisType.equals("2")) {
+				outputInfo = tasklist.get(currentTask).getListenMinute() + "分钟内监听微博";
+			}
+			else if (thisType.equals("3")) {
+				outputInfo = "监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博";
+			}
+			else {
+				outputInfo = "";
+			}
+			%>
+		$("#this-detail").text(<%out.print(outputInfo);%>);
 
-			<%		thatType = tasklist.get(currentTask).getThisType();%>
- 				$("#that-detail").text(
- 				<%		
- 		 				if (thatType.equals("0")) {
- 		 					out.print("用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博");
- 		 				}
- 		 				else if (thatType.equals("1")) {
- 		 					out.print("向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件");
- 		 				}
- 		 				else {
- 		 					out.print("");
- 		 				}%>);
+		<%		thatType = tasklist.get(currentTask).getThisType();%>
+		<%	if (thatType.equals("0")) {
+ 				outputInfo = "用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博";
+ 				}
+ 				else if (thatType.equals("1")) {
+ 					outputInfo = "向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件";
+ 				}
+ 				else {
+ 					outputInfo = "";
+ 				}%>
+				$("#that-detail").text(<%out.print(outputInfo);%>);
 	<%	}	%>	
 	});
 });
 
 $(document).ready(function(){
 	$(".next-task").click(function(){
-	<%	if (currentTask != taskNum) {%>
+	<%	if (currentTask != taskNum && currentTask != 0) {%>
 		<%	currentTask++;	%>
 
 			//currentTaskID = 
@@ -152,70 +152,70 @@ $(document).ready(function(){
  		$("#task-name").text(<%out.print(currentTaskName);%>);
 
  		<%		thisType = tasklist.get(currentTask).getThisType();%>
- 		$("#this-detail").text(
- 			<%	if (thisType.equals("0")) {
- 					out.print("定时"+tasklist.get(currentTask).getOrderedTime());
- 				}
- 				else if (thisType.equals("1")) {
- 					out.print(tasklist.get(currentTask).getMonitorMailAccount() + "收邮件");
- 				}
- 				else if (thisType.equals("2")) {
- 					out.print(tasklist.get(currentTask).getListenMinute() + "分钟内监听微博");
- 				}
- 				else if (thisType.equals("3")) {
- 					out.print("监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博");
- 				}
+	 		<%	if (thisType.equals("0")) {
+					outputInfo = "定时"+tasklist.get(currentTask).getOrderedTime();
+				}
+				else if (thisType.equals("1")) {
+					outputInfo = tasklist.get(currentTask).getMonitorMailAccount() + "收邮件";
+				}
+				else if (thisType.equals("2")) {
+					outputInfo = tasklist.get(currentTask).getListenMinute() + "分钟内监听微博";
+				}
+				else if (thisType.equals("3")) {
+					outputInfo = "监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博";
+				}
+				else {
+					outputInfo = "";
+				}
+				%>
+ 		$("#this-detail").text(<%out.print(outputInfo);%>);
+
+			<%		thatType = tasklist.get(currentTask).getThisType();%>
+			<%	if (thatType.equals("0")) {
+	 				outputInfo = "用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博";
+	 				}
+	 				else if (thatType.equals("1")) {
+	 					outputInfo = "向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件";
+	 				}
 	 				else {
-		 					out.print("");
-		 				}%>);
- 		<%thatType = tasklist.get(currentTask).getThisType();%>
-		$("#that-detail").text(
-		<%
- 				if (thatType.equals("0")) {
- 					out.print("用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博");
- 				}
- 				else if (thatType.equals("1")) {
- 					out.print("向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件");
- 				}
-	 				else {
-		 					out.print("");
-		 				}%>);
+	 					outputInfo = "";
+	 				}%>
+ 				$("#that-detail").text(<%out.print(outputInfo);%>);
 	<%}%>
-//	TODO：
-//	对当前任务进行设置
-//$("#task-name").text();
-//$("#this-detail").text();
-//$("#that-detail").text();
 	});
 });
 
 $(document).ready(function(){
 	$(".start-button").click(function(){
-		
+		<%if (currentTask != 0) {%>
 		$.post("StartTaskServlet",
 			{	
-				taskID: taskID
+				taskID: <%out.print(tasklist.get(currentTask).getTaskID());%>
 			},
 			function(data){
 				alert(data);
 		       	//刷新界面
-		});		
+		});	
+		<%}%>
 	});
 });
 $(document).ready(function(){
 	$(".stop-button").click(function(){
+		<%if (currentTask != 0) {%>
 		$.post("StopTaskServlet",
 			{	
-				taskID: taskID
+				taskID: <%out.print(tasklist.get(currentTask).getTaskID());%>
 			},
 			function(data){
 				alert(data);
 		       	//刷新界面
 		});
+		<%}%>
 	});
 });
 $(document).ready(function(){
 	$(".edit-button").click(function(){
+		<%if (currentTask != 0) {%>
 		MonitorMailAccount = <%out.print(tasklist.get(currentTask).getMonitorMailAccount());%>;
 		orderedTime = <%out.print(tasklist.get(currentTask).getOrderedTime());%>;
 		MonitorMailpassword = <%out.print(tasklist.get(currentTask).getMonitorMailpassword());%>;
@@ -234,18 +234,15 @@ $(document).ready(function(){
 			$(".this-time").show();
 			$(".this-weibo-time").hide();
 			$(".this-weibo-content").hide();
-		<%}%>
-		<%else if (thisType.equals("1")) {%>
+		<%}else if (thisType.equals("1")) {%>
 			$(".this-time").hide();
 			$(".this-weibo-time").hide();
 			$(".this-weibo-content").hide();
-		<%}%>
-		<%else if (thisType.equals("2")) {%>
+		<%}else if (thisType.equals("2")) {%>
 			$(".this-time").hide();
 			$(".this-weibo-time").hide();
 			$(".this-weibo-content").show();
-		<%}%>
-		<%else if (thisType.equals("3")) {%>
+		<%}else if (thisType.equals("3")) {%>
 			$(".this-time").hide();
 			$(".this-weibo-time").show();
 			$(".this-weibo-content").hide();
@@ -254,16 +251,16 @@ $(document).ready(function(){
 		<%if (thatType.equals("0")) {%>
 			$(".that-weibo").show();
 			$(".that-mail").hide();
-		<%}%>
-		<%else if (thatType.equals("1")) {%>
+		<%}else if (thatType.equals("1")) {%>
 			$(".that-weibo").hide();
 			$(".that-mail").show();
 		<%}%>
-		
+		<%}%>
 	});
 });
 $(document).ready(function(){
 	$(".delete-button").click(function(){
+		<%if (currentTask != 0) {%>
 		$.post("DeleteTaskServlet",
 			{	
 				taskID: <%out.print(tasklist.get(currentTask).getTaskID());%>
@@ -271,26 +268,24 @@ $(document).ready(function(){
 			function(data){
 			   	//后台控制刷新界面
 			});
-		
+		<%}%>
 	});
 });
 
 $(document).ready(function(){
 	$("#submit-change").click(function(){
+		<%if (currentTask != 0) {%>
 		<%if (thisType.equals("0")) {%>
 			orderedTime = $("#this-time-time").val();
-		<%}%>
-		<%else if (thisType.equals("2")) {%>
+		<%}else if (thisType.equals("2")) {%>
 			MonitorContain = $("#this-weibo-content").val();
-		<%}%>
-		<%else if (thisType.equals("3")) {%>
+		<%}else if (thisType.equals("3")) {%>
 			listenMinute = $("#this-weibo-time").val();
 		<%}%>
 		
 		<%if (thatType.equals("0")) {%>
 			weiboContent = $("#that-weibo").val();
-		<%}%>
-		<%else if (thatType.equals("1")) {%>
+		<%}else if (thatType.equals("1")) {%>
 			mailContent = $("#that-mail-content").val();
 			receiverMailAccount = $("#that-mail-id").val();
 		<%}%>
@@ -317,6 +312,7 @@ $(document).ready(function(){
 				function(data){
 					
 				});
+		<%}%>
 	});
 });
 </script>
@@ -325,7 +321,7 @@ $(document).ready(function(){
 <body>
 <div class="form-group" style= "padding-top: 1%;background-color: #87CEFA;">
 	<strong class="col-md-offset-1 col-sm-offset-1" style = "font-size:120%;color:#FFFFFF">IFTTT</strong>
-	<p id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"><%out.print(user.getUsername()); %>></p>
+	<p id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"><%out.print("Hi! " +user.getUsername()); %></p>
 </div>
 
 <div id = "empty-task">
