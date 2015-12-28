@@ -25,16 +25,17 @@
 <script type="text/javascript">
 	<%
 	//TODO:得到用户信息列表
-	//Vector<UserAccount> userList = (Vector<UserAccount>)session.getAttribute("userList");
-	Vector<UserAccount> userList = new Vector<UserAccount>();
-	UserAccount user = new UserAccount("aaa","bbb","ccc",23,34,45,56);
-	userList.add(user);
-	user = new UserAccount("daa","b","ccc",23,34,45,56);
-	userList.add(user);
-	user = new UserAccount("aaa","bbb","ccc",23,34,45,56);
-	userList.add(user);
-	user = new UserAccount("daa","b","ccc",23,34,45,56);
-	userList.add(user);
+	Vector<UserAccount> userList = (Vector<UserAccount>)session.getAttribute("userList");
+	UserAccount user = null;
+// 	Vector<UserAccount> userList = new Vector<UserAccount>();
+// 	UserAccount user = new UserAccount("aaa","bbb","ccc",23,34,45,56);
+// 	userList.add(user);
+// 	user = new UserAccount("daa","b","ccc",23,34,45,56);
+// 	userList.add(user);
+// 	user = new UserAccount("aaa","bbb","ccc",23,34,45,56);
+// 	userList.add(user);
+// 	user = new UserAccount("daa","b","ccc",23,34,45,56);
+// 	userList.add(user);
 	
 	int j=0;
 	int userNum = userList.size();
@@ -68,19 +69,21 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$(".users-info-btn").click(function(){
 		//查找用户信息
-// 		var i = $(this).attr(id);
-// 		$("#user-name").text(userNameList[i]);
-// 		$("#user-id").text(userIDList[i]);
-// 		$("#user-balance").text(userBalanceList[i]);
-// 		$("#user-credit").text(userCreditList[i]);
-// 		$("#expence-calendar").text("123\n456\n789\n");
-// 		$.post("",
-// 				{	
-// 					msg:$(this).attr(id)
-// 				},
-// 				function(data){
-// 					$("#expence-calendar").text(data);
-// 				});
+		var i = $(this).attr(id);
+		$("#user-name").text(userNameList[i]);
+		$("#user-id").text(userIDList[i]);
+		$("#user-balance").text(userBalanceList[i]);
+		$("#user-credit").text(userCreditList[i]);
+		$.post("viewExpCalServlet",
+				{	
+					user:$(this).attr(id)
+				},
+				function(data){
+					$("#expence-calendar").text(data);
+					<%
+					user = (UserAccount)session.getAttribute("currentUser");
+					%>
+				});
 	});
 });
 
@@ -165,25 +168,33 @@ $(document).ready(function(){
 						<div class="form-group">
 							<label class="col-sm-4 control-label">用户名</label>
 							<div class="col-sm-6">
-								<p class="form-control-static" id = "user-name"></p>
+								<p class="form-control-static" id = "user-name">
+								<%if (user != null) out.print(user.getUsername()); %>
+								</p>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="user-id" class="col-sm-4 control-label">注册邮箱</label>
 							<div class="col-sm-6">
-								<p class="form-control-static" id = "user-id"></p>
+								<p class="form-control-static" id = "user-id">
+								<%if (user != null) out.print(user.getMailAccount()); %>
+								</p>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="user-balance" class="col-sm-4 control-label">账户余额</label>
 							<div class="col-sm-6">
-								<p class="form-control-static user-balance"></p>
+								<p class="form-control-static user-balance">
+								<%if (user != null) out.print(user.getBalance()); %>
+								</p>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="user-credit" class="col-sm-4 control-label">会员积分</label>
 							<div class="col-sm-6">
-								<p class="form-control-static" id = "user-credit"></p>
+								<p class="form-control-static" id = "user-credit">
+								<%if (user != null) out.print(user.getCredit()); %>
+								</p>
 							</div>
 						</div>
 						<div class="form-group">
