@@ -58,7 +58,7 @@ public class DeleteTaskServlet {
 		
 		UserAccount user = (UserAccount)request.getSession().getAttribute("user");
     	String userMailAccount = user.getMailAccount();
-		Vector<Task> taskList = null;
+		Vector<CreateTaskFormBean> taskList = null;
     	try {
     		taskList = taskService.findTaskByMailAccount(userMailAccount);
     	}

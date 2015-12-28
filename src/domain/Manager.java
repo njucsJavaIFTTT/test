@@ -15,7 +15,8 @@ public class Manager {
 	public boolean sendMasg(UserAccount u,String cont){//发给user私人消息
 		Message msg=new Message(u.getMailAccount(),cont);
 		DBHelperImpl db=new DBHelperImpl();
-		boolean ret=db.storeMsg(u,cont);
+		String userMailAccount = u.getMailAccount();
+		boolean ret=db.storeMsg(userMailAccount,cont);
 		db.close();
 		u.addMas(msg);
 		return ret;

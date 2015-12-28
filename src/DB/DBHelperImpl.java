@@ -31,7 +31,6 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			PreparedStatement pst = connect.prepareStatement(sql);
 			pst.executeQuery();// 执行语句，得到结果集
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -58,7 +57,6 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			PreparedStatement pst = connect.prepareStatement(sql);
 			pst.executeQuery();// 执行语句，得到结果集
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -458,5 +456,17 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 	public boolean setUserLevel(String uMail){//修改会员资料
 		
 	}*/
+
+	@Override
+	public Vector<ExpenseCalendar> findExpCal(String uMail) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean setBalance(String uMail) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
 
