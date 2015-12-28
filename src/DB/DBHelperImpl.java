@@ -271,7 +271,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 				ret.getString("ownerMail"),
 				ret.getDouble("expense"));
 				expC.add(ec);
-				System.out.println(m.toString());
+				//System.out.println(m.toString());
 			}
 			System.out.println("Success do '" + sql + "'!(db-findExpCal)");
 			return expC;
@@ -488,13 +488,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 	public boolean setUserLevel(String uMail){//修改会员资料
 		
 	}*/
-
-	@Override
-	public Vector<ExpenseCalendar> findExpCal(String uMail) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public boolean setBalance(String uMail) {
 		// TODO Auto-generated method stub

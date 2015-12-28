@@ -62,6 +62,16 @@ public class LoginServlet extends HttpServlet {
 		    OutputStream stream = response.getOutputStream();
 		    stream.write(data.getBytes("UTF-8"));
 		}
+<<<<<<< HEAD
+=======
+		// 登录成功后，就将用户存储到session中
+		request.getSession().setAttribute("user", user);
+		request.getSession().setAttribute("userMailAccount", userMailAccount);
+		response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
+	    String data = "Login successfully.";
+	    OutputStream stream = response.getOutputStream();
+	    stream.write(data.getBytes("UTF-8"));
+>>>>>>> dd901a6969cd12bb842ead582f3e493828251a25
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
