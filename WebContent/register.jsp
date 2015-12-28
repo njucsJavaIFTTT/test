@@ -177,7 +177,18 @@ $(document).ready(function(){
     				userName: $("#user-name").val(),
     				mailAccount: $("#user-ID").val(),
     				password: $("#password").val()
-    	       	});
+    	       	},
+    	       	function(data,status){
+    	          	//登录成功则跳转到mainPage
+    	          	var d = data;
+    	          	if (data == "success") {
+    	          		alert("注册成功！点击‘确定’跳转到登录界面");
+    	          		location.href = "http://localhost:8080/test/login.jsp";
+    	          	}
+    	          	else {
+    	          		alert(data);
+    	          	}
+    	        });
     	}
   	});
 });

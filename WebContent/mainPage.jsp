@@ -36,12 +36,14 @@
 	String password = (new UserDaoImpl()).find(userMailAccount);
 	UserAccount user = (new UserDaoImpl()).find(userMailAccount, password);
 %>
-var userID = <%=user.getMailAccount()%>;
-var userName = <%=user.getUsername()%>;
 
 $(document).ready(function(){
-	$("#userName").html("Hi~ "+userName);
-
+	$("#editTask").click(function(){
+		$.post("ViewTaskServlet",
+			function(){
+				location.href = "http://localhost:8080/test/editTask.jsp";   	
+		});
+	});
 });
 </script>
 
@@ -49,7 +51,7 @@ $(document).ready(function(){
 <body>
 <div class="form-group" style= "padding-top: 1%;background-color: #87CEFA;" >
 	<strong class="col-md-offset-1 col-sm-offset-1" style = "font-size:120%;color:#FFFFFF">IFTTT</strong>
-	<p id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"></p>
+	<p id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"><%out.print("Hi! " + user.getUsername());%></p>
 </div>
 
 <div class="container">
@@ -64,7 +66,7 @@ $(document).ready(function(){
 						<a id = "newTask" type="button" class="btn btn-default" href = "/test/newTask.jsp">新建任务</a>
 					</div>
 					<div class="form-group">
-						<a id = "editTask" type="button" class="btn btn-default" href = "/test/editTask.jsp">查看任务</a>
+						<a id = "editTask" type="button" class="btn btn-default">查看任务</a>
 					</div>
 					<div class="form-group">
 						<a id = "account-center" type="button" class="btn btn-default" href = "/test/personalAccount.jsp">用户中心</a>

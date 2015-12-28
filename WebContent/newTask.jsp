@@ -501,7 +501,7 @@ $(document).ready(function(){
 					{	
 						taskName: $("#task-name").val(),
 						taskID: taskID,//////////////////////////////////////////////////////////
-						ownerMail: userId,
+						ownerMail: userID,
 						thisType: thisType,
 						thatType: thatType,
 						orderedTime: orderedTime,
@@ -524,8 +524,7 @@ $(document).ready(function(){
 						alert(taskID);
 						alert(data);
 						if(d == "Create task successfully.")
-							location.href = "http://localhost:8080/test/editTask.jsp";
-				       	//$('#verifivation-code-msg').html(message);
+							location.href = "http://localhost:8080/test/mainPage.jsp";
 					});
 		}
 		
