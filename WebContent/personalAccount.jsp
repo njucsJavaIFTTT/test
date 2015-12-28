@@ -37,6 +37,8 @@
 	Vector<Message> msgList = db.findMsg(user.getMailAccount());
 	Vector<ExpenseCalendar> expCalendar = db.findExpCal(user.getMailAccount());
 	Vector<String> bulletList = db.viewBullet();
+	
+	
 	%>
 
 $(document).ready(function(){
@@ -157,11 +159,12 @@ $(document).ready(function(){
 <!-- 	</div> -->
 	<div class="tab-pane fade" id="expense-calendar">
 		<ul class="list-group" id="expense-calendar-list">
-			<%for (int i = 0; i < expCalendar.size(); i++) {%>
-				<li class="list-group-item">
-				<%out.print(expCalendar.get(i).toString()); %>
-				</li>
-			<%} %>
+			<%if (expCalendar != null) {
+				for (int i = 0; i < expCalendar.size(); i++) {%>
+					<li class="list-group-item">
+					<%out.print(expCalendar.get(i).toString()); %>
+					</li>
+			<%} }%>
 		</ul>
 	</div>
 <!-- 	<div class="tab-pane fade" id="public-message"> -->
@@ -171,20 +174,22 @@ $(document).ready(function(){
 <!-- 	</div> -->
 	<div class="tab-pane fade" id="public-message">
 		<ul class="list-group" id = "public-message-list">
-			<%for (int i = 0; i < bulletList.size(); i++) {%>
+			<%if (bulletList != null) {
+				for (int i = 0; i < bulletList.size(); i++) {%>
 				<li class="list-group-item">
 				<%out.print(bulletList.get(i)); %>
 				</li>
-			<%} %>
+			<%} }%>
 		</ul>
 	</div>
 	<div class="tab-pane fade" id="private-message">
 		<ul class="list-group" id="private-message-list">
-			<%for (int i = 0; i < msgList.size(); i++) {%>
+			<%if (msgList != null) {
+			for (int i = 0; i < msgList.size(); i++) {%>
 				<li class="list-group-item">
 				<%out.print(msgList.get(i).getContent()); %>
 				</li>
-			<%} %>
+			<%}} %>
 		</ul>
 	</div>
 	

@@ -48,7 +48,6 @@
 	}
 	
 	%>
-var userID = <%=user.getMailAccount()%>;
 var userName = <%=user.getUsername()%>;
 
 
@@ -156,34 +155,28 @@ $(document).ready(function(){
 //  			对当前任务进行设置
  		$("#task-name").text(<%out.print(currentTaskName);%>);
  
- 		$("#this-detail").text(<%
- 				switch (tasklist.get(currentTask).getThisType()) {
- 				case "0": {
+ 		$("#this-detail").text(
+ 		<%		String thisType = tasklist.get(currentTask).getThisType();
+ 				if (thisType.equals("0")) {
  					out.print("定时"+tasklist.get(currentTask).getOrderedTime());
- 					break;
  				}
- 				case "1": {
+ 				else if (thisType.equals("1")) {
  					out.print(tasklist.get(currentTask).getMonitorMailAccount() + "收邮件");
- 					break;
  				}
- 				case "2": {
+ 				else if (thisType.equals("2")) {
  					out.print(tasklist.get(currentTask).getListenMinute() + "分钟内监听微博");
- 					break;
  				}
- 				case "3": {
+ 				else if (thisType.equals("3")) {
  					out.print("监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博");
- 					break;
  				}
  				}%>);
-		$("#that-detail").text(<%
- 				switch (tasklist.get(currentTask).getThisType()) {
- 				case "0": {
+		$("#that-detail").text(
+		<%		String thatType = tasklist.get(currentTask).getThisType();
+ 				if (thatType.equals("0")) {
  					out.print("用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博");
- 					break;
  				}
- 				case "1": {
+ 				else if (thatType.equals("1")) {
  					out.print("向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件");
- 					break;
  				}
  				}%>);
 	<%}%>
@@ -308,7 +301,7 @@ $(document).ready(function(){
 				{	
 					taskName: taskName,
 					taskID: taskID,//////////////////////////////////////////////////////////
-					ownerMail: userID,
+					ownerMail: "",
 					thisType: thisType,
 					thatType: thatType,
 					orderedTime: orderedTime,
@@ -336,7 +329,7 @@ $(document).ready(function(){
 <body>
 <div class="form-group" style= "padding-top: 1%;background-color: #87CEFA;">
 	<strong class="col-md-offset-1 col-sm-offset-1" style = "font-size:120%;color:#FFFFFF">IFTTT</strong>
-	<p id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"></p>
+	<p id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"><%out.print(user.getUsername()); %>></p>
 </div>
 
 <div id = "empty-task">
