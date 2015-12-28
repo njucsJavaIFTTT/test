@@ -68,12 +68,6 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$(".users-info-btn").click(function(){
-		//查找用户信息
-		var i = $(this).attr(id);
-		$("#user-name").text(userNameList[i]);
-		$("#user-id").text(userIDList[i]);
-		$("#user-balance").text(userBalanceList[i]);
-		$("#user-credit").text(userCreditList[i]);
 		$.post("viewExpCalServlet",
 				{	
 					user:$(this).attr(id)
