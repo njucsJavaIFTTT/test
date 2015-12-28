@@ -54,6 +54,16 @@ $(document).ready(function(){
 	}
 	//添加公告
 	//添加消费记录
+	$.post("viewExpCalServlet",
+			{	
+				user:$(this).attr(id)
+			},
+			function(data){
+				$("#expence-calendar").text(data);
+				<%
+				user = (UserAccount)session.getAttribute("currentUser");
+				%>
+			});
 });
 
 $(document).ready(function(){

@@ -1,3 +1,5 @@
+<%@page import="web.formbean.CreateTaskFormBean"%>
+<%@page import="sun.font.CreatedFontTracker"%>
 <%@page import="java.util.Vector"%>
 <%@ page language="java" import="domain.UserAccount,domain.Task" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -28,13 +30,13 @@
 //		int currentTask
 // */
 	int currentTask = 0, taskNum = 0;
-	String currentTaskName;
+	String currentTaskName = "";
 	int thisType, thatType;
-	int currentTaskID;
+	String currentTaskID;
 	//...
  
 	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
-	Vector<Task> tasklist = (Vector<Task>)request.getSession().getAttribute("list");
+	Vector<CreateTaskFormBean> tasklist = (Vector<CreateTaskFormBean>)request.getSession().getAttribute("list");
 	
 	taskNum = tasklist.size();
 	if (taskNum == 0) currentTask = 0;
@@ -65,36 +67,126 @@ $(document).ready(function(){
 		$("#empty-task").hide();
 //  		TODO：
 //  			对当前任务进行设置
- 		$("#task-name").text(<%=currentTaskName%>);
- 		$("#this-detail").text();
-		$("#that-detail").text();
+ 		$("#task-name").text(<%out.print(currentTaskName);%>);
+ 
+ 		$("#this-detail").text(<%
+ 				switch (tasklist.get(currentTask).getThisType()) {
+ 				case "0": {
+ 					out.print("定时"+tasklist.get(currentTask).getOrderedTime());
+ 					break;
+ 				}
+ 				case "1": {
+ 					out.print(tasklist.get(currentTask).getMonitorMailAccount() + "收邮件");
+ 					break;
+ 				}
+ 				case "2": {
+ 					out.print(tasklist.get(currentTask).getListenMinute() + "分钟内监听微博");
+ 					break;
+ 				}
+ 				case "3": {
+ 					out.print("监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博");
+ 					break;
+ 				}
+ 				}%>);
+		$("#that-detail").text(<%
+ 				switch (tasklist.get(currentTask).getThisType()) {
+ 				case "0": {
+ 					out.print("用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博");
+ 					break;
+ 				}
+ 				case "1": {
+ 					out.print("向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件");
+ 					break;
+ 				}
+ 				}%>);
 	}
 });
 
 $(document).ready(function(){
 	$(".before-task").click(function(){
 	<%	if (currentTask > 1) {
-			currentTask--;
+			currentTask--;%>
 			//currentTaskID = 
-			
-		}
-	%>
-//	TODO：
-//	对当前任务进行设置
-//$("#task-name").text();
-//$("#this-detail").text();
-//$("#that-detail").text();
-		
+			$("#empty-task").hide();
+//  		TODO：
+//  			对当前任务进行设置
+ 		$("#task-name").text(<%out.print(currentTaskName);%>);
+ 
+ 		$("#this-detail").text(<%
+ 				switch (tasklist.get(currentTask).getThisType()) {
+ 				case "0": {
+ 					out.print("定时"+tasklist.get(currentTask).getOrderedTime());
+ 					break;
+ 				}
+ 				case "1": {
+ 					out.print(tasklist.get(currentTask).getMonitorMailAccount() + "收邮件");
+ 					break;
+ 				}
+ 				case "2": {
+ 					out.print(tasklist.get(currentTask).getListenMinute() + "分钟内监听微博");
+ 					break;
+ 				}
+ 				case "3": {
+ 					out.print("监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博");
+ 					break;
+ 				}
+ 				}%>);
+		$("#that-detail").text(<%
+ 				switch (tasklist.get(currentTask).getThisType()) {
+ 				case "0": {
+ 					out.print("用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博");
+ 					break;
+ 				}
+ 				case "1": {
+ 					out.print("向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件");
+ 					break;
+ 				}
+ 				}%>);
+	<%	}	%>	
 	});
 });
 
 $(document).ready(function(){
 	$(".next-task").click(function(){
 	<%	if (currentTask < taskNum) {
-			currentTask++;
+			currentTask++;	%>
 			//currentTaskID = 
-		}
-	%>
+			$("#empty-task").hide();
+//  		TODO：
+//  			对当前任务进行设置
+ 		$("#task-name").text(<%out.print(currentTaskName);%>);
+ 
+ 		$("#this-detail").text(<%
+ 				switch (tasklist.get(currentTask).getThisType()) {
+ 				case "0": {
+ 					out.print("定时"+tasklist.get(currentTask).getOrderedTime());
+ 					break;
+ 				}
+ 				case "1": {
+ 					out.print(tasklist.get(currentTask).getMonitorMailAccount() + "收邮件");
+ 					break;
+ 				}
+ 				case "2": {
+ 					out.print(tasklist.get(currentTask).getListenMinute() + "分钟内监听微博");
+ 					break;
+ 				}
+ 				case "3": {
+ 					out.print("监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博");
+ 					break;
+ 				}
+ 				}%>);
+		$("#that-detail").text(<%
+ 				switch (tasklist.get(currentTask).getThisType()) {
+ 				case "0": {
+ 					out.print("用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博");
+ 					break;
+ 				}
+ 				case "1": {
+ 					out.print("向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件");
+ 					break;
+ 				}
+ 				}%>);
+	<%}%>
 //	TODO：
 //	对当前任务进行设置
 //$("#task-name").text();
@@ -130,23 +222,23 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
 	$(".edit-button").click(function(){
-		thisType = <%=/*currentTask的thistype*/%>;
-		thisType = <%=/*currentTask的thattype*/%>;
-		taskName: <%=/*currentTask的thattype*/%>;
-		taskID: <%=/*currentTask的thattype*/%>;
-		ownerMail: <%=/*currentTask的thattype*/%>;
-		orderedTime: <%=/*currentTask的thattype*/%>;
-		MonitorMailAccount: <%=/*currentTask的thattype*/%>;
-		MonitorMailpassword: <%=/*currentTask的thattype*/%>;
-		MonitorWeiboAccount: <%=/*currentTask的thattype*/%>;
-		MonitorWeiboAccessToken: <%=/*currentTask的thattype*/%>;
-		MonitorContain: <%=/*currentTask的thattype*/%>;
-		listenMinute: <%=/*currentTask的thattype*/%>;
-		weiboContent: <%=/*currentTask的thattype*/%>;
-		mailContent: <%=/*currentTask的thattype*/%>;
-		sendWeiboAccount: <%=/*currentTask的thattype*/%>;
-		sendWeiboAccessToken: <%=/*currentTask的thattype*/%>;
-		receiverMailAccount: <%=/*currentTask的thattype*/%>;
+		MonitorMailAccount = <%out.print(tasklist.get(currentTask).getMonitorMailAccount());%>;
+		taskID = <%out.print(tasklist.get(currentTask).getTaskID());%>;
+		thisType = <%out.print(tasklist.get(currentTask).getThisType());%>;
+		thisType = <%out.print(tasklist.get(currentTask).getThatType());%>;
+		taskName = <%out.print(tasklist.get(currentTask).getTaskName());%>;
+		ownerMail = <%out.print(tasklist.get(currentTask).getOwnerMail());%>;
+		orderedTime = <%out.print(tasklist.get(currentTask).getOrderedTime());%>;
+		MonitorMailpassword = <%out.print(tasklist.get(currentTask).getMonitorMailpassword());%>;
+		MonitorWeiboAccount = <%out.print(tasklist.get(currentTask).getMonitorWeiboAccount());%>;
+		MonitorWeiboAccessToken = <%out.print(tasklist.get(currentTask).getMonitorWeiboAccessToken());%>;
+		MonitorContain = <%out.print(tasklist.get(currentTask).getMonitorContain());%>;
+		listenMinute = <%out.print(tasklist.get(currentTask).getListenMinute());%>;
+		weiboContent = <%out.print(tasklist.get(currentTask).getWeiboContent());%>;
+		mailContent = <%out.print(tasklist.get(currentTask).getMailContent());%>;
+		sendWeiboAccount = <%out.print(tasklist.get(currentTask).getSendWeiboAccount());%>;
+		sendWeiboAccessToken = <%out.print(tasklist.get(currentTask).getSendWeiboAccessToken());%>;
+		receiverMailAccount =<%out.print(tasklist.get(currentTask).getReceiverMailAccount());%>;
 		
 		if (thisType == 0) {
 			$(".this-time").show();
