@@ -11,6 +11,8 @@ public class ExpenseCalendar {
 	private String ownerMail;//用户mail
 	private double payment;//本次任务消费金额
 	
+	public ExpenseCalendar(){};
+	
 	public ExpenseCalendar(Timestamp startDate, int taskID, int num, String ownerMail,double payment) {
 		super();
 		this.startDate = startDate;
