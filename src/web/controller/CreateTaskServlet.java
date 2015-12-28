@@ -9,13 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import domain.Task;
 import domain.UserAccount;
 import exception.TaskException;
 import service.ITaskService;
 import service.impl.TaskServiceImpl;
 import util.WebUtils;
 import web.formbean.CreateTaskFormBean;
+import weibo4j.Oauth;
+import weibo4j.examples.oauth2.Log;
+import weibo4j.http.AccessToken;
+import weibo4j.model.WeiboException;
 
 /**
  * 处理创建任务的Servlet
@@ -40,13 +44,47 @@ public class CreateTaskServlet extends HttpServlet {
     	
     	/* 将表单数据存储到formbean中 */
     	CreateTaskFormBean formBean = WebUtils.request2Bean(request, CreateTaskFormBean.class);
-    	//UserAccount user = (UserAccount)request.getSession().getAttribute("user");
-    	//System.out.println(formBean.getMailContent());
-    	//System.out.println(request.getParameter("mailContent"));
-    	//System.out.println(formBean.getReceiverMailAccount());
-    	//formBean.setOwnerMail(user.getMailAccount());
+    	/* 设置TaskId */
+    	formBean.setTaskID(String.valueOf(Task.getTotalTask()));
+    	Task.setTotalTask();
     	
     	boolean flag = true;//用于记录存储formBean是否成功的标志位
+    	
+    	if(Integer.parseInt(formBean.getThisType()) == 2 || Integer.parseInt(formBean.getThisType()) == 3){
+    		String code = formBean.getMonitorWeiboAccessToken();
+    		Oauth oauth = new Oauth();
+    		AccessToken token = null;
+    		try{
+    			token = oauth.getAccessTokenByCode(code);
+    		}
+    		catch (WeiboException e) {
+    			if(401 == e.getStatusCode()){
+    				System.out.println("Unable to get the access token.");
+    			}else{
+    				e.printStackTrace();
+    			}
+    			return;
+    		}
+    		formBean.setMonitorWeiboAccessToken(token.getAccessToken());
+    	}
+    	
+    	if(Integer.parseInt(formBean.getThatType()) == 0) {
+    		String code = formBean.getSendWeiboAccessToken();
+    		Oauth oauth = new Oauth();
+    		AccessToken token = null;
+    		try{
+    			token = oauth.getAccessTokenByCode(code);
+    		}
+    		catch (WeiboException e) {
+    			if(401 == e.getStatusCode()){
+    				System.out.println("Unable to get the access token.");
+    			}else{
+    				e.printStackTrace();
+    			}
+    			return;
+    		}
+    		formBean.setSendWeiboAccessToken(token.getAccessToken());
+    	}
     	
     	/* 将formBean存储到DB中的Task表中 */
     	ITaskService taskService = new TaskServiceImpl();

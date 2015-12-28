@@ -15,7 +15,6 @@ public class Task implements Cloneable{
 		request = (Request)r.clone();
 		goal = (Goal)g.clone();
 		taskID = totalTask;
-		totalTask ++;
 		
 		/* 收费方式 */
 		expense = 0;
@@ -82,6 +81,10 @@ public class Task implements Cloneable{
 	
 	public static int getTotalTask() {
 		return totalTask;
+	}
+	
+	public static void setTotalTask() {
+		totalTask ++;
 	}
 	
 	public Object clone() throws CloneNotSupportedException {
