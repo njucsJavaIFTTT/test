@@ -16,7 +16,6 @@ import exception.UserException;
 import service.IUserService;
 import service.impl.UserServiceImpl;
 import util.WebUtils;
-import web.UI.LoginUIServlet;
 import web.formbean.RegisterFormBean;
 
 //处理用户注册的Servlet

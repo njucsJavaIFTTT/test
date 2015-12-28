@@ -8,12 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import domain.Task;
 import domain.UserAccount;
 import exception.TaskException;
 import service.ITaskService;
 import service.impl.TaskServiceImpl;
+import web.formbean.CreateTaskFormBean;
 
 /**
  * 处理查看任务的Servlet
@@ -36,7 +35,7 @@ public class ViewTaskServlet {
     	
     	/* 从数据库中获取该用户名下的任务列表 */
     	ITaskService taskService = new TaskServiceImpl();
-    	Vector<Task> taskList = null;
+    	Vector<CreateTaskFormBean> taskList = null;
     	try {
     		taskList = taskService.findTaskByMailAccount(userMailAccount);
     	}
@@ -46,7 +45,6 @@ public class ViewTaskServlet {
     	}
     	/* 将任务列表通过Session传递到前端 */
     	request.getSession().setAttribute("list", taskList);
-    	/* 待完成 */
     }
     
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

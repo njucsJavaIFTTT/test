@@ -63,7 +63,7 @@ public class ModifyTaskServlet extends HttpServlet{
 		
     	/* 前端应跳转到查看任务界面 */
     	String userMailAccount = user.getMailAccount();
-		Vector<Task> taskList = null;
+		Vector<CreateTaskFormBean> taskList = null;
     	try {
     		taskList = taskService.findTaskByMailAccount(userMailAccount);
     	}
