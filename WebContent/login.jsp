@@ -78,9 +78,14 @@ $(document).ready(function(){
     	       	function(data,status){
     	          	//登录成功则跳转到mainPage
     	          	var d = data;
-    	          	alert(data);
-    	          	if(d == "Login successfully.")
-    	          		location.href = "http://localhost:8080/test/mainPage.jsp";
+    	          	if (d == "manager") {
+    	          		location.href = "http://localhost:8080/test/administrator.jsp"
+    	          	}
+    	          	else {
+    	          		alert(data);
+        	          	if(d == "Login successfully.")
+        	          		location.href = "http://localhost:8080/test/mainPage.jsp";	
+    	          	}
     	        });
 	}
   });

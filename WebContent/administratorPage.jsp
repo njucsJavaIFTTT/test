@@ -1,3 +1,6 @@
+<%@page import="domain.UserAccount"%>
+<%@page import="java.util.Vector"%>
+<%@page import="dao.impl.UserDaoImpl"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -22,22 +25,42 @@
 <script type="text/javascript">
 	<%
 	//TODO:得到用户信息列表
+	//Vector<UserAccount> userList = (Vector<UserAccount>)session.getAttribute("userList");
+	Vector<UserAccount> userList = new Vector<UserAccount>();
+	UserAccount user = new UserAccount("aaa","bbb","ccc",23,34,45,56);
+	userList.add(user);
+	user = new UserAccount("daa","b","ccc",23,34,45,56);
+	userList.add(user);
+	user = new UserAccount("aaa","bbb","ccc",23,34,45,56);
+	userList.add(user);
+	user = new UserAccount("daa","b","ccc",23,34,45,56);
+	userList.add(user);
+	
+	int j=0;
+	int userNum = userList.size();
 	%>
+// var userNameList = new Array();
+// var userIDList = new Array();
+// var userCreditList = new Array();
+// var userBalanceList = new Array();
+<%-- for (var i = 0; i < <%=userNum%>; i++) { --%>
+<%-- 	userNameList[i] = <%=userList.get(j).getUsername()%>; --%>
+<%-- 	userIDList[i] = <%=userList.get(j).getMailAccount()%>; --%>
+<%-- 	userBalanceList[i] = <%=userList.get(j).getBalance()%>; --%>
+<%-- 	userCreditList[i] = <%=userList.get(j).getCredit()%>; --%>
+<%-- 	<%j++;%> --%>
+// }
+
+	
+	
 $(document).ready(function(){
 	//添加用户信息
-	var listLength = <%=%>;
-	<%
-	int j = 0;
-	%>
-	var userInfo = <%=%>;
-	var userID = <%=%>;
-	for (var i = 0; i < listLength; i++) {
-		$("#users-list").append("<button type=\"button\" class=\"list-group-item users-info-btn\" id = \""+userID+"\">"+userInfo+"</button>");
-		$("#message-receivers-list").append("<button type=\"button\" class=\"list-group-item send-message-btn\" id = \""+userID+"\">"+userInfo+"</button>");
-		<%j++;%>
-		userInfo = <%=%>;
-		userID = <%=%>;
-	}
+<%-- 	<%for (int i = 0; i < userNum; i++) {%> --%>
+<%-- 		<%String str = "<button type=\"button\" class=\"list-group-item users-info-btn\" id = \""+i+"\">"+userList.get(i).getMailAccount()+"-"+userList.get(i).getUsername()+"</button>";%> --%>
+<%-- 		$("#users-list").append(<%=str%>); --%>
+<%-- 		<%str = "<button type=\"button\" class=\"list-group-item send-message-btn\" id = \""+i+"\">"+userList.get(i).getMailAccount()+"-"+userList.get(i).getUsername()+"</button>";%> --%>
+<%-- 		$("#message-receivers-list").append(<%=str%>); --%>
+<%-- 	<%}%> --%>
 	//添加公告
 	//添加消费记录
 });
@@ -45,10 +68,19 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$(".users-info-btn").click(function(){
 		//查找用户信息
-		$("#user-name").text();
-		$("#user-id").text();
-		$("#user-balance").text();
-		$("#user-credit").text();
+// 		var i = $(this).attr(id);
+// 		$("#user-name").text(userNameList[i]);
+// 		$("#user-id").text(userIDList[i]);
+// 		$("#user-balance").text(userBalanceList[i]);
+// 		$("#user-credit").text(userCreditList[i]);
+// 		$("#expence-calendar").text("123\n456\n789\n");
+// 		$.post("",
+// 				{	
+// 					msg:$(this).attr(id)
+// 				},
+// 				function(data){
+// 					$("#expence-calendar").text(data);
+// 				});
 	});
 });
 
@@ -58,11 +90,11 @@ $(document).ready(function(){
 			alert("请填写公告内容");
 		}
 		else {
-			$.post("",
+			$.post("SendPrivateMessage",
 				{	
-					
+					msg:$("#public-message-content").val()
 				},
-				function(data){//返回的data为充值之后的金额或者0
+				function(data){
 					if (data == "success") {
 						alert("公告发布成功");
 					}
@@ -79,12 +111,13 @@ $(document).ready(function(){
 			alert("请填写私信内容");
 		}
 		else {
-			$.post("",
+			$.post("SendPrivateMessage",
 				{	
-					userID:$(".send-message-btn").attr(id)
+					userID:$(".send-message-btn").attr(id),
+					msg:$("#private-message-content").val()
 					//...
 				},
-				function(data){//返回的data为充值之后的金额或者0
+				function(data){
 					if (data == "success") {
 						alert("私信发布成功");
 					}
@@ -113,40 +146,50 @@ $(document).ready(function(){
 		<a href="#send-private-message" data-toggle="tab">发送私信</a>
 	</li>
 </ul>
+<br></br>
+<br></br>
 <div id="myTabContent" class="tab-content">
 	<div class="tab-pane fade in active" id="view-users">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-5">
 					<div class="list-group" id = "users-list">
-						<button type="button" class="list-group-item users-info-btn" id = ""></button>
-  
+						<%for (int i = 0; i < userNum; i++) {%>
+							<%String str = "<button type=\"button\" class=\"list-group-item users-info-btn\" id = \""+i+"\">"+userList.get(i).getMailAccount()+"-"+userList.get(i).getUsername()+"</button>";%>
+							<%out.print(str); %>
+							<%} %>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<form class="form-horizontal" role="form">
 						<div class="form-group">
-							<label class="col-sm-2 control-label">用户名</label>
+							<label class="col-sm-4 control-label">用户名</label>
 							<div class="col-sm-6">
 								<p class="form-control-static" id = "user-name"></p>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="user-id" class="col-sm-2 control-label">注册邮箱</label>
+							<label for="user-id" class="col-sm-4 control-label">注册邮箱</label>
 							<div class="col-sm-6">
 								<p class="form-control-static" id = "user-id"></p>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="user-balance" class="col-sm-2 control-label">账户余额</label>
+							<label for="user-balance" class="col-sm-4 control-label">账户余额</label>
 							<div class="col-sm-6">
 								<p class="form-control-static user-balance"></p>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="user-credit" class="col-sm-2 control-label">会员积分</label>
+							<label for="user-credit" class="col-sm-4 control-label">会员积分</label>
 							<div class="col-sm-6">
 								<p class="form-control-static" id = "user-credit"></p>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="expence-calendar" class="col-sm-4 control-label">消费记录</label>
+							<div class="col-sm-6">
+								<p class="form-control-static" id = "expence-calendar"></p>
 							</div>
 						</div>
 					</form>
@@ -196,7 +239,10 @@ $(document).ready(function(){
 				<div class="col-md-4">
 					<div class="tab-pane fade in active" id="view-users">
 						<div class="list-group" id = "message-receivers-list">
-							<button type="button" class="list-group-item send-message-btn" id = ""></button>
+							<%for (int i = 0; i < userNum; i++) {%>
+								<%String str = "<button type=\"button\" class=\"list-group-item send-message-btn\" id = \""+i+"\">"+userList.get(i).getMailAccount()+"-"+userList.get(i).getUsername()+"</button>";%>
+								<%out.print(str);%>
+							<%}%>
 						</div>
 					</div>
 				</div>

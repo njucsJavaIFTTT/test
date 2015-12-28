@@ -55,8 +55,7 @@ $(document).ready(function(){
 </div>
 
 <div class="container">
-	<h1>新浪微博</h1>
-	<p>请在以下两项中选择一项this任务</p>
+	<h1>IFTTT</h1>
 	<br></br>
 	<div class="row">
 		<div class="col-md-12 col-sm-12 col-xs-12">
