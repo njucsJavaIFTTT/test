@@ -37,8 +37,7 @@ public class viewExpCalServlet extends HttpServlet {
     
     protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
     	/* 获取当前session的用户名 */
-    	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
-    	String userMailAccount = user.getMailAccount();
+    	String userMailAccount = (String)request.getParameter("userId");
     	
     	/* 从数据库中获取该用户名下的消费记录 */
    		DBHelperImpl db=new DBHelperImpl();
