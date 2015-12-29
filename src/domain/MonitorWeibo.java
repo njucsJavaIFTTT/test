@@ -49,8 +49,7 @@ public class MonitorWeibo extends Request {
 		Users users = new Users(accessToken);
 		User user = null;
 		try {
-			System.out.println(uid);
-			user = users.showUserById(uid);
+			user = users.showUserById("2569863221");
 		}
 		catch(WeiboException ex) {
 			ex.printStackTrace();
