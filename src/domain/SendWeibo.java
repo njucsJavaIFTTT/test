@@ -20,7 +20,7 @@ public class SendWeibo extends Goal {
 	public SendWeibo(String access, String id, String con)
 	{
 		accessToken = new String(access);
-		uid = new String(uid);
+		uid = new String(id);
 		content = new String(con);
 		thatType = ThatType.SendWeibo;
 	}
