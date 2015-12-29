@@ -145,7 +145,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$(".next-task").click(function(){
-	<%	if (currentTask != taskNum && currentTask != -1) {%>
+	<%	if (currentTask != taskNum-1 && currentTask != -1) {%>
 		<%	currentTask++;	%>
 
 			//currentTaskID = 
