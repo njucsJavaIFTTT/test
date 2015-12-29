@@ -57,37 +57,40 @@ $(document).ready(function(){
 	<%if (currentTask == -1) {%>
 		$(".container").hide();
 		$("#empty-task").show();
+		alert("0");
 	<%} else {%>
+		alert("1");
 		$("#empty-task").hide();
 //  		TODO：
 //  			对当前任务进行设置
- 		$("#task-name").text(<%out.print(currentTaskName);%>);
+ 		$("#task-name").text(<%out.print("\""+currentTaskName+"\"");%>);
 
 	 		<%		thisType = tasklist.get(currentTask).getThisType();%>
 	 		<%	if (thisType.equals("0")) {
-					outputInfo = "定时"+tasklist.get(currentTask).getOrderedTime();
+					outputInfo ="\"定时"+tasklist.get(currentTask).getOrderedTime() + "\"";
 				}
 				else if (thisType.equals("1")) {
-					outputInfo = tasklist.get(currentTask).getMonitorMailAccount() + "收邮件";
+					outputInfo = "\""+tasklist.get(currentTask).getMonitorMailAccount() + "收邮件\"";
 				}
 				else if (thisType.equals("2")) {
-					outputInfo = tasklist.get(currentTask).getListenMinute() + "分钟内监听微博";
+					outputInfo = "\""+tasklist.get(currentTask).getListenMinute() + "分钟内监听微博\"";
 				}
 				else if (thisType.equals("3")) {
-					outputInfo = "监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博";
+					outputInfo = "\""+"监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博\"";
 				}
 				else {
 					outputInfo = "";
 				}
 				%>
  		$("#this-detail").text(<%out.print(outputInfo);%>);
+ 		//$("#this-detail").text("12-12-12-23 23:23");
 
 			<%		thatType = tasklist.get(currentTask).getThisType();%>
 			<%	if (thatType.equals("0")) {
-	 				outputInfo = "用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博";
+	 				outputInfo = "\"用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博\"";
 	 				}
 	 				else if (thatType.equals("1")) {
-	 					outputInfo = "向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件";
+	 					outputInfo = "\"向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件\"";
 	 				}
 	 				else {
 	 					outputInfo = "";
@@ -108,16 +111,16 @@ $(document).ready(function(){
 
  		<%		thisType = tasklist.get(currentTask).getThisType();%>
  		<%	if (thisType.equals("0")) {
-				outputInfo = "定时"+tasklist.get(currentTask).getOrderedTime();
+				outputInfo = "\"定时"+tasklist.get(currentTask).getOrderedTime() + "\"";
 			}
 			else if (thisType.equals("1")) {
-				outputInfo = tasklist.get(currentTask).getMonitorMailAccount() + "收邮件";
+				outputInfo = "\""+tasklist.get(currentTask).getMonitorMailAccount() + "收邮件\"";
 			}
 			else if (thisType.equals("2")) {
-				outputInfo = tasklist.get(currentTask).getListenMinute() + "分钟内监听微博";
+				outputInfo = "\""+tasklist.get(currentTask).getListenMinute() + "分钟内监听微博\"";
 			}
 			else if (thisType.equals("3")) {
-				outputInfo = "监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博";
+				outputInfo = "\"监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博\"";
 			}
 			else {
 				outputInfo = "";
@@ -127,10 +130,10 @@ $(document).ready(function(){
 
 		<%		thatType = tasklist.get(currentTask).getThisType();%>
 		<%	if (thatType.equals("0")) {
- 				outputInfo = "用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博";
+ 				outputInfo = "\"用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博\"";
  				}
  				else if (thatType.equals("1")) {
- 					outputInfo = "向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件";
+ 					outputInfo = "\"向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件\"";
  				}
  				else {
  					outputInfo = "";
@@ -149,20 +152,20 @@ $(document).ready(function(){
 			$("#empty-task").hide();
 //  		TODO：
 //  			对当前任务进行设置
- 		$("#task-name").text(<%out.print(currentTaskName);%>);
+ 		$("#task-name").text(<%out.print("\""+currentTaskName+"\"");%>);
 
  		<%		thisType = tasklist.get(currentTask).getThisType();%>
 	 		<%	if (thisType.equals("0")) {
-					outputInfo = "定时"+tasklist.get(currentTask).getOrderedTime();
+					outputInfo = "\"定时"+tasklist.get(currentTask).getOrderedTime()+"\"";
 				}
 				else if (thisType.equals("1")) {
-					outputInfo = tasklist.get(currentTask).getMonitorMailAccount() + "收邮件";
+					outputInfo = "\""+tasklist.get(currentTask).getMonitorMailAccount() + "收邮件\"";
 				}
 				else if (thisType.equals("2")) {
-					outputInfo = tasklist.get(currentTask).getListenMinute() + "分钟内监听微博";
+					outputInfo =  "\""+tasklist.get(currentTask).getListenMinute() + "分钟内监听微博\"";
 				}
 				else if (thisType.equals("3")) {
-					outputInfo = "监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博";
+					outputInfo = "\"监听内容为"+tasklist.get(currentTask).getMonitorContain() + "的微博\"";
 				}
 				else {
 					outputInfo = "";
@@ -172,10 +175,10 @@ $(document).ready(function(){
 
 			<%		thatType = tasklist.get(currentTask).getThisType();%>
 			<%	if (thatType.equals("0")) {
-	 				outputInfo = "用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博";
+	 				outputInfo = "\"用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博\"";
 	 				}
 	 				else if (thatType.equals("1")) {
-	 					outputInfo = "向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件";
+	 					outputInfo = "\"向"+tasklist.get(currentTask).getReceiverMailAccount() + "发邮件\"";
 	 				}
 	 				else {
 	 					outputInfo = "";
@@ -190,7 +193,7 @@ $(document).ready(function(){
 		<%if (currentTask != -1) {%>
 		$.post("StartTaskServlet",
 			{	
-				taskID: <%out.print(tasklist.get(currentTask).getTaskID());%>
+				taskId: <%out.print(tasklist.get(currentTask).getTaskID());%>
 			},
 			function(data){
 				alert(data);
@@ -204,7 +207,7 @@ $(document).ready(function(){
 		<%if (currentTask != -1) {%>
 		$.post("StopTaskServlet",
 			{	
-				taskID: <%out.print(tasklist.get(currentTask).getTaskID());%>
+				taskId: <%out.print("\""+tasklist.get(currentTask).getTaskID()+"\"");%>
 			},
 			function(data){
 				alert(data);
@@ -216,20 +219,42 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$(".edit-button").click(function(){
 		<%if (currentTask != -1) {%>
-		MonitorMailAccount = <%out.print(tasklist.get(currentTask).getMonitorMailAccount());%>;
-		orderedTime = <%out.print(tasklist.get(currentTask).getOrderedTime());%>;
-		MonitorMailpassword = <%out.print(tasklist.get(currentTask).getMonitorMailpassword());%>;
-		MonitorWeiboAccount = <%out.print(tasklist.get(currentTask).getMonitorWeiboAccount());%>;
-		MonitorWeiboAccessToken = <%out.print(tasklist.get(currentTask).getMonitorWeiboAccessToken());%>;
-		MonitorContain = <%out.print(tasklist.get(currentTask).getMonitorContain());%>;
-		listenMinute = <%out.print(tasklist.get(currentTask).getListenMinute());%>;
-		weiboContent = <%out.print(tasklist.get(currentTask).getWeiboContent());%>;
-		mailContent = <%out.print(tasklist.get(currentTask).getMailContent());%>;
-
-		receiverMailAccount = <%out.print(tasklist.get(currentTask).getReceiverMailAccount());%>;
-		sendWeiboAccount = <%out.print(tasklist.get(currentTask).getSendWeiboAccount());%>;
-		sendWeiboAccessToken = <%out.print(tasklist.get(currentTask).getSendWeiboAccessToken());%>;
-		
+		<%if (!tasklist.get(currentTask).getMonitorMailAccount().equals("")) {%>
+			MonitorMailAccount = <%out.print("\""+tasklist.get(currentTask).getMonitorMailAccount()+"\"");%>;
+		<%}%>
+		<%if (!tasklist.get(currentTask).getOrderedTime().equals("")) {%>
+			orderedTime = <%out.print("\""+tasklist.get(currentTask).getOrderedTime()+"\"");%>;
+		<%}%>
+		<%if (!tasklist.get(currentTask).getMonitorMailpassword().equals("")) {%>
+		MonitorMailpassword = <%out.print("\""+tasklist.get(currentTask).getMonitorMailpassword()+"\"");%>;
+		<%}%>
+		<%if (!tasklist.get(currentTask).getMonitorWeiboAccount().equals("")) {%>
+		MonitorWeiboAccount = <%out.print("\""+tasklist.get(currentTask).getMonitorWeiboAccount()+"\"");%>;
+		<%}%>
+		<%if (!tasklist.get(currentTask).getMonitorWeiboAccessToken().equals("")) {%>
+		MonitorWeiboAccessToken = <%out.print("\""+tasklist.get(currentTask).getMonitorWeiboAccessToken()+"\"");%>;
+		<%}%>
+		<%if (!tasklist.get(currentTask).getMonitorContain().equals("")) {%>
+		MonitorContain = <%out.print("\""+tasklist.get(currentTask).getMonitorContain()+"\"");%>;
+		<%}%>
+		<%if (!tasklist.get(currentTask).getListenMinute().equals("")) {%>
+		listenMinute = <%out.print("\""+tasklist.get(currentTask).getListenMinute()+"\"");%>;
+		<%}%>
+		<%if (!tasklist.get(currentTask).getWeiboContent().equals("")) {%>
+		weiboContent = <%out.print("\""+tasklist.get(currentTask).getWeiboContent()+"\"");%>;
+		<%}%>
+		<%if (!tasklist.get(currentTask).getMailContent().equals("")) {%>
+		mailContent = <%out.print("\""+tasklist.get(currentTask).getMailContent()+"\"");%>;
+		<%}%>
+		<%if (!tasklist.get(currentTask).getReceiverMailAccount().equals("")) {%>
+		receiverMailAccount = <%out.print("\""+tasklist.get(currentTask).getReceiverMailAccount()+"\"");%>;
+		<%}%>
+		<%if (!tasklist.get(currentTask).getSendWeiboAccount().equals("")) {%>
+		sendWeiboAccount = <%out.print("\""+tasklist.get(currentTask).getSendWeiboAccount()+"\"");%>;
+		<%}%>
+		<%if (!tasklist.get(currentTask).getSendWeiboAccessToken().equals("")) {%>
+		sendWeiboAccessToken = <%out.print("\""+tasklist.get(currentTask).getSendWeiboAccessToken()+"\"");%>;
+		<%}%>
 		<%if (thisType.equals("0")) {%>
 			$(".this-time").show();
 			$(".this-weibo-time").hide();
@@ -263,7 +288,7 @@ $(document).ready(function(){
 		<%if (currentTask != -1) {%>
 		$.post("DeleteTaskServlet",
 			{	
-				taskID: <%out.print(tasklist.get(currentTask).getTaskID());%>
+				taskID: <%out.print("\""+tasklist.get(currentTask).getTaskID()+"\"");%>
 			},
 			function(data){
 			   	//后台控制刷新界面
@@ -291,11 +316,11 @@ $(document).ready(function(){
 		<%}%>
 		$.post("ModifyTaskServlet",
 				{	
-					taskName: <%out.print(tasklist.get(currentTask).getTaskName());%>,
-					taskID: <%out.print(tasklist.get(currentTask).getTaskID());%>,//////////////////////////////////////////////////////////
-					ownerMail: <%out.print(tasklist.get(currentTask).getOwnerMail());%>,
-					thisType: <%out.print(thisType);%>,
-					thatType: <%out.print(thatType);%>,
+					taskName: <%out.print("\""+tasklist.get(currentTask).getTaskName()+"\"");%>,
+					taskID: <%out.print("\""+tasklist.get(currentTask).getTaskID()+"\"");%>,//////////////////////////////////////////////////////////
+					ownerMail: <%out.print("\""+tasklist.get(currentTask).getOwnerMail()+"\"");%>,
+					thisType: <%out.print("\""+thisType+"\"");%>,
+					thatType: <%out.print("\""+thatType+"\"");%>,
 					orderedTime: orderedTime,
 					MonitorMailAccount: MonitorMailAccount,
 					MonitorMailpassword: MonitorMailpassword,

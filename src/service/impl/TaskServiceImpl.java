@@ -54,7 +54,9 @@ public class TaskServiceImpl implements ITaskService{
 	@Override
 	public Task createTask(CreateTaskFormBean formBean) throws TaskException {
 		/* 按任务种类创建this任务 */
+	//	System.out.println(formBean.getThisType());
 		int thistype = Integer.parseInt(formBean.getThisType());
+		
 		Request rqt = null;
 		switch (thistype) {
 		case 0:{

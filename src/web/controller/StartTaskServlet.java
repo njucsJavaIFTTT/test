@@ -38,6 +38,8 @@ public class StartTaskServlet extends HttpServlet {
     	/* 从前台获取TaskId */
     	int taskId = Integer.parseInt(request.getParameter("taskId"));
     	
+    	System.out.println(taskId);
+    	
     	/* 从数据库中查找到该任务的TaskFormBean */
     	ITaskService service = new TaskServiceImpl();
     	CreateTaskFormBean formBean = null;
