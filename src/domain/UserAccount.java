@@ -216,4 +216,11 @@ public class UserAccount {
 		}
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "UserAccount [username=" + username + ", password=" + password + ", mailAccount=" + mailAccount
+				+ ", balance=" + balance + ", level=" + level + ", credit=" + credit + ", discount=" + discount + "]";
+	}
+	
 }
