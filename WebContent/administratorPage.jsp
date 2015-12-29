@@ -1,3 +1,4 @@
+<%@page import="DB.DBHelperImpl"%>
 <%@page import="domain.UserAccount"%>
 <%@page import="java.util.Vector"%>
 <%@page import="dao.impl.UserDaoImpl"%>
@@ -25,7 +26,8 @@
 <script type="text/javascript">
 	<%
 	//TODO:得到用户信息列表
-	Vector<UserAccount> userList = (Vector<UserAccount>)session.getAttribute("userList");
+	DBHelperImpl db=new DBHelperImpl();
+	Vector<UserAccount> userList = db.viewAllUsers();
 	UserAccount user = null;
 // 	Vector<UserAccount> userList = new Vector<UserAccount>();
 // 	UserAccount user = new UserAccount("aaa","bbb","ccc",23,34,45,56);
@@ -39,7 +41,7 @@
 	
 	int j=0;
 	int userNum = 0;
-	if (userList != null) {
+	if (userList != null && userList.size()!= 0) {
 		userNum = userList.size();
 	}
 	%>
@@ -91,7 +93,7 @@ $(document).ready(function(){
 			alert("请填写公告内容");
 		}
 		else {
-			$.post("SendPrivateMessage",
+			$.post("SendPublicMessage",
 				{	
 					msg:$("#public-message-content").val()
 				},
