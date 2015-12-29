@@ -91,7 +91,6 @@ $(document).ready(function(){
 			
 
 	//if (currentTask == null) currentTask = tasklist.get(0);%>
-			});	
 		<%if (currentTask != null && currentTask.getThisType().equals("0")) {%>
 			$(".this-time").show();
 			$(".this-weibo-time").hide();
@@ -205,10 +204,10 @@ $(document).ready(function(){
 			else if (thisType.equals("1")) {
 				outputInfo = "\""+tasklist.get(i).getMonitorMailAccount() + "收邮件\"";
 			}
-			else if (thisType.equals("2")) {
+			else if (thisType.equals("3")) {
 				outputInfo = "\""+tasklist.get(i).getListenMinute() + "分钟内监听微博\"";
 			}
-			else if (thisType.equals("3")) {
+			else if (thisType.equals("2")) {
 				outputInfo = "\"监听内容为"+tasklist.get(i).getMonitorContain() + "的微博\"";
 			}
 			else {
