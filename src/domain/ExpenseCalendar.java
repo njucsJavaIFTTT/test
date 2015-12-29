@@ -1,7 +1,5 @@
 package domain;
 
-import java.sql.Timestamp;
-
 /* 消费记录类 */
 public class ExpenseCalendar {
 	//private Timestamp startDate;//点击运行任务的时间

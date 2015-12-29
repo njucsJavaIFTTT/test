@@ -9,7 +9,6 @@ import domain.UserAccount;
 import web.formbean.CreateTaskFormBean;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class UserDaoImpl implements IUserDao{
 	

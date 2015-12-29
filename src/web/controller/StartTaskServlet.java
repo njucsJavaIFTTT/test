@@ -3,7 +3,6 @@ package web.controller;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.mail.Flags.Flag;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
