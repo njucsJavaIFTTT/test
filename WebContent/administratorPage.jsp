@@ -28,7 +28,7 @@
 	//TODO:得到用户信息列表
 	DBHelperImpl db=new DBHelperImpl();
 	Vector<UserAccount> userList = db.viewAllUsers();
-	UserAccount user = null;
+	UserAccount user = userList.get(0);
 // 	Vector<UserAccount> userList = new Vector<UserAccount>();
 // 	UserAccount user = new UserAccount("aaa","bbb","ccc",23,34,45,56);
 // 	userList.add(user);
@@ -57,29 +57,16 @@
 <%-- 	<%j++;%> --%>
 // }
 
-	
-	
-$(document).ready(function(){
-	//添加用户信息
-<%-- 	<%for (int i = 0; i < userNum; i++) {%> --%>
-<%-- 		<%String str = "<button type=\"button\" class=\"list-group-item users-info-btn\" id = \""+i+"\">"+userList.get(i).getMailAccount()+"-"+userList.get(i).getUsername()+"</button>";%> --%>
-<%-- 		$("#users-list").append(<%=str%>); --%>
-<%-- 		<%str = "<button type=\"button\" class=\"list-group-item send-message-btn\" id = \""+i+"\">"+userList.get(i).getMailAccount()+"-"+userList.get(i).getUsername()+"</button>";%> --%>
-<%-- 		$("#message-receivers-list").append(<%=str%>); --%>
-<%-- 	<%}%> --%>
-	//添加公告
-	//添加消费记录
-});
-
 $(document).ready(function(){
 	$(".users-info-btn").click(function(){
 		//查找用户信息
+		
 		$.post("viewExpCalServlet",
 				{	
-					user:$(this).attr(id)
+					user:$(this).attr("id")
 				},
 				function(data){
-					$("#expence-calendar").text(data);
+					$("#expence-calendar").text("\""+data+"\"");
 					<%
 					user = (UserAccount)session.getAttribute("currentUser");
 					%>
@@ -158,7 +145,7 @@ $(document).ready(function(){
 				<div class="col-md-5">
 					<div class="list-group" id = "users-list">
 						<%for (int i = 0; i < userNum; i++) {%>
-							<%String str = "<button type=\"button\" class=\"list-group-item users-info-btn\" id = \""+i+"\">"+userList.get(i).getMailAccount()+"-"+userList.get(i).getUsername()+"</button>";%>
+							<%String str = "<button type=\"button\" class=\"list-group-item users-info-btn\" id = \""+userList.get(i).getMailAccount()+"\">"+userList.get(i).getMailAccount()+"-"+userList.get(i).getUsername()+"</button>";%>
 							<%out.print(str); %>
 							<%} %>
 					</div>

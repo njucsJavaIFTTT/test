@@ -36,6 +36,7 @@ public class LoginServlet extends HttpServlet {
 			Vector<UserAccount> userList = db.viewAllUsers();
 			
 			request.getSession().setAttribute("userList", userList);
+			request.getSession().setAttribute("currentUser", userList.get(0));
 			response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
 		    String data = "manager";
 		    OutputStream stream = response.getOutputStream();
