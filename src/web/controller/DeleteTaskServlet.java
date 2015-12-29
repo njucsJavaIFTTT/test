@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import domain.Task;
 import domain.UserAccount;
 import exception.TaskException;
 import service.ITaskService;
