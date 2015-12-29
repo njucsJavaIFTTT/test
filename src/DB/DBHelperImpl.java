@@ -190,12 +190,12 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 	public boolean charge(String mailAccount,int ExpCnt,Task t){
 		//根据任务对用户进行收费并增加消费记录
 		String sql = "INSERT INTO ExpenseCalendar VALUES(?,?,?,?,?)";
+		Date date=new Date();
+		Timestamp tStamp = new Timestamp(date.getTime());
+		System.out.println(tStamp.toString());
 		try {
 			PreparedStatement pst = connect.prepareStatement(sql);// 准备执行语句
-			Date date=new Date();
-			Timestamp tStamp = new Timestamp(date.getTime());
-		
-			pst.setTimestamp(1, tStamp);
+			pst.setString(1, tStamp.toString());
 			pst.setInt(2, t.getTaskID());
 			pst.setInt(3, ExpCnt);
 			pst.setString(4, mailAccount);
