@@ -56,9 +56,8 @@ public class UserServiceImpl implements IUserService{
 			e.printStackTrace();
 		}
 		
-		/* 收费，参数2应该写个获取参数的函数 */
-		List<ExpenseCalendar> list = uDao.viewExpCalendar(uMailAccount);
-		uDao.charge(uMailAccount,list.size(),task);
+		/* 收费 */
+		uDao.charge(uMailAccount,task);
 		
 	}
 	

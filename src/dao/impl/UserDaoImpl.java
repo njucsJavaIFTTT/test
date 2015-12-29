@@ -36,12 +36,12 @@ public class UserDaoImpl implements IUserDao{
 		return pwd;
 	}
 	
-	public boolean charge(String uMailAccount,int ExpCnt,Task task){
+	public boolean charge(String uMailAccount,Task task){
 		//开始任务时对用户收费，收费成功则true
 		//①修改userAccount的余额 ②增加user的expenseCalendar
 		//ExpCnt为user.ExpenseCalendar.size
 		DBHelperImpl db=new DBHelperImpl();
-		boolean ret=db.charge(uMailAccount,ExpCnt,task);
+		boolean ret=db.charge(uMailAccount,task);
 		db.close();
 		return ret;
 	};

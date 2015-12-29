@@ -144,14 +144,12 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 
 	public UserAccount findUser(String uMailAccount,String uPwd) {
 		// 执行sql语句
-		//UserAccount user=null;
 		String sql = "select * from UserAccount where mail=\'" + uMailAccount + "\' and pwd=\'"+uPwd+"\';";
 		try {
 			// pst.setBoolean(2,user.getState());不好弄不是bool也不是int是enum,暂时不加进去
 			PreparedStatement pst = connect.prepareStatement(sql);
 			ResultSet ret = pst.executeQuery();// 执行语句，得到结果集
 			if(ret.next()){// 结果集非空
-				//System.out.println("hhh");
 				//String uName = ret.getString("username");
 				//user=new UserAccount(uName,uPwd,uMailAccount);
 				UserAccount user=new UserAccount(
@@ -164,7 +162,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 				ret.getDouble("discount"));
 
 				System.out.println(user.toString());
-				System.out.println("Success do '" + sql + "'!(db-Users)");
+				System.out.println("Success do '" + sql + "'!(db-findUser(u,pwd))");
 				return user;
 			}
 			else
@@ -187,19 +185,18 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		}
 	}
 	
-	public boolean charge(String mailAccount,int ExpCnt,Task t){
+	public boolean charge(String mailAccount,Task t){
 		//根据任务对用户进行收费并增加消费记录
-		String sql = "INSERT INTO ExpenseCalendar VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO ExpenseCalendar VALUES(?,?,?,?)";
+		Date date=new Date();
+		Timestamp tStamp = new Timestamp(date.getTime());
+		System.out.println(tStamp.toString());
 		try {
 			PreparedStatement pst = connect.prepareStatement(sql);// 准备执行语句
-			Date date=new Date();
-			Timestamp tStamp = new Timestamp(date.getTime());
-		
-			pst.setTimestamp(1, tStamp);
+			pst.setString(1, tStamp.toString());
 			pst.setInt(2, t.getTaskID());
-			pst.setInt(3, ExpCnt);
-			pst.setString(4, mailAccount);
-			pst.setDouble(5, t.getExpense());
+			pst.setString(3, mailAccount);
+			pst.setDouble(4, t.getExpense());
 			pst.executeUpdate();
 			System.out.println("Success do '" + sql + "'!(db-charge)");
 		} catch (Exception e) {
@@ -378,7 +375,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 	
 	public Vector<UserAccount> viewAllUsers(){//获取全部user
 		Vector<UserAccount> Users=new Vector<UserAccount>();
-		String sql = "SELECT * FROM UserAccount;";
+		String sql = "select * from UserAccount ;";
 		try{
 			PreparedStatement pst = connect.prepareStatement(sql);
 			ResultSet ret = pst.executeQuery();// 执行语句，得到结果集
@@ -403,6 +400,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 				ret.getDouble("discount"));
 				Users.add(u);
 				System.out.println(u.toString());
+				//Task tmpTask=createTask(tf);//待实现
 			}
 			System.out.println("Success do '" + sql + "'!(db-viewTask)");
 			return Users;

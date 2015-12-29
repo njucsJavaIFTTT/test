@@ -44,7 +44,7 @@ public class StartTaskServlet extends HttpServlet {
     	ITaskService service = new TaskServiceImpl();
     	CreateTaskFormBean formBean = null;
     	try{
-    		service.findTask(taskId);
+    		formBean = service.findTask(taskId);
     	}
     	catch(TaskException e){
     		e.printStackTrace();
