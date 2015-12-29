@@ -297,8 +297,6 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 				ret.getString("targetMail") );//that任务-收件邮箱账号
 				msg.add(m);
 				System.out.println(m.toString());
-				//Task tmpTask=createTask(tf);//待实现
-				//t.add(tmpTask);
 			}
 			System.out.println("Success do '" + sql + "'!(db-findMsg)");
 			return msg;
@@ -321,8 +319,6 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 				ret.getString("content"));//that任务-收件邮箱账号
 				Bul.add(cont);
 				System.out.println(cont);
-				//Task tmpTask=createTask(tf);//待实现
-				//t.add(tmpTask);
 			}
 			System.out.println("Success do '" + sql + "'!(db-viewBullet)");
 			return Bul;
@@ -361,7 +357,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 				ret.getString("receiverMailAccount") );//that任务-收件邮箱账号
 				System.out.println(tf.toString());
 				//Task tmpTask=createTask(tf);//待实现
-				//t.add(tmpTask);
+				t.add(tf);
 			}
 			System.out.println("Success do '" + sql + "'!(db-viewTask)");
 			return t;
