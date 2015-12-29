@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,7 +23,7 @@ import web.formbean.CreateTaskFormBean;
  */
 @WebServlet("/DeleteTaskServlet")
 
-public class DeleteTaskServlet {
+public class DeleteTaskServlet extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 
