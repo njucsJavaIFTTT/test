@@ -89,15 +89,9 @@ $(document).ready(function(){
 				});
 			<%currentTask = (CreateTaskFormBean)request.getSession().getAttribute("currentTaskFormBean");
 			
-<<<<<<< HEAD
-  				if (currentTask == null) currentTask = tasklist.get(0);%> 
-			
-=======
-	//if (currentTask == null) currentTask = tasklist.get(0);%>
-			});
->>>>>>> 0f2c8887f0888646891ab75c0819529527490c17
 
-		
+	//if (currentTask == null) currentTask = tasklist.get(0);%>
+			});	
 		<%if (currentTask != null && currentTask.getThisType().equals("0")) {%>
 			$(".this-time").show();
 			$(".this-weibo-time").hide();

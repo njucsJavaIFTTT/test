@@ -32,8 +32,9 @@ public class RechargeServlet extends HttpServlet {
     	String uMail = user.getMailAccount();
     	String old_balance_s=String.valueOf(user.getBalance());
     	double old_balance=Double.valueOf(old_balance_s);
-    	String value_s=(String) request.getSession().getAttribute("value");
-    	double value=Double.valueOf(value_s.toString());
+    	String value_s=request.getParameter("value");
+    	System.out.println(value_s);
+    	double value=Double.valueOf(value_s);
     	
     	/* 从数据库中充值该用户名下的Balance */
     	DBHelperImpl db=new DBHelperImpl();
