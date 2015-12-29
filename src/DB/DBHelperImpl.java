@@ -185,9 +185,9 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		}
 	}
 	
-	public boolean charge(String mailAccount,int ExpCnt,Task t){
+	public boolean charge(String mailAccount,Task t){
 		//根据任务对用户进行收费并增加消费记录
-		String sql = "INSERT INTO ExpenseCalendar VALUES(?,?,?,?,?)";
+		String sql = "INSERT INTO ExpenseCalendar VALUES(?,?,?,?)";
 		Date date=new Date();
 		Timestamp tStamp = new Timestamp(date.getTime());
 		System.out.println(tStamp.toString());
@@ -195,9 +195,8 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			PreparedStatement pst = connect.prepareStatement(sql);// 准备执行语句
 			pst.setString(1, tStamp.toString());
 			pst.setInt(2, t.getTaskID());
-			pst.setInt(3, ExpCnt);
-			pst.setString(4, mailAccount);
-			pst.setDouble(5, t.getExpense());
+			pst.setString(3, mailAccount);
+			pst.setDouble(4, t.getExpense());
 			pst.executeUpdate();
 			System.out.println("Success do '" + sql + "'!(db-charge)");
 		} catch (Exception e) {
