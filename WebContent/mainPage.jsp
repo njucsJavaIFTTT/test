@@ -39,10 +39,10 @@
 
 $(document).ready(function(){
 	$("#editTask").click(function(){
-		$.post("ViewTaskServlet",
-			function(){
+		//$.post("ViewTaskServlet",
+		//	function(){
 				location.href = "http://localhost:8080/test/editTask.jsp";   	
-		});
+		//});
 	});
 });
 </script>

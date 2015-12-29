@@ -38,7 +38,10 @@
 // 	userList.add(user);
 	
 	int j=0;
-	int userNum = userList.size();
+	int userNum = 0;
+	if (userList != null) {
+		userNum = userList.size();
+	}
 	%>
 // var userNameList = new Array();
 // var userIDList = new Array();
