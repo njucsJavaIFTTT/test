@@ -258,7 +258,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 	
 	public Vector<ExpenseCalendar> findExpCal(String uMail){//user获取个人消费记录
 		Vector<ExpenseCalendar> expC=new Vector<ExpenseCalendar>();
-		String sql = "select * from ExpenseCalendar where targetMail=\'" + uMail +"\';";
+		String sql = "select * from ExpenseCalendar where ownerMail=\'" + uMail +"\';";
 		try{
 			PreparedStatement pst = connect.prepareStatement(sql);
 			ResultSet ret = pst.executeQuery();// 执行语句，得到结果集

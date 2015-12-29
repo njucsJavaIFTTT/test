@@ -45,16 +45,13 @@ $(document).ready(function(){
 			alert("请填写充值金额");
 		}
 		else {
-			$.post("",
+			$.post("RechargeServlet",
 				{	
-					taskID: taskID
+					value: $("#recharge-value").val()
 				},
 				function(data){//返回的data为充值之后的金额或者0
-					if (data != "0") {
-						$(".user-balance").text(data);
-						alert("充值成功");
-					}
-					else alert("充值失败");
+					var outputInfo = data;
+					alert(data);
 				});
 		}
 	});

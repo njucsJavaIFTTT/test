@@ -499,7 +499,7 @@ $(document).ready(function(){
 			$.post("CreateTaskServlet",
 					{	
 						taskName: $("#task-name").val(),
-						taskID: taskID,//////////////////////////////////////////////////////////
+						taskID: taskID,
 						ownerMail: "",
 						thisType: thisType,
 						thatType: thatType,
