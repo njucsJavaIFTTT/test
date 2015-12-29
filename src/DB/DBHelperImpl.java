@@ -215,10 +215,10 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 	}
 	
 	public boolean deleteTask(CreateTaskFormBean tf){//删除taskFormbean
-		String sql = "delete * from taskFormbean where taskID=" + tf.getTaskID() +";";
+		String sql = "delete from taskFormbean where taskID=" + tf.getTaskID() +";";
 		try {
 			PreparedStatement pst = connect.prepareStatement(sql);
-			pst.executeQuery();// 执行语句，得到结果集
+			pst.executeUpdate();// 执行语句，得到结果集
 			System.out.println("Success do '" + sql + "'!(db-deleteTask)");
 			return true;
 		} catch (Exception e) {

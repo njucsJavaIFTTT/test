@@ -36,13 +36,13 @@
 	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
 	DBHelperImpl db=new DBHelperImpl();
 	Vector<CreateTaskFormBean> tasklist = db.viewTask(user.getMailAccount());
-	CreateTaskFormBean currentTask = tasklist.get(0);
+	CreateTaskFormBean currentTask = null;
 	//Vector<CreateTaskFormBean> tasklist =null;
 	if (tasklist == null || tasklist.size() == 0) System.out.println("00000");
 	if (tasklist != null && tasklist.size() != 0) {
 		taskNum = tasklist.size();
 		System.out.println(taskNum);
-	
+		currentTask = tasklist.get(0);
 		//currentTaskName = tasklist.get(0).getTaskName();
 	}
 	String thisType="",thatType="";
@@ -87,7 +87,7 @@ $(document).ready(function(){
 				function(data){
 			<%currentTask = (CreateTaskFormBean)request.getSession().getAttribute("currentTaskFormBean");
 			
-	if (currentTask == null) currentTask = tasklist.get(0);%>
+	//if (currentTask == null) currentTask = tasklist.get(0);%>
 			});
 
 		
@@ -127,6 +127,8 @@ $(document).ready(function(){
 			},
 			function(data){
 			   	//后台控制刷新界面
+			   	alert(data);
+			   	location.href = "http://localhost:8080/test/editTask.jsp";
 			});
 	});
 });

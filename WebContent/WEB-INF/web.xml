@@ -2,12 +2,12 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>test</display-name>
   <servlet>
-    <servlet-name>LoginUIServlet</servlet-name>
-    <servlet-class>web.UI.LoginUIServlet</servlet-class>
+    <servlet-name>ModifyTaskServlet</servlet-name>
+    <servlet-class>web.controller.ModifyTaskServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>LoginUIServlet</servlet-name>
-    <url-pattern>/servlet/LoginUIServlet</url-pattern>
+    <servlet-name>ModifyTaskServlet</servlet-name>
+    <url-pattern>/servlet/ModifyTaskServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
