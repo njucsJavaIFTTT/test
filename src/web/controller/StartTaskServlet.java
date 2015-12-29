@@ -3,6 +3,7 @@ package web.controller;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.mail.Flags.Flag;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,6 +41,8 @@ public class StartTaskServlet extends HttpServlet {
     	
     	System.out.println(taskId);
     	
+    	boolean flag = true;
+    	
     	/* 从数据库中查找到该任务的TaskFormBean */
     	ITaskService service = new TaskServiceImpl();
     	CreateTaskFormBean formBean = null;
@@ -47,6 +50,7 @@ public class StartTaskServlet extends HttpServlet {
     		formBean = service.findTask(taskId);
     	}
     	catch(TaskException e){
+    		flag = false;
     		e.printStackTrace();
     	}
     	
@@ -57,6 +61,7 @@ public class StartTaskServlet extends HttpServlet {
     	}
     	catch(TaskException e){
     		e.printStackTrace();
+    		flag = false;
     	}
     	
 		/* 对用户进行收费 */
@@ -66,6 +71,7 @@ public class StartTaskServlet extends HttpServlet {
     	}
     	catch(UserException e){
     		e.printStackTrace();
+    		flag = false;
     	}
     	
 		/* 将Task添加到ExecuteList中  */
@@ -75,9 +81,10 @@ public class StartTaskServlet extends HttpServlet {
 		}
 		catch(TaskException e){
 			e.printStackTrace();
+			flag = false;
 		}
 		
-		if(execute == null) {
+		if(!flag) {
 			response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
 		    String data = "任务启动失败。 ";
 		    OutputStream stream = response.getOutputStream();

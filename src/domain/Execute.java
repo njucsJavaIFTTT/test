@@ -51,6 +51,9 @@ public class Execute extends Thread {
 				try{
 					if(request.ifThis() == true)
 					{
+						if(stop){
+							return;
+						}
 						goal.thenThat();
 					}
 				}
@@ -67,8 +70,13 @@ public class Execute extends Thread {
 		}
 		else {
 			try{
-				if(request.ifThis() == true)
+				if(request.ifThis() == true){
+					if(stop){
+						return;
+					}
 					goal.thenThat();
+				}
+				
 			}
 			catch(InterruptedException ex)
 			{

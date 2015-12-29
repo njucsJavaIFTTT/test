@@ -47,6 +47,7 @@ public class RecvMail extends Request {
 		props.put("mail.pop3.ssl.enable", isSSL);
 		props.put("mail.pop3.host", host);
 		props.put("mail.pop3.port", port);
+		props.put("mail.smtp.auth", "true"); 
 		
 		Session session = Session.getDefaultInstance(props);
 		
