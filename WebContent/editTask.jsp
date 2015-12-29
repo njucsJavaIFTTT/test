@@ -33,12 +33,19 @@
 	int currentTask = -1, taskNum = 0;
 	String currentTaskName = "";
 	//...
+<<<<<<< HEAD
 // user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
+=======
+ //UserAccount user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
+
+//t user = new UserAccount("lucy","000","376575092@qq.com",12,23,34,0.5);
+
+>>>>>>> origin/master
 	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
 	DBHelperImpl db=new DBHelperImpl();
 	Vector<CreateTaskFormBean> tasklist = db.viewTask(user.getMailAccount());
 	//Vector<CreateTaskFormBean> tasklist =null;
-	
+	if (tasklist == null) System.out.println("00000");
 	if (tasklist != null) {
 		taskNum = tasklist.size();
 		System.out.println(taskNum);
