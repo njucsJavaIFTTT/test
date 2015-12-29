@@ -45,7 +45,7 @@
 		currentTask = 0;
 		currentTaskName = tasklist.get(0).getTaskName();
 	}
-	else currentTask = 0;
+	else currentTask = -1;
 	String thisType="",thatType="";
 	String outputInfo="";
 	
