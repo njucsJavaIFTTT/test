@@ -36,7 +36,7 @@
 	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
 	DBHelperImpl db=new DBHelperImpl();
 	Vector<CreateTaskFormBean> tasklist = db.viewTask(user.getMailAccount());
-	CreateTaskFormBean currentTask = new CreateTaskFormBean();
+	CreateTaskFormBean currentTask = tasklist.get(0);
 	//Vector<CreateTaskFormBean> tasklist =null;
 	if (tasklist == null || tasklist.size() == 0) System.out.println("00000");
 	if (tasklist != null && tasklist.size() != 0) {
@@ -58,7 +58,7 @@ $(document).ready(function(){
 	$(".start-button").click(function(){
 		$.post("StartTaskServlet",
 			{	
-				taskId: $(this).attr(id)
+				taskId: $(this).attr("id")
 			},
 			function(data){
 				alert(data);
@@ -71,7 +71,7 @@ $(document).ready(function(){
 	
 		$.post("StopTaskServlet",
 			{	
-				taskId: $(this).attr(id)
+				taskId: $(this).attr("id")
 			},
 			function(data){
 				alert(data);
@@ -81,32 +81,39 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
 	$(".edit-button").click(function(){
-		
+		$.post("StartTaskServlet",
+				{	
+			currentTaskId: $(this).attr("id")
+				},
+				function(data){
+			<%currentTask = (CreateTaskFormBean)request.getSession().getAttribute("currentTaskFormBean");
+			
+	if (currentTask != null) System.out.println("==================");%>
+			});
 
-		<%currentTask = (CreateTaskFormBean)request.getSession().getAttribute("currentTask");%>
 		
-		<%if (currentTask.getThisType().equals("0")) {%>
+		<%if (currentTask != null && currentTask.getThisType().equals("0")) {%>
 			$(".this-time").show();
 			$(".this-weibo-time").hide();
 			$(".this-weibo-content").hide();
-		<%}else if (currentTask.getThisType().equals("1")) {%>
+		<%}else if (currentTask != null && currentTask.getThisType().equals("1")) {%>
 			$(".this-time").hide();
 			$(".this-weibo-time").hide();
 			$(".this-weibo-content").hide();
-		<%}else if (currentTask.getThisType().equals("2")) {%>
+		<%}else if (currentTask != null && currentTask.getThisType().equals("2")) {%>
 			$(".this-time").hide();
 			$(".this-weibo-time").hide();
 			$(".this-weibo-content").show();
-		<%}else if (currentTask.getThisType().equals("3")) {%>
+		<%}else if (currentTask != null && currentTask.getThisType().equals("3")) {%>
 			$(".this-time").hide();
 			$(".this-weibo-time").show();
 			$(".this-weibo-content").hide();
 		<%}%>
 		
-		<%if (currentTask.getThatType().equals("0")) {%>
+		<%if (currentTask != null && currentTask.getThatType().equals("0")) {%>
 			$(".that-weibo").show();
 			$(".that-mail").hide();
-		<%}else if (currentTask.getThatType().equals("1")) {%>
+		<%}else if (currentTask != null && currentTask.getThatType().equals("1")) {%>
 			$(".that-weibo").hide();
 			$(".that-mail").show();
 		<%}%>
@@ -117,7 +124,7 @@ $(document).ready(function(){
 		
 		$.post("DeleteTaskServlet",
 			{	
-				taskID: $(this).attr(id)
+				taskID: $(this).attr("id")
 			},
 			function(data){
 			   	//后台控制刷新界面
@@ -127,27 +134,27 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$("#submit-change").click(function(){
-		<%if (currentTask.getThisType().equals("0")) {%>
+		<%if (currentTask != null && currentTask.getThisType().equals("0")) {%>
 			orderedTime = $("#this-time-time").val();
-		<%}else if (currentTask.getThisType().equals("2")) {%>
+		<%}else if (currentTask != null && currentTask.getThisType().equals("2")) {%>
 			MonitorContain = $("#this-weibo-content").val();
-		<%}else if (currentTask.getThisType().equals("3")) {%>
+		<%}else if (currentTask != null && currentTask.getThisType().equals("3")) {%>
 			listenMinute = $("#this-weibo-time").val();
 		<%}%>
 		
-		<%if (currentTask.getThatType().equals("0")) {%>
+		<%if (currentTask != null && currentTask.getThatType().equals("0")) {%>
 			weiboContent = $("#that-weibo").val();
-		<%}else if (currentTask.getThatType().equals("1")) {%>
+		<%}else if (currentTask != null && currentTask.getThatType().equals("1")) {%>
 			mailContent = $("#that-mail-content").val();
 			receiverMailAccount = $("#that-mail-id").val();
 		<%}%>
 		$.post("ModifyTaskServlet",
 				{	
-					taskName: <%out.print("\""+currentTask.getTaskName()+"\"");%>,
-					taskID: <%out.print("\""+currentTask.getTaskID()+"\"");%>,//////////////////////////////////////////////////////////
-					ownerMail: <%out.print("\""+currentTask.getOwnerMail()+"\"");%>,
-					thisType: <%out.print("\""+currentTask.getThisType()+"\"");%>,
-					thatType: <%out.print("\""+currentTask.getThatType()+"\"");%>,
+					taskName: <%if (currentTask != null) out.print("\""+currentTask.getTaskName()+"\"");else out.print("\"\"");%>,
+					taskID: <%if (currentTask != null) out.print("\""+currentTask.getTaskID()+"\"");else out.print("\"\"");%>,//////////////////////////////////////////////////////////
+					ownerMail: <%if (currentTask != null) out.print("\""+currentTask.getOwnerMail()+"\"");else out.print("\"\"");%>,
+					thisType: <%if (currentTask != null) out.print("\""+currentTask.getThisType()+"\"");else out.print("\"\"");%>,
+					thatType: <%if (currentTask != null) out.print("\""+currentTask.getThatType()+"\"");else out.print("\"\"");%>,
 					orderedTime: orderedTime,
 					MonitorMailAccount: MonitorMailAccount,
 					MonitorMailpassword: MonitorMailpassword,
@@ -174,10 +181,11 @@ $(document).ready(function(){
 	<strong class="col-md-offset-1 col-sm-offset-1" style = "font-size:120%;color:#FFFFFF">IFTTT</strong>
 	<p id = "userName" class="col-md-offset-8 col-sm-offset-8" style = "font-size:120%;color:#FFFFFF"><%out.print("Hi! " +user.getUsername()); %></p>
 </div>
-
+<%if (taskNum == 0) { %>
 <div id = "empty-task">
 当前没有任务
 </div>
+<%} %>
 
 <div class="container">
 	<%for (int i = 0; i < taskNum; i++) { %>

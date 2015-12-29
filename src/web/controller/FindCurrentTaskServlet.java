@@ -22,11 +22,11 @@ public class FindCurrentTaskServlet extends HttpServlet{
 	
 	protected void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		int taskId = Integer.parseInt(request.getParameter("currentTaskId"));
-		
+		System.out.println(taskId);
 		ITaskService taskService = new TaskServiceImpl();
 		CreateTaskFormBean formBean = null;
 		try{
-			taskService.findTask(taskId);
+			formBean = taskService.findTask(taskId);
 		}
 		catch(TaskException e){
 			e.printStackTrace();

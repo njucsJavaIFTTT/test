@@ -63,10 +63,10 @@ $(document).ready(function(){
 		
 		$.post("viewExpCalServlet",
 				{	
-					user:$(this).attr("id")
+					userId:$(this).attr("id")
 				},
 				function(data){
-					$("#expence-calendar").text("\""+data+"\"");
+					$("#expence-calendar").text(data);
 					<%
 					user = (UserAccount)session.getAttribute("currentUser");
 					%>
@@ -103,7 +103,7 @@ $(document).ready(function(){
 		else {
 			$.post("SendPrivateMessage",
 				{	
-					userID:$(".send-message-btn").attr(id),
+					userID:$(".send-message-btn").attr("id"),
 					msg:$("#private-message-content").val()
 					//...
 				},
