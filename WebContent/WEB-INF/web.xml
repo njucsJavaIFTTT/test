@@ -9,6 +9,14 @@
     <servlet-name>ModifyTaskServlet</servlet-name>
     <url-pattern>/servlet/ModifyTaskServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>FindCurrentTaskServlet</servlet-name>
+    <servlet-class>web.controller.FindCurrentTaskServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindCurrentTaskServlet</servlet-name>
+    <url-pattern>/servlet/FindCurrentTaskServlet</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>

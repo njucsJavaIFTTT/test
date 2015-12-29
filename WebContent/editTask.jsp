@@ -195,7 +195,7 @@ $(document).ready(function(){
 		<div class="col-md-12">
 			<div class="panel panel-info">
 				<div class="panel-heading">
-					<h3 id = "task-name" class="panel-title"><%out.print("\""+tasklist.get(i).getTaskName()+"\"");%></h3>
+					<h3 id = "task-name" class="panel-title"><%out.print("\""+tasklist.get(i).getTaskName()+"\"");%><%out.print("\""+tasklist.get(i).getTaskID()+"\"");%></h3>
 				</div>
 				<ul class="list-group">
 				<%		thisType = tasklist.get(i).getThisType();%>

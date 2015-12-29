@@ -630,7 +630,7 @@ border: 1px solid green;
 					<form id = "weibo-login" class="form-horizontal">
 						<div class="form-group">
 							<div class = "col-md-offset-3 col-md-3 col-sm-3 col-xs-3">
- 								<a type="button" class="btn btn-default" id = "weibo-login-btn" href = "https://api.weibo.com/oauth2/authorize?client_id=1828050850&redirect_uri=http://127.0.0.1:8080/test/getAccessToken.jsp&response_type=code" target="_blank">点击此处进行授权登录</a> 
+ 								<a type="button" class="btn btn-default" id = "weibo-login-btn" href = "https://api.weibo.com/oauth2/authorize?client_id=1059407803&redirect_uri=http://127.0.0.1:8080/test/getAccessToken.jsp&response_type=code" target="_blank">点击此处进行授权登录</a> 
 							</div>
 						</div>
 						<div class="form-group">
@@ -907,7 +907,7 @@ border: 1px solid green;
 					<form class="form-horizontal">
 						<div class="form-group">
 							<div class = "col-md-offset-3 col-md-3 col-sm-3 col-xs-3">
- 								<a type="button" class="btn btn-default" id = "weibo-login-btn-that" href = "https://api.weibo.com/oauth2/authorize?client_id=1828050850&redirect_uri=http://127.0.0.1:8080/test/getAccessToken.jsp&response_type=code" target="_blank">点击此处进行授权登录</a> 
+ 								<a type="button" class="btn btn-default" id = "weibo-login-btn-that" href = "https://api.weibo.com/oauth2/authorize?client_id=1059407803&redirect_uri=http://127.0.0.1:8080/test/getAccessToken.jsp&response_type=code" target="_blank">点击此处进行授权登录</a> 
 							</div>
 						</div>
 						<div class="form-group">
