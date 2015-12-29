@@ -144,19 +144,25 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 
 	public UserAccount findUser(String uMailAccount,String uPwd) {
 		// 执行sql语句
-		UserAccount user=null;
 		String sql = "select * from UserAccount where mail=\'" + uMailAccount + "\' and pwd=\'"+uPwd+"\';";
 		try {
 			// pst.setBoolean(2,user.getState());不好弄不是bool也不是int是enum,暂时不加进去
 			PreparedStatement pst = connect.prepareStatement(sql);
 			ResultSet ret = pst.executeQuery();// 执行语句，得到结果集
 			if(ret.next()){// 结果集非空
-				//System.out.println("hhh");
-				String uName = ret.getString("username");
-				user=new UserAccount(uName,uPwd,uMailAccount);
+				//String uName = ret.getString("username");
+				//user=new UserAccount(uName,uPwd,uMailAccount);
+				UserAccount user=new UserAccount(
+				ret.getString("username"),
+				ret.getString("pwd"),
+				ret.getString("mail"),
+				ret.getDouble("balance"),
+				ret.getInt("lv"),
+				ret.getInt("credit"),
+				ret.getDouble("discount"));
 
-				System.out.println("username:" + uName +" get pwd:" + uPwd+" mailAccount:"+uMailAccount);
-				System.out.println("Success do '" + sql + "'!(db-Users)");
+				System.out.println(user.toString());
+				System.out.println("Success do '" + sql + "'!(db-findUser(u,pwd))");
 				return user;
 			}
 			else
@@ -387,15 +393,15 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 				*/
 				UserAccount u=new UserAccount(
 				ret.getString("username"),
-				ret.getString("password"),
-				ret.getString("mailAccount"),
+				ret.getString("pwd"),
+				ret.getString("mail"),
 				ret.getDouble("balance"),
-				ret.getInt("level"),
+				ret.getInt("lv"),
 				ret.getInt("credit"),
 				ret.getDouble("discount"));
+				Users.add(u);
 				System.out.println(u.toString());
 				//Task tmpTask=createTask(tf);//待实现
-				Users.add(u);
 			}
 			System.out.println("Success do '" + sql + "'!(db-viewTask)");
 			return Users;
