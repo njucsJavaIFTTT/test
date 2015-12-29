@@ -35,6 +35,7 @@
 	
 	DBHelperImpl db=new DBHelperImpl();
 	Vector<Message> msgList = db.findMsg(user.getMailAccount());
+	if (msgList.size() == 0) System.out.println("------------");
 	Vector<ExpenseCalendar> expCalendar = db.findExpCal(user.getMailAccount());
 	Vector<String> bulletList = db.viewBullet();
 	%>
@@ -91,6 +92,9 @@ $(document).ready(function(){
 			<div class="row">
 				<div class="col-md-12">
 					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<br></br>
+						</div>
 						<div class="form-group">
 							<label class="col-sm-2 control-label">用户名</label>
 							<div class="col-sm-6">

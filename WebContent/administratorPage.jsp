@@ -29,15 +29,6 @@
 	DBHelperImpl db=new DBHelperImpl();
 	Vector<UserAccount> userList = db.viewAllUsers();
 	UserAccount user = userList.get(0);
-// 	Vector<UserAccount> userList = new Vector<UserAccount>();
-// 	UserAccount user = new UserAccount("aaa","bbb","ccc",23,34,45,56);
-// 	userList.add(user);
-// 	user = new UserAccount("daa","b","ccc",23,34,45,56);
-// 	userList.add(user);
-// 	user = new UserAccount("aaa","bbb","ccc",23,34,45,56);
-// 	userList.add(user);
-// 	user = new UserAccount("daa","b","ccc",23,34,45,56);
-// 	userList.add(user);
 	
 	int j=0;
 	int userNum = 0;
@@ -45,17 +36,6 @@
 		userNum = userList.size();
 	}
 	%>
-// var userNameList = new Array();
-// var userIDList = new Array();
-// var userCreditList = new Array();
-// var userBalanceList = new Array();
-<%-- for (var i = 0; i < <%=userNum%>; i++) { --%>
-<%-- 	userNameList[i] = <%=userList.get(j).getUsername()%>; --%>
-<%-- 	userIDList[i] = <%=userList.get(j).getMailAccount()%>; --%>
-<%-- 	userBalanceList[i] = <%=userList.get(j).getBalance()%>; --%>
-<%-- 	userCreditList[i] = <%=userList.get(j).getCredit()%>; --%>
-<%-- 	<%j++;%> --%>
-// }
 
 $(document).ready(function(){
 	$(".users-info-btn").click(function(){
@@ -103,7 +83,7 @@ $(document).ready(function(){
 		else {
 			$.post("SendPrivateMessage",
 				{	
-					userID:$(".send-message-btn").attr("id"),
+					userID:$(this).attr("id"),
 					msg:$("#private-message-content").val()
 					//...
 				},
@@ -145,7 +125,7 @@ $(document).ready(function(){
 				<div class="col-md-5">
 					<div class="list-group" id = "users-list">
 						<%for (int i = 0; i < userNum; i++) {%>
-							<%String str = "<button type=\"button\" class=\"list-group-item users-info-btn\" id = \""+userList.get(i).getMailAccount()+"\">"+userList.get(i).getMailAccount()+"-"+userList.get(i).getUsername()+"</button>";%>
+							<%String str = "<button type=\"button\" class=\"col-sm-4 list-group-item users-info-btn\" id = \""+userList.get(i).getMailAccount()+"\">"+userList.get(i).getMailAccount()+"-"+userList.get(i).getUsername()+"</button>";%>
 							<%out.print(str); %>
 							<%} %>
 					</div>
@@ -222,10 +202,10 @@ $(document).ready(function(){
 				<div class="col-md-5">
 					<form class="form-horizontal" role="form">
 						<div class="form-group">
-							<label class="col-sm-2 control-label">私信内容</label>
+							<label class="col-sm-4 control-label">私信内容</label>
 						</div>
 						<div class="form-group">
-							<div class="col-sm-6">
+							<div class="col-sm-10">
 								<textarea class="form-control" rows="3" id="private-message-content"></textarea>
 							</div>
 						</div>
@@ -238,7 +218,7 @@ $(document).ready(function(){
 					<div class="tab-pane fade in active" id="view-users">
 						<div class="list-group" id = "message-receivers-list">
 							<%for (int i = 0; i < userNum; i++) {%>
-								<%String str = "<button type=\"button\" class=\"list-group-item send-message-btn\" id = \""+i+"\">"+userList.get(i).getMailAccount()+"-"+userList.get(i).getUsername()+"</button>";%>
+								<%String str = "<button type=\"button\" class=\"col-sm-4 list-group-item send-message-btn\" id = \""+userList.get(i).getMailAccount()+"\">"+userList.get(i).getMailAccount()+"-"+userList.get(i).getUsername()+"</button>";%>
 								<%out.print(str);%>
 							<%}%>
 						</div>

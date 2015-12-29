@@ -82,13 +82,15 @@ $(document).ready(function(){
 	$(".edit-button").click(function(){
 		$.post("FindCurrentTaskServlet",
 				{	
-			currentTaskId: $(this).attr("id")
+				currentTaskId: $(this).attr("id")
 				},
 				function(data){
+				   	//后台控制刷新界面
+				});
 			<%currentTask = (CreateTaskFormBean)request.getSession().getAttribute("currentTaskFormBean");
 			
-	if (currentTask == null) currentTask = tasklist.get(0);%>
-			});
+  				if (currentTask == null) currentTask = tasklist.get(0);%> 
+			
 
 		
 		<%if (currentTask != null && currentTask.getThisType().equals("0")) {%>
@@ -168,7 +170,7 @@ $(document).ready(function(){
 					receiverMailAccount: receiverMailAccount
 				},
 				function(data){
-					
+					alert(data);
 				});
 	});
 });
@@ -244,7 +246,7 @@ $(document).ready(function(){
         		<button type="button" class="stop-button btn btn-default btn-sm" id = <%out.print("\""+tasklist.get(i).getTaskID()+"\"");%>>
 					<span class="glyphicon glyphicon-stop"></span>
         		</button>
-        		<button type="button" class="edit-button btn btn-default btn-sm"  id = <%out.print("\""+tasklist.get(i).getTaskID()+"\"");%>data-toggle="modal" data-target="#edit-modal">
+        		<button type="button" class="edit-button btn btn-default btn-sm"  id = <%out.print("\""+tasklist.get(i).getTaskID()+"\"");%> data-toggle="modal" data-target="#edit-modal">
 					<span class="glyphicon glyphicon-pencil"></span>
         		</button>
         		<button type="button" class="delete-button btn btn-default btn-sm" id = <%out.print("\""+tasklist.get(i).getTaskID()+"\"");%>>
