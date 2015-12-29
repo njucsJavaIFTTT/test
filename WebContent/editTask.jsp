@@ -49,7 +49,6 @@
 	String outputInfo="";
 	
 	%>
-var current = 0;
 var ownerMail = "", orderedTime = "", MonitorMailAccount = "", MonitorMailpassword = "";
 var MonitorWeiboAccount = "", MonitorWeiboAccessToken = "", MonitorContain = "", listenMinute = 0;
 var sendWeiboAccount = "", sendWeiboAccessToken = "", weiboContent = "", mailContent = "", receiverMailAccount = "";
@@ -81,14 +80,14 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
 	$(".edit-button").click(function(){
-		$.post("StartTaskServlet",
+		$.post("FindCurrentTaskServlet",
 				{	
 			currentTaskId: $(this).attr("id")
 				},
 				function(data){
 			<%currentTask = (CreateTaskFormBean)request.getSession().getAttribute("currentTaskFormBean");
 			
-	if (currentTask != null) System.out.println("==================");%>
+	if (currentTask == null) currentTask = tasklist.get(0);%>
 			});
 
 		
