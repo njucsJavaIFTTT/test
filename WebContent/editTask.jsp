@@ -42,7 +42,7 @@
 		taskNum = tasklist.size();
 		System.out.println(taskNum);
 		currentTask = 0;
-		currentTaskName = tasklist.get(0).getTaskName();
+		//currentTaskName = tasklist.get(0).getTaskName();
 	}
 	else currentTask = -1;
 	String thisType="",thatType="";
@@ -63,7 +63,7 @@ $(document).ready(function(){
 		$("#empty-task").hide();
 //  		TODO：
 //  			对当前任务进行设置
- 		$("#task-name").text(<%out.print("\""+currentTaskName+"\"");%>);
+ 		$("#task-name").text(<%out.print("\""+tasklist.get(currentTask).getTaskName()+"\"");%>);
 
 	 		<%		thisType = tasklist.get(currentTask).getThisType();%>
 	 		<%	if (thisType.equals("0")) {
@@ -85,7 +85,7 @@ $(document).ready(function(){
  		$("#this-detail").text(<%out.print(outputInfo);%>);
  		//$("#this-detail").text("12-12-12-23 23:23");
 
-			<%		thatType = tasklist.get(currentTask).getThisType();%>
+			<%		thatType = tasklist.get(currentTask).getThatType();%>
 			<%	if (thatType.equals("0")) {
 	 				outputInfo = "\"用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博\"";
 	 				}
@@ -107,7 +107,7 @@ $(document).ready(function(){
 			$("#empty-task").hide();
 //  		TODO：
 //  			对当前任务进行设置
- 		$("#task-name").text(<%out.print(currentTaskName);%>);
+ 		$("#task-name").text(<%out.print("\""+tasklist.get(currentTask).getTaskName()+"\"");%>);
 
  		<%		thisType = tasklist.get(currentTask).getThisType();%>
  		<%	if (thisType.equals("0")) {
@@ -128,7 +128,7 @@ $(document).ready(function(){
 			%>
 		$("#this-detail").text(<%out.print(outputInfo);%>);
 
-		<%		thatType = tasklist.get(currentTask).getThisType();%>
+		<%		thatType = tasklist.get(currentTask).getThatType();%>
 		<%	if (thatType.equals("0")) {
  				outputInfo = "\"用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博\"";
  				}
@@ -145,14 +145,14 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$(".next-task").click(function(){
-	<%	if (currentTask != taskNum-1 && currentTask != -1) {%>
+	<%	if (currentTask != taskNum && currentTask != -1) {%>
 		<%	currentTask++;	%>
 
 			//currentTaskID = 
 			$("#empty-task").hide();
 //  		TODO：
 //  			对当前任务进行设置
- 		$("#task-name").text(<%out.print("\""+currentTaskName+"\"");%>);
+ 		$("#task-name").text(<%out.print("\""+tasklist.get(currentTask).getTaskName()+"\"");%>);
 
  		<%		thisType = tasklist.get(currentTask).getThisType();%>
 	 		<%	if (thisType.equals("0")) {
@@ -173,7 +173,7 @@ $(document).ready(function(){
 				%>
  		$("#this-detail").text(<%out.print(outputInfo);%>);
 
-			<%		thatType = tasklist.get(currentTask).getThisType();%>
+			<%		thatType = tasklist.get(currentTask).getThatType();%>
 			<%	if (thatType.equals("0")) {
 	 				outputInfo = "\"用"+tasklist.get(currentTask).getSendWeiboAccount() + "发微博\"";
 	 				}
