@@ -40,10 +40,7 @@ public class viewBulletServlet extends HttpServlet{
    		DBHelperImpl db=new DBHelperImpl();
    		Vector<String> Bullet=db.viewBullet();
    		db.close();
-   		
-    	/* 将当前查询的用户名通过Session传递到前端 */
-    	request.getSession().setAttribute("currentUser", userMailAccount);
-    	
+
     	/* 将当前查询用户的消费记录通过data传递到前端 */
     	response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8
 	    String data = "";

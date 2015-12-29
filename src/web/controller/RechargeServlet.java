@@ -46,9 +46,12 @@ public class RechargeServlet extends HttpServlet {
     	DBHelperImpl db=new DBHelperImpl();
    		boolean ret=db.setBalance(uMail,old_balance+value);
    		db.close();
-   		
+   		/* 从数据库中get该用户 */
+    	DBHelperImpl db1=new DBHelperImpl();
+   		UserAccount userAc=db1.findUser_Ac(uMail);
+   		db1.close();
     	/* 将当前查询的用户名通过Session传递到前端 */
-    	request.getSession().setAttribute("currentUser", uMail);
+    	request.getSession().setAttribute("currentUser", userAc);
     	
     	/* 将结果通过Session传递到前端 */	
     	String data;

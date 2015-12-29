@@ -44,9 +44,12 @@ public class viewExpCalServlet extends HttpServlet {
    		DBHelperImpl db=new DBHelperImpl();
    		Vector<ExpenseCalendar> expCal=db.findExpCal(userMailAccount);
    		db.close();
-   		
+   		/* 从数据库中get该用户 */
+    	DBHelperImpl db1=new DBHelperImpl();
+   		UserAccount userAc=db1.findUser_Ac(userMailAccount);
+   		db1.close();
     	/* 将当前查询的用户名通过Session传递到前端 */
-    	request.getSession().setAttribute("currentUser", userMailAccount);
+    	request.getSession().setAttribute("currentUser", userAc);
     	
     	/* 将当前查询用户的消费记录通过data传递到前端 */
     	response.setHeader("Content-type","text/html;charset=UTF-8");//向浏览器发送一个响应头，设置浏览器的解码方式为UTF-8

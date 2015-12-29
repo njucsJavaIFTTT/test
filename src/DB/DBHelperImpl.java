@@ -175,6 +175,38 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		return null;//cant find 关键词,会在调用此方法的上一级方法中检验,这里也写是因为trycatch里的东西不被认可存在
 	}
 	
+	public UserAccount findUser_Ac(String uMailAccount) {
+		// 执行sql语句
+		String sql = "select * from UserAccount where mail=\'" + uMailAccount +"\';";
+		try {
+			PreparedStatement pst = connect.prepareStatement(sql);
+			ResultSet ret = pst.executeQuery();// 执行语句，得到结果集
+			if(ret.next()){// 结果集非空
+				//String uName = ret.getString("username");
+				//user=new UserAccount(uName,uPwd,uMailAccount);
+				UserAccount user=new UserAccount(
+				ret.getString("username"),
+				ret.getString("pwd"),
+				ret.getString("mail"),
+				ret.getDouble("balance"),
+				ret.getInt("lv"),
+				ret.getInt("credit"),
+				ret.getDouble("discount"));
+
+				System.out.println(user.toString());
+				System.out.println("Success do '" + sql + "'!(db-findUser(u,pwd))");
+				return user;
+			}
+			else
+				return null;//找不到对应user，需要在调用此方法的上一级方法中检验
+		} catch (Exception e) {
+			System.out.print("Fail do '" + sql + "'!(db-Users)");
+			e.printStackTrace();
+		}
+		return null;//cant find 关键词,会在调用此方法的上一级方法中检验,这里也写是因为trycatch里的东西不被认可存在
+	}
+	
+	
 	public void close() {//关闭对数据库的连接
 		try {
 			this.connect.close();
@@ -270,7 +302,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			while(ret.next()){// 结果集非空
 				//System.out.println("hhh");
 				ExpenseCalendar ec=new ExpenseCalendar(
-				ret.getTimestamp("startDate"),
+				ret.getString("startDate"),
 				ret.getInt("taskID"),
 				ret.getInt("num"),
 				ret.getString("ownerMail"),
@@ -286,7 +318,6 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			return null;
 		}
 		
-	
 	}
 	
 	public Vector<Message> findMsg(String uMail){//user获取个人私人消息
