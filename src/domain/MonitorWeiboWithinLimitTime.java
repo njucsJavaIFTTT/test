@@ -87,7 +87,7 @@ public class MonitorWeiboWithinLimitTime extends Request {
 			
 			try{
 				while(! myTT.getReady()){
-					Thread.sleep(1000);
+					Thread.sleep(60000);
 					newstatus = GetLatestWeibo();
 					if(newstatus == null) {
 						System.out.println("监听失败！");

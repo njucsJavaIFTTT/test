@@ -49,6 +49,7 @@ public class MonitorWeibo extends Request {
 		Users users = new Users(accessToken);
 		User user = null;
 		try {
+			System.out.println(uid);
 			user = users.showUserById(uid);
 		}
 		catch(WeiboException ex) {
@@ -79,7 +80,7 @@ public class MonitorWeibo extends Request {
 			Status newstatus = null;
 			try{
 				while(true){
-					Thread.sleep(1000);
+					Thread.sleep(60000);
 					newstatus = GetLatestWeibo();
 					if(newstatus == null) {
 						System.out.println("监听失败！");

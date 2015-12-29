@@ -99,7 +99,7 @@ public class TaskServiceImpl implements ITaskService{
 		}
 		
 		/* 按任务种类创建that任务 */
-		int thattype = Integer.parseInt(formBean.getThisType());
+		int thattype = Integer.parseInt(formBean.getThatType());
 		Goal goal = null;
 		switch (thattype) {
 		case 0:{

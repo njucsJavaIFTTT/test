@@ -37,8 +37,8 @@
 <%-- var userID = <%=user.getMailAccount()%>; --%>
 <%-- var userName = <%=user.getUsername()%>; --%>
 
-var thisType = 0;
-var thatType = 0;
+var thisType = "0";
+var thatType = "0";
 var taskID = 0;
 var ownerMail = "", orderedTime = "", MonitorMailAccount = "", MonitorMailpassword = "";
 var MonitorWeiboAccount = "", MonitorWeiboAccessToken = "", MonitorContain = "", listenMinute = 0;
@@ -211,7 +211,7 @@ $(document).ready(function(){
 	    	alert("请填写监听时间");
 	    }
 		else {
-			thisType = 3;
+			thisType = "3";
 			$("#weibo-time").hide();
 			$("#that-to-choose").show();
 			var str = $("#weibo-time-val").val() + "分钟内监听微博";
@@ -228,7 +228,7 @@ $(document).ready(function(){
 	    	alert("请填写微博内容");
 	    }
 		else {
-			thisType = 2;
+			thisType = "2";
 			$("#weibo-content").hide();
 			$("#that-to-choose").show();
 			var str = "监听内容为 " + $("#weibo-content-val").val() + " 的微博";
@@ -290,7 +290,7 @@ $(document).ready(function(){
 	    	alert("填写信息有误");
 	    }
 		else {
-			thisType = 1;
+			thisType = "1";
 			$("#mail-login").hide();
 			$("#that-to-choose").show();
 			var str = $("#user-ID").val() + "收邮件";
@@ -383,7 +383,7 @@ $(document).ready(function(){
 	    	alert("填写信息有误");
 	    }
 		else {
-			thisType = 0;
+			thisType = "0";
 			$("#time-set").hide();
 			$("#that-to-choose").show();
 			var str = $("#year").val()+"-"+$("#month").val()+"-"+$("#day").val()+" "+$("#hour").val()+":"+$("#minute").val()+":00";
@@ -445,7 +445,7 @@ $(document).ready(function(){
 	    	alert("填写信息有误");
 	    }
 		else {
-			thatType = 1;
+			thatType = "1";
 			$("#mail-edit").hide();
 			var str = "向"+$("#receiver").val()+"发邮件";
 			$("#that-chosen-img").html("<img class=\"img-rounded\" src=\"/test/img/mail.png\" alt=\"通用的占位符缩略图\">");
@@ -478,7 +478,7 @@ $(document).ready(function(){
 	    	alert("请输入微博内容");
 	    }
 		else {
-			thatType = 0;
+			thatType = "0";
 			$("#weibo-edit").hide();
 			var str = "发微博";
 			$("#that-chosen-img").html("<img class=\"img-rounded\" src=\"/test/img/weibo.png\" alt=\"通用的占位符缩略图\">");
@@ -630,7 +630,7 @@ border: 1px solid green;
 					<form id = "weibo-login" class="form-horizontal">
 						<div class="form-group">
 							<div class = "col-md-offset-3 col-md-3 col-sm-3 col-xs-3">
- 								<a type="button" class="btn btn-default" id = "weibo-login-btn" href = "https://api.weibo.com/oauth2/authorize?client_id=1828050850&redirect_uri=http://127.0.0.1:8080/test/getAccessToken.jsp&response_type=code" target="_blank">点击此处进行授权登录</a> 
+ 								<a type="button" class="btn btn-default" id = "weibo-login-btn" href = "https://api.weibo.com/oauth2/authorize?client_id=1059407803&redirect_uri=http://127.0.0.1:8080/test/getAccessToken.jsp&response_type=code" target="_blank">点击此处进行授权登录</a> 
 							</div>
 						</div>
 						<div class="form-group">
@@ -907,7 +907,7 @@ border: 1px solid green;
 					<form class="form-horizontal">
 						<div class="form-group">
 							<div class = "col-md-offset-3 col-md-3 col-sm-3 col-xs-3">
- 								<a type="button" class="btn btn-default" id = "weibo-login-btn-that" href = "https://api.weibo.com/oauth2/authorize?client_id=1828050850&redirect_uri=http://127.0.0.1:8080/test/getAccessToken.jsp&response_type=code" target="_blank">点击此处进行授权登录</a> 
+ 								<a type="button" class="btn btn-default" id = "weibo-login-btn-that" href = "https://api.weibo.com/oauth2/authorize?client_id=1059407803&redirect_uri=http://127.0.0.1:8080/test/getAccessToken.jsp&response_type=code" target="_blank">点击此处进行授权登录</a> 
 							</div>
 						</div>
 						<div class="form-group">
