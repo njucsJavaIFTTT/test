@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.Date;
 import java.sql.Timestamp;
 
 /* 消费记录类 */
