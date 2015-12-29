@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 public class ExpenseCalendar {
 	private Timestamp startDate;//点击运行任务的时间
 	private int taskID;//任务编号
-	private int num;//消费记录编号，根据date的先后来编号
 	private String ownerMail;//用户mail
 	private double payment;//本次任务消费金额
 	
@@ -17,7 +16,6 @@ public class ExpenseCalendar {
 		super();
 		this.startDate = startDate;
 		this.taskID = taskID;
-		this.num = num;
 		this.ownerMail = ownerMail;
 		this.payment=payment;
 	}
@@ -25,7 +23,7 @@ public class ExpenseCalendar {
 	
 	@Override
 	public String toString() {
-		return startDate.toString() + ", taskID=" + taskID + ", num=" + num + ", payment=" + payment;
+		return startDate.toString() + ", taskID=" + taskID + ", payment=" + payment;
 	}
 
 
@@ -47,14 +45,6 @@ public class ExpenseCalendar {
 
 	public void setTaskID(int taskID) {
 		this.taskID = taskID;
-	}
-
-	public int getNum() {
-		return num;
-	}
-
-	public void setNum(int num) {
-		this.num = num;
 	}
 
 	public String getOwnerMail() {
