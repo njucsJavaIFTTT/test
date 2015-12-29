@@ -37,12 +37,14 @@ public class RechargeServlet extends HttpServlet {
     	/* 获取当前session的用户名 */
     	UserAccount user = (UserAccount)request.getSession().getAttribute("user");
     	String uMail = user.getMailAccount();
+    	String old_balance_s=String.valueOf(user.getBalance());
+    	double old_balance=Double.valueOf(old_balance_s);
     	String value_s=(String) request.getSession().getAttribute("value");
     	double value=Double.valueOf(value_s.toString());
     	
     	/* 从数据库中充值该用户名下的Balance */
     	DBHelperImpl db=new DBHelperImpl();
-   		boolean ret=db.setBalance(uMail,value);
+   		boolean ret=db.setBalance(uMail,old_balance+value);
    		db.close();
    		
     	/* 将当前查询的用户名通过Session传递到前端 */
