@@ -39,10 +39,8 @@ public class TaskServiceImpl implements ITaskService{
 	}
 
 	@Override
-	public Execute addTaskIntoExecuteList(Task task) throws TaskException {
-		Execute execute = null;
+	public void addTaskIntoExecuteList(Execute execute) throws TaskException {
 		ExecuteQueue.addExecute(execute);
-		return execute;
 	}
 
 	@Override
@@ -61,15 +59,17 @@ public class TaskServiceImpl implements ITaskService{
 		switch (thistype) {
 		case 0:{
 			String timeset = formBean.getOrderedTime();
-			String year = timeset.substring(0, 3);
-			String month = timeset.substring(5, 6);
-			String day = timeset.substring(8, 9);
-			String hour = timeset.substring(11,12);
-			String minute = timeset.substring(14,15);
-			String second = timeset.substring(17,18);
+			System.out.println("haha"+timeset);
+			String year = timeset.substring(0, 4);
+			String month = timeset.substring(5, 7);
+			String day = timeset.substring(8, 10);
+			String hour = timeset.substring(11,13);
+			String minute = timeset.substring(14,16);
+			String second = timeset.substring(17,19);
 			MyDate date = new MyDate(year, month, day);
 			MyTime time = new MyTime(hour, minute, second);
 			rqt = new OrderTime(date, time);
+			System.out.println(year + "," + month);
 			break;
 		}
 		case 1:{

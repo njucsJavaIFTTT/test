@@ -13,7 +13,7 @@ public interface ITaskService {
 	CreateTaskFormBean findTask(int taskId) throws TaskException;
 
 	// 将任务添加到运行队列
-	Execute addTaskIntoExecuteList(Task task) throws TaskException;
+	void addTaskIntoExecuteList(Execute execute) throws TaskException;
 	
 	// 按照TaskId从运行队列中找到运行任务
 	Execute findExecuteInList(int taskId) throws TaskException;

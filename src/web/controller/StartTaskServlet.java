@@ -53,7 +53,7 @@ public class StartTaskServlet extends HttpServlet {
     	/* 创建相应的Task类 */
     	Task task = null;
     	try{
-    		service.createTask(formBean);
+    		task = service.createTask(formBean);
     	}
     	catch(TaskException e){
     		e.printStackTrace();
@@ -69,9 +69,9 @@ public class StartTaskServlet extends HttpServlet {
     	}
     	
 		/* 将Task添加到ExecuteList中  */
-		Execute execute = null;
+		Execute execute = new Execute(task, formBean.getOwnerMail(), task.getTaskID());
 		try{
-			execute = service.addTaskIntoExecuteList(task);
+			service.addTaskIntoExecuteList(execute);
 		}
 		catch(TaskException e){
 			e.printStackTrace();

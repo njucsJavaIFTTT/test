@@ -43,7 +43,9 @@ public class OrderTime extends Request {
 			tmp = df.parse(date.year+"-"+date.month+"-"+date.day+" "+time.hour+":"+time.minute+":"+time.second);
 			timer.schedule(myTT, tmp);
 		}
-		catch(ParseException e){}
+		catch(ParseException e){
+			e.printStackTrace();
+		}
 		try{
 			while(true){
 				Thread.sleep(1000);

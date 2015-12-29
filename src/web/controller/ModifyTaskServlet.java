@@ -42,6 +42,7 @@ public class ModifyTaskServlet extends HttpServlet{
     	
     	/* 在DB中更新相应的TaskFormBean*/
     	ITaskService taskService = new TaskServiceImpl();
+    	
     	try {
     		taskService.modifyTask(formBean);
     	}
