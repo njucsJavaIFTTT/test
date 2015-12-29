@@ -269,10 +269,9 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			ResultSet ret = pst.executeQuery();// 执行语句，得到结果集
 			while(ret.next()){// 结果集非空
 				//System.out.println("hhh");
-				ExpenseCalendar ec=new ExpenseCalendar(
-				ret.getTimestamp("startDate"),
+				ExpenseCalendar ec= new ExpenseCalendar(
+				ret.getString("startDate"),
 				ret.getInt("taskID"),
-				ret.getInt("num"),
 				ret.getString("ownerMail"),
 				ret.getDouble("expense"));
 				expC.add(ec);

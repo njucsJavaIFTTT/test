@@ -12,7 +12,7 @@ public class ExpenseCalendar {
 	
 	//public ExpenseCalendar(){};
 	
-	public ExpenseCalendar(String startDate, int taskID, int num, String ownerMail,double payment) {
+	public ExpenseCalendar(String startDate, int taskID, String ownerMail,double payment) {
 		super();
 		this.startDate = startDate;
 		this.taskID = taskID;
