@@ -452,7 +452,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		}
 	}
 	public boolean storeBullet(String cont){//存公告	
-		String sql = "INSERT INTO Bullet VALUES(?,?)";
+		String sql = "INSERT INTO Bullet VALUES(?)";
 		try {
 			PreparedStatement pst = connect.prepareStatement(sql);// 准备执行语句
 			pst.setString(1, cont);
