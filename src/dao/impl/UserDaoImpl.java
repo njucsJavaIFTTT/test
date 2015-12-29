@@ -39,8 +39,12 @@ public class UserDaoImpl implements IUserDao{
 		//开始任务时对用户收费，收费成功则true
 		//①修改userAccount的余额 ②增加user的expenseCalendar
 		//ExpCnt为user.ExpenseCalendar.size
+		DBHelperImpl db1=new DBHelperImpl();
+		UserAccount user=db1.findUser_Ac(uMailAccount);
+		db1.close();
+		
 		DBHelperImpl db=new DBHelperImpl();
-		boolean ret=db.charge(uMailAccount,task);
+		boolean ret=db.charge(uMailAccount,task,user.getBalance()-task.getExpense());
 		db.close();
 		return ret;
 	};
