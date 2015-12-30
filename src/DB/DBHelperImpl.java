@@ -174,10 +174,16 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		}
 		return null;//cant find 关键词,会在调用此方法的上一级方法中检验,这里也写是因为trycatch里的东西不被认可存在
 	}
+<<<<<<< HEAD
 	
 	public UserAccount findUser_Ac(String uMailAccount) {
 		// 执行sql语句
 		String sql = "select * from UserAccount where mail=\'" + uMailAccount+"\';";
+=======
+	public UserAccount findUser_Ac(String uMailAccount) {
+		// 执行sql语句
+		String sql = "select * from UserAccount where mail=\'" + uMailAccount +"\';";
+>>>>>>> origin/开始任务可以运行
 		try {
 			// pst.setBoolean(2,user.getState());不好弄不是bool也不是int是enum,暂时不加进去
 			PreparedStatement pst = connect.prepareStatement(sql);
@@ -195,14 +201,22 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 				ret.getDouble("discount"));
 
 				System.out.println(user.toString());
+<<<<<<< HEAD
 				System.out.println("Success do '" + sql + "'!(db-findUser(u,pwd))");
+=======
+				System.out.println("Success do '" + sql + "'!(db-findUser_Ac)");
+>>>>>>> origin/开始任务可以运行
 				return user;
 			}
 			else
 				return null;//找不到对应user，需要在调用此方法的上一级方法中检验
 			//return new UserAccount(uName,uPwd,uMailAccount);//这边以后要用完全的复制
 		} catch (Exception e) {
+<<<<<<< HEAD
 			System.out.print("Fail do '" + sql + "'!(db-Users)");
+=======
+			System.out.print("Fail do '" + sql + "'!(db-findUser_Ac)");
+>>>>>>> origin/开始任务可以运行
 			e.printStackTrace();
 		}
 		return null;//cant find 关键词,会在调用此方法的上一级方法中检验,这里也写是因为trycatch里的东西不被认可存在
@@ -217,8 +231,8 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		}
 	}
 	
-	public boolean charge(String mailAccount,Task t){
-		//根据任务对用户进行收费并增加消费记录
+	public boolean charge(String mailAccount,Task t,double charge){
+		//根据任务对用户进行收费并增加消费记录,增加积分
 		String sql = "INSERT INTO ExpenseCalendar VALUES(?,?,?,?)";
 		Date date=new Date();
 		Timestamp tStamp = new Timestamp(date.getTime());
@@ -231,11 +245,15 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			pst.setDouble(4, t.getExpense());
 			pst.executeUpdate();
 			System.out.println("Success do '" + sql + "'!(db-charge)");
+			
 		} catch (Exception e) {
 			System.out.print("Fail do '" + sql + "'!(db-charge)");
 			e.printStackTrace();
+			return false;
 		}
-		return true;
+		if(setBalance(mailAccount,charge))
+			return true;
+		return false;
 	}
 	
 	public boolean modifyTask(CreateTaskFormBean tf){//修改已有的taskFormbean

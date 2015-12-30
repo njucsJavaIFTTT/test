@@ -32,9 +32,9 @@ public class RechargeServlet extends HttpServlet {
     	String uMail = user.getMailAccount();
     	String old_balance_s=String.valueOf(user.getBalance());
     	double old_balance=Double.valueOf(old_balance_s);
-    	String value_s=request.getParameter("value");
-    	System.out.println(value_s);
-    	double value=Double.valueOf(value_s);
+    	System.out.println(request.getParameter("value"));
+    	//String value_s=request.getParameter("value");
+    	double value=Double.valueOf(1);
     	
     	/* 从数据库中充值该用户名下的Balance */
     	DBHelperImpl db=new DBHelperImpl();
@@ -42,7 +42,10 @@ public class RechargeServlet extends HttpServlet {
    		db.close();
    		
     	/* 将当前查询的用户名通过Session传递到前端 */
-    	request.getSession().setAttribute("currentUser", uMail);
+    	DBHelperImpl db2=new DBHelperImpl();
+   		UserAccount userAc=db2.findUser_Ac(uMail);
+   		db2.close();
+    	request.getSession().setAttribute("currentUser", userAc);
     	
     	/* 将结果通过Session传递到前端 */	
     	String data;
