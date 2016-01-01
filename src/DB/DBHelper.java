@@ -15,7 +15,7 @@ public interface DBHelper {
 	public String findUser(String uMailAccount);
 	public UserAccount findUser(String uMailAccount,String uPwd) ;
 	public void close();//关闭对数据库的连接
-	public boolean charge(String mailAccount,Task t);//根据任务对用户进行收费并增加消费记录
+	public boolean charge(String mailAccount,Task t,double charge);//根据任务对用户进行收费并增加消费记录
 	public boolean modifyTask(CreateTaskFormBean tf);//修改已有的taskFormbean
 	public boolean deleteTask(CreateTaskFormBean tf);//删除taskFormbean
 	public CreateTaskFormBean findTask(int taskID) throws SQLException;//通过taskID返回相应formbean

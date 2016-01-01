@@ -47,12 +47,6 @@ public class RegisterServlet extends HttpServlet {
 		    stream.write(data.getBytes("UTF-8")); 
 		    /* 应跳转到登录界面 */
 		    return;
-			/*String message = String.format("注册成功.3秒后为您自动跳到登录页面.<meta http-equiv='refresh' content='3;url=%s'/>",
-				request.getContextPath() + "/login.jsp");
-			request.setAttribute("message", "注册成功");
-			System.out.println(message);
-			request.getRequestDispatcher("http://localhost:8080/test/message.jsp").forward(request, response);
-			response.sendRedirect("index.jsp");*/
 		} catch (UserException e) {
 			response.setHeader("Content-type","text/html;charset=UTF-8");
 		    String data = "Fail to register.Please check your information.";
@@ -65,10 +59,6 @@ public class RegisterServlet extends HttpServlet {
 		    String data = "Sorry,something wrong with your register,please try later.";
 		    OutputStream stream = response.getOutputStream();
 		    stream.write(data.getBytes("UTF-8"));
-		    /* 此处应跳转到message界面 */
-		    
-			/*request.setAttribute("message", "对不起，注册失败。");
-			request.getRequestDispatcher("/message.jsp").forward(request, response);*/
 			return;
 		}
 	}

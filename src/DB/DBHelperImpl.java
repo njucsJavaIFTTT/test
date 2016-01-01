@@ -72,7 +72,6 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//create table message（待定）
 	}
 	
 	public DBHelperImpl() {
@@ -174,16 +173,11 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		}
 		return null;//cant find 关键词,会在调用此方法的上一级方法中检验,这里也写是因为trycatch里的东西不被认可存在
 	}
-<<<<<<< HEAD
 	
-	public UserAccount findUser_Ac(String uMailAccount) {
-		// 执行sql语句
-		String sql = "select * from UserAccount where mail=\'" + uMailAccount+"\';";
-=======
+
 	public UserAccount findUser_Ac(String uMailAccount) {
 		// 执行sql语句
 		String sql = "select * from UserAccount where mail=\'" + uMailAccount +"\';";
->>>>>>> origin/开始任务可以运行
 		try {
 			// pst.setBoolean(2,user.getState());不好弄不是bool也不是int是enum,暂时不加进去
 			PreparedStatement pst = connect.prepareStatement(sql);
@@ -201,22 +195,14 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 				ret.getDouble("discount"));
 
 				System.out.println(user.toString());
-<<<<<<< HEAD
-				System.out.println("Success do '" + sql + "'!(db-findUser(u,pwd))");
-=======
 				System.out.println("Success do '" + sql + "'!(db-findUser_Ac)");
->>>>>>> origin/开始任务可以运行
 				return user;
 			}
 			else
 				return null;//找不到对应user，需要在调用此方法的上一级方法中检验
 			//return new UserAccount(uName,uPwd,uMailAccount);//这边以后要用完全的复制
 		} catch (Exception e) {
-<<<<<<< HEAD
-			System.out.print("Fail do '" + sql + "'!(db-Users)");
-=======
 			System.out.print("Fail do '" + sql + "'!(db-findUser_Ac)");
->>>>>>> origin/开始任务可以运行
 			e.printStackTrace();
 		}
 		return null;//cant find 关键词,会在调用此方法的上一级方法中检验,这里也写是因为trycatch里的东西不被认可存在
@@ -520,8 +506,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 		}
 	}
 	public boolean setBalance(String uMail,double balance){//set余额，可用于充值或其他修改
-		/*
-		String sql = "UPDATE USERS SET BALANCE="+balance+" WHERE MAIL=\'" + uMail +"\';";
+		String sql = "UPDATE UserAccount SET BALANCE = ? WHERE MAIL=\'" + uMail +"\';";
 		try {
 			PreparedStatement pst = connect.prepareStatement(sql);// 准备执行语句
 			pst.setDouble(1, balance);
@@ -532,21 +517,7 @@ public class DBHelperImpl implements DBHelper{// 用于打开或关闭数据库
 			System.out.print("Fail do '" + sql + "'!(db-setBalance)");
 			e.printStackTrace();
 			return false;
-		}*/
-		UserAccount user=findUser_Ac(uMail);
-		String sql = "delete from UserAccount where mail=" + uMail +";";
-		try {
-			PreparedStatement pst = connect.prepareStatement(sql);
-			pst.executeUpdate();// 执行语句，得到结果集
-			System.out.println("Success do '" + sql + "'!(db-deleteTask)");
-			//return true;
-		} catch (Exception e) {
-			System.out.print("Fail do '" + sql + "'!(db-deleteTask)");
-			e.printStackTrace();
-			return false;
 		}
-		addUser(user);
-			return true;
 		
 	}
 

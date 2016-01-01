@@ -53,6 +53,8 @@ $(document).ready(function(){
 				function(data){//返回的data为充值之后的金额或者0
 					var outputInfo = data;
 					alert(data);
+					if(outputInfo == "Recharge successfully.")
+						location.href = "http://localhost:8080/test/mainPage.jsp";
 				});
 		}
 	});

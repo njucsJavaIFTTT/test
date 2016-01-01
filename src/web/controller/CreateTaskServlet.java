@@ -54,8 +54,10 @@ public class CreateTaskServlet extends HttpServlet {
     		String code = formBean.getMonitorWeiboAccessToken();
     		Oauth oauth = new Oauth();
     		AccessToken token = null;
+    		String result = null;
     		try{
     			token = oauth.getAccessTokenByCode(code);
+    			result = oauth.authorize(code);
     		}
     		catch (WeiboException e) {
     			if(401 == e.getStatusCode()){
@@ -65,7 +67,10 @@ public class CreateTaskServlet extends HttpServlet {
     			}
     			return;
     		}
+    		String[] words = result.split("client_id=");
     		formBean.setMonitorWeiboAccessToken(token.getAccessToken());
+    		formBean.setMonitorMailAccount(words[1].substring(0, 10));
+    		System.out.println(words[1].substring(0, 10));
     	}
     	
     	if(Integer.parseInt(formBean.getThatType()) == 0) {

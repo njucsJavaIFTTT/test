@@ -32,9 +32,7 @@ public class RechargeServlet extends HttpServlet {
     	String uMail = user.getMailAccount();
     	String old_balance_s=String.valueOf(user.getBalance());
     	double old_balance=Double.valueOf(old_balance_s);
-    	System.out.println(request.getParameter("value"));
-    	//String value_s=request.getParameter("value");
-    	double value=Double.valueOf(1);
+    	double value=Double.valueOf(request.getParameter("value"));
     	
     	/* 从数据库中充值该用户名下的Balance */
     	DBHelperImpl db=new DBHelperImpl();
@@ -45,7 +43,7 @@ public class RechargeServlet extends HttpServlet {
     	DBHelperImpl db2=new DBHelperImpl();
    		UserAccount userAc=db2.findUser_Ac(uMail);
    		db2.close();
-    	request.getSession().setAttribute("currentUser", userAc);
+    	request.getSession().setAttribute("user", userAc);
     	
     	/* 将结果通过Session传递到前端 */	
     	String data;
@@ -55,7 +53,6 @@ public class RechargeServlet extends HttpServlet {
     		data= "Fail to recharge.";
 	    OutputStream stream = response.getOutputStream();
 	    stream.write(data.getBytes("UTF-8"));
- //   	request.getSession().setAttribute("data", taskList);
     }
     
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
